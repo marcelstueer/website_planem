@@ -18,37 +18,46 @@ export type Database = {
         Row: {
           created_at: string
           email: string
+          goals: string[]
           id: string
-          message: string
+          message: string | null
           name: string
           organization: string | null
           phone: string | null
           privacy_accepted: boolean
+          project_stage: string | null
           request_type: string
+          segment: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
           email: string
+          goals?: string[]
           id?: string
-          message: string
+          message?: string | null
           name: string
           organization?: string | null
           phone?: string | null
           privacy_accepted: boolean
+          project_stage?: string | null
           request_type: string
+          segment?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
           email?: string
+          goals?: string[]
           id?: string
-          message?: string
+          message?: string | null
           name?: string
           organization?: string | null
           phone?: string | null
           privacy_accepted?: boolean
+          project_stage?: string | null
           request_type?: string
+          segment?: string | null
           updated_at?: string
         }
         Relationships: []
