@@ -13,7 +13,7 @@ import {
   Lightbulb,
   Mail,
   MapPin,
-  PenRuler,
+  Ruler,
   PlugZap,
   Send,
   ShieldAlert,
@@ -52,7 +52,7 @@ type Option = { value: string; label: string; hint?: string; icon: ComponentType
 const SEGMENTS: Option[] = [
   { value: "unternehmen", label: "Unternehmen / Gewerbebetrieb", hint: "Produktion, Handel, Dienstleistung", icon: Factory },
   { value: "kommune", label: "Kommune / Öffentliche Einrichtung", hint: "Verwaltung, Schulen, Liegenschaften", icon: Landmark },
-  { value: "architektur", label: "Architekt / Planungsbüro", hint: "Projektentwicklung und Genehmigung", icon: PenRuler },
+  { value: "architektur", label: "Architekt / Planungsbüro", hint: "Projektentwicklung und Genehmigung", icon: Ruler },
 ];
 
 const GOALS: Option[] = [
