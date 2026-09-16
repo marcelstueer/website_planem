@@ -3,7 +3,7 @@ import { useState, type FormEvent, type ReactNode, type ComponentType } from "re
 import {
   ArrowLeft,
   ArrowRight,
-  Building2,
+  
   CheckCircle2,
   ClipboardList,
   Euro,
