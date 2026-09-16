@@ -16,49 +16,130 @@ export type Database = {
     Tables: {
       contact_requests: {
         Row: {
+          analytics_consent: boolean
           created_at: string
           email: string
           goals: string[]
           id: string
+          landing_page: string | null
+          lead_source: string | null
           message: string | null
           name: string
           organization: string | null
           phone: string | null
           privacy_accepted: boolean
           project_stage: string | null
+          referrer: string | null
           request_type: string
           segment: string | null
           updated_at: string
         }
         Insert: {
+          analytics_consent?: boolean
           created_at?: string
           email: string
           goals?: string[]
           id?: string
+          landing_page?: string | null
+          lead_source?: string | null
           message?: string | null
           name: string
           organization?: string | null
           phone?: string | null
           privacy_accepted: boolean
           project_stage?: string | null
+          referrer?: string | null
           request_type: string
           segment?: string | null
           updated_at?: string
         }
         Update: {
+          analytics_consent?: boolean
           created_at?: string
           email?: string
           goals?: string[]
           id?: string
+          landing_page?: string | null
+          lead_source?: string | null
           message?: string | null
           name?: string
           organization?: string | null
           phone?: string | null
           privacy_accepted?: boolean
           project_stage?: string | null
+          referrer?: string | null
           request_type?: string
           segment?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          created_at: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      site_images: {
+        Row: {
+          created_at: string
+          dim_filter: boolean
+          gray_filter: boolean
+          key: string
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          dim_filter?: boolean
+          gray_filter?: boolean
+          key: string
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          dim_filter?: boolean
+          gray_filter?: boolean
+          key?: string
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -67,10 +148,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -197,6 +284,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor"],
+    },
   },
 } as const
