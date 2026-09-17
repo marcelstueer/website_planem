@@ -255,7 +255,7 @@ function ImageEditor() {
   }
 
   async function toggle(key: string, field: "gray_filter" | "dim_filter", value: boolean) {
-    await supabase.from("site_images").update({ [field]: value }).eq("key", key);
+    await supabase.from("site_images").update(field === "gray_filter" ? { gray_filter: value } : { dim_filter: value }).eq("key", key);
     refresh();
   }
 
