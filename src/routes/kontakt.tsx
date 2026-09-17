@@ -144,7 +144,7 @@ function ContactPage() {
             <h1 className="mt-5 text-5xl font-extralight leading-tight md:text-6xl">Erzählen Sie von Ihrem Vorhaben.</h1>
             <p className="mt-6 max-w-md text-lg font-light leading-8 text-muted-foreground">
               In vier kurzen Schritten erfassen wir Ihr Projekt – im Anschluss erhalten Sie eine erste, kostenfreie
-              Einschätzung zur Förderfähigkeit.
+              Einschätzung für die nächsten Schritte in Ihrem Vorhaben.
             </p>
             <div className="mt-10 space-y-5 border-t border-border pt-7 text-sm">
               <a href="mailto:info@planem.de" className="flex items-center gap-3 font-medium hover:text-primary">
