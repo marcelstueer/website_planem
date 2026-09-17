@@ -1,0 +1,3 @@
+CREATE POLICY "Admins manage site image files" ON storage.objects FOR ALL TO authenticated
+USING (bucket_id = 'site-images' AND public.has_role(auth.uid(), 'admin'))
+WITH CHECK (bucket_id = 'site-images' AND public.has_role(auth.uid(), 'admin'));
