@@ -32,7 +32,7 @@ function AboutPage() {
     <section className="py-20 md:py-28">
       <div className="site-container grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
         <div><p className="eyebrow">Über planem</p><p className="mt-7 text-xl font-light leading-8 text-muted-foreground">planem steht für pragmatische Ingenieurarbeit mit Blick über den eigenen Fachbereich hinaus.</p></div>
-        <div><h1 className="text-5xl font-extralight leading-[1.05] md:text-7xl">Effizienz & Werte.<br/><span className="text-primary">Offener Blick.</span></h1><div className="mt-10 grid gap-6 text-base leading-7 text-muted-foreground md:grid-cols-2"><p>Gegründet von Marcel Stüer verbindet planem die Themen Mobilität, Energieeffizienz und ökologische Nachhaltigkeit in einem Planungs- und Beratungsbüro.</p><p>Das Ziel: regulatorische und technische Anforderungen so aufzubereiten, dass daraus klare, wirtschaftlich tragfähige und zukunftsfeste Entscheidungen entstehen.</p></div></div>
+         <div><h1 className="text-5xl font-extralight leading-[1.05] md:text-7xl">Effektiv &amp; Machbar.<br/><span className="text-primary">Offener Blick.</span></h1><div className="mt-10 grid gap-6 text-base leading-7 text-muted-foreground md:grid-cols-2"><p>Gegründet von Marcel Stüer verbindet planem die Themen Mobilität, Energieeffizienz und ökologische Nachhaltigkeit in einem Planungs- und Beratungsbüro.</p><p>Das Ziel: regulatorische und technische Anforderungen so aufzubereiten, dass daraus klare, wirtschaftlich tragfähige und zukunftsfeste Entscheidungen entstehen.</p></div></div>
       </div>
     </section>
     <section className="border-y border-border bg-secondary py-20 md:py-24">
