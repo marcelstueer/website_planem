@@ -25,6 +25,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { SeoSection } from "@/components/SeoSection";
+import { getAttribution } from "@/lib/tracking";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
@@ -105,6 +107,7 @@ function ContactPage() {
       .filter(Boolean)
       .join("\n");
 
+    const attribution = getAttribution();
     const { error } = await supabase.from("contact_requests").insert({
       request_type: "angebot",
       name: String(data.get("name")).trim(),
@@ -116,6 +119,10 @@ function ContactPage() {
       goals,
       project_stage: stage,
       privacy_accepted: data.get("privacy_accepted") === "on",
+      lead_source: attribution.lead_source,
+      referrer: attribution.referrer,
+      landing_page: attribution.landing_page,
+      analytics_consent: attribution.analytics_consent,
     });
 
     if (error) {
@@ -136,7 +143,7 @@ function ContactPage() {
   }
 
   return (
-    <section className="py-16 md:py-24">
+    <><section className="py-16 md:py-24">
       <div className="site-container">
         <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
           <aside>
@@ -316,7 +323,7 @@ function ContactPage() {
           </div>
         </div>
       </div>
-    </section>
+    </section><SeoSection /></>
   );
 }
 
