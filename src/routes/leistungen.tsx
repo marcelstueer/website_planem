@@ -3,8 +3,8 @@ import { ArrowRight, BatteryCharging, Bike, Building2, ChartNoAxesCombined, Clip
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
-import mobilityImage from "@/assets/mobility-real.jpg.asset.json";
-import energyImage from "@/assets/energy-real.jpg.asset.json";
+import mobilityImage from "@/assets/mobility-planning.jpg";
+import energyImage from "@/assets/energy-consulting.jpg";
 
 export const Route = createFileRoute("/leistungen")({ head: () => ({ meta: [
   { title: "Leistungen | planem Münster" }, { name: "description", content: "Mobilitätskonzepte, Stellplatzreduzierung, E-Mobilität sowie Energieeffizienzberatung, Audits und Fördermittel." },
