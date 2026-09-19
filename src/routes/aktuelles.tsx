@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen, Radio, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
+import { SiteImage } from "@/components/SiteImage";
+import observationImage from "@/assets/mobility-real.jpg.asset.json";
 
 export const Route = createFileRoute("/aktuelles")({ head: () => ({ meta: [
   { title: "Aktuelles zu Mobilität & Energie | planem" }, { name: "description", content: "Künftig: verständlich eingeordnete Fachinformationen zu Mobilität, Energieeffizienz, Förderung und Regulierung." },
