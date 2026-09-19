@@ -3,6 +3,7 @@ import { ArrowRight, Award, Compass, GraduationCap, MapPin, UserRound } from "lu
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { imageFilterClass, useSiteImages, useSiteTexts } from "@/lib/site-data";
+import marcelProfile from "@/assets/marcel-stueer-profile.png";
 
 export const Route = createFileRoute("/ueber-planem")({
   head: () => ({ meta: [
@@ -39,7 +40,7 @@ function AboutPage() {
       <div className="site-container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
         <div className="relative aspect-[4/5] max-w-xl overflow-hidden bg-primary">
           <img src="/planem-logo.svg" alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 opacity-15 brightness-0 invert" />
-          {portrait?.url ? <img src={portrait.url} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className={`relative h-full w-full object-cover ${imageFilterClass(portrait)}`} /> : <div className="relative flex h-full flex-col items-center justify-center text-primary-foreground"><UserRound className="size-24 opacity-75"/><p className="mt-5 text-sm font-medium">Profilbild folgt</p></div>}
+          <img src={portrait?.url || marcelProfile} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className={`relative h-full w-full object-cover ${imageFilterClass(portrait)}`} />
         </div>
         <div><p className="eyebrow">Persönlich für Sie da</p><h2 className="mt-5 text-4xl font-light md:text-6xl">{text("about.person.name", "Marcel Stüer")}</h2><p className="mt-3 text-lg text-primary">{text("about.person.role", "Gründer & Ingenieur")}</p><p className="mt-7 max-w-xl text-lg font-light leading-8 text-muted-foreground">Technische Expertise, ehrliche Beratung und ein ganzheitlicher Blick auf Gebäude, Menschen und Mobilität bilden die Grundlage jedes Projekts.</p></div>
       </div>
