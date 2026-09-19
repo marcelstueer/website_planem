@@ -18,7 +18,7 @@ export const Route = createFileRoute("/ueber-planem")({
 });
 
 const facts = [
-  { icon: GraduationCap, title: "Technisches Fundament", text: "Master of Engineering im Technischen Management, Bachelor of Science in Umwelttechnik und Ausbildung zum Technischen Zeichner. Seit 20 Jahren im technischen Umweltschutz aktiv." },
+  { icon: GraduationCap, title: "Technisches Fundament", text: "Master of Engineering im Technischen Management, Bachelor of Science in Umwelttechnik und Ausbildung zum Technischen Zeichner. Seit 20 Jahren im technischen Klimaschutz aktiv." },
   { icon: Award, title: "Zertifizierte Expertise", text: "Seit 2016 BAFA- und KfW-zertifizierter Energieberater für Nichtwohngebäude sowie IHK-zertifizierter Mobilitätsmanager." },
   { icon: Compass, title: "Internationale Perspektive", text: "Berufliche Erfahrungen aus den USA, Japan und den Niederlanden erweitern den Blick auf bewährte Lösungen." },
   { icon: MapPin, title: "Regional erreichbar", text: "Persönliche Beratung in Münster und im Münsterland, in Ostwestfalen sowie im Osnabrücker Land." },
