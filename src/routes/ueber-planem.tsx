@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Compass, GraduationCap, MapPin, UserRound } from "lucide-react";
+import { ArrowRight, Award, Compass, GraduationCap, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { imageFilterClass, useSiteImages, useSiteTexts } from "@/lib/site-data";
