@@ -5,7 +5,7 @@ import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
 import observationImage from "@/assets/mobility-real.jpg.asset.json";
 
-export const Route = createFileRoute("/aktuelles")({ head: () => ({ meta: [
+export const Route = createFileRoute("/aktuelles/")({ head: () => ({ meta: [
   { title: "Aktuelles zu Mobilität & Energie | planem" }, { name: "description", content: "Künftig: verständlich eingeordnete Fachinformationen zu Mobilität, Energieeffizienz, Förderung und Regulierung." },
   { property: "og:title", content: "Aktuelles | planem" }, { property: "og:description", content: "Verlässliche Fachinformationen, verständlich eingeordnet." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }
 ] }), component: NewsPage });
