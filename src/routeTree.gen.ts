@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AktuellesRouteImport } from './routes/aktuelles'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AktuellesRoute = AktuellesRouteImport.update({
+  id: '/aktuelles',
+  path: '/aktuelles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DatenschutzRoute = DatenschutzRouteImport.update({
@@ -55,19 +61,20 @@ const UeberPlanemRoute = UeberPlanemRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AktuellesIndexRoute = AktuellesIndexRouteImport.update({
-  id: '/aktuelles/',
-  path: '/aktuelles/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AktuellesRoute,
 } as any)
 const AktuellesQuizRoute = AktuellesQuizRouteImport.update({
-  id: '/aktuelles/quiz',
-  path: '/aktuelles/quiz',
-  getParentRoute: () => rootRouteImport,
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => AktuellesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/aktuelles': typeof AktuellesRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -91,6 +98,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/aktuelles': typeof AktuellesRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
@@ -104,6 +112,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/aktuelles'
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/aktuelles'
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
@@ -138,13 +148,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  AktuellesRoute: typeof AktuellesRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRoute
   UeberPlanemRoute: typeof UeberPlanemRoute
-  AktuellesQuizRoute: typeof AktuellesQuizRoute
-  AktuellesIndexRoute: typeof AktuellesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -161,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aktuelles': {
+      id: '/aktuelles'
+      path: '/aktuelles'
+      fullPath: '/aktuelles'
+      preLoaderRoute: typeof AktuellesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/datenschutz': {
@@ -200,31 +216,44 @@ declare module '@tanstack/react-router' {
     }
     '/aktuelles/': {
       id: '/aktuelles/'
-      path: '/aktuelles'
+      path: '/'
       fullPath: '/aktuelles/'
       preLoaderRoute: typeof AktuellesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AktuellesRoute
     }
     '/aktuelles/quiz': {
       id: '/aktuelles/quiz'
-      path: '/aktuelles/quiz'
+      path: '/quiz'
       fullPath: '/aktuelles/quiz'
       preLoaderRoute: typeof AktuellesQuizRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AktuellesRoute
     }
   }
 }
 
+interface AktuellesRouteChildren {
+  AktuellesQuizRoute: typeof AktuellesQuizRoute
+  AktuellesIndexRoute: typeof AktuellesIndexRoute
+}
+
+const AktuellesRouteChildren: AktuellesRouteChildren = {
+  AktuellesQuizRoute: AktuellesQuizRoute,
+  AktuellesIndexRoute: AktuellesIndexRoute,
+}
+
+const AktuellesRouteWithChildren = AktuellesRoute._addFileChildren(
+  AktuellesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  AktuellesRoute: AktuellesRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRoute,
   UeberPlanemRoute: UeberPlanemRoute,
-  AktuellesQuizRoute: AktuellesQuizRoute,
-  AktuellesIndexRoute: AktuellesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
