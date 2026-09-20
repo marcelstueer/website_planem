@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ChevronRight, Copy, RotateCcw, Share2, X } from "lucide-react";
+import { Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -199,7 +199,7 @@ function QuizPage() {
                           answered && !showCorrect && !isWrongSelection && "opacity-55",
                         )}
                         onClick={() => chooseAnswer(index)}
-                        disabled={answered}
+                        aria-disabled={answered}
                         aria-pressed={selectedIndex === index}
                       >
                         <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">{String.fromCharCode(65 + index)}</span>
