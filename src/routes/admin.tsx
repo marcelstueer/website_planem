@@ -288,6 +288,22 @@ function ImageEditor() {
             }}
           />
           {busy === row.key && <p className="mt-2 text-sm text-muted-foreground">Wird hochgeladen …</p>}
+          <details className="mt-4">
+            <summary className="cursor-pointer text-sm text-muted-foreground underline underline-offset-4">Aus Bildbibliothek wählen</summary>
+            <div className="mt-3 grid grid-cols-3 gap-2">
+              {imageLibrary.map((item) => (
+                <button
+                  key={item.url}
+                  type="button"
+                  title={item.label}
+                  onClick={() => void pick(row.key, item.url)}
+                  className="group relative aspect-[4/3] overflow-hidden border border-border transition hover:border-primary"
+                >
+                  <img src={item.url} alt={item.label} loading="lazy" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </details>
           <div className="mt-4 space-y-3">
             <div className="flex items-center justify-between">
               <Label htmlFor={`${row.key}-gray`}>Grau-Filter</Label>
