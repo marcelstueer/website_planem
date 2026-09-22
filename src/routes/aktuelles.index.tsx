@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
 import observationImage from "@/assets/mobility-real.jpg.asset.json";
-import { mediaItems } from "@/lib/media-items";
+import { MediaCarousel } from "@/components/MediaCarousel";
 import { VoicesCarousel } from "@/components/VoicesCarousel";
 
 export const Route = createFileRoute("/aktuelles/")({ head: () => ({ meta: [
