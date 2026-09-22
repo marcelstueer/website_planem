@@ -259,6 +259,11 @@ function ImageEditor() {
     refresh();
   }
 
+  async function pick(key: string, url: string) {
+    await supabase.from("site_images").update({ url }).eq("key", key);
+    refresh();
+  }
+
   async function reset(key: string) {
     await supabase.from("site_images").update({ url: null }).eq("key", key);
     refresh();
