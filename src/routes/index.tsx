@@ -8,7 +8,6 @@ import { useSiteTexts } from "@/lib/site-data";
 import heroImage from "@/assets/planem-hero.jpg";
 import mobilityImage from "@/assets/mobility-planning.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
-import windradImage from "@/assets/energy-real.jpg.asset.json";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
   { title: "planem | Mobilität & Energieeffizienz aus Münster" },
@@ -34,7 +33,6 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     </div>
   </div></section>
   <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-12 md:grid-cols-[1fr_1.25fr]"><div><p className="eyebrow">Warum planem</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-6xl">Regional verankert.<br/>International inspiriert.</h2></div><div className="space-y-7 text-lg font-light leading-8 text-muted-foreground"><p>Internationale Expertise aus den Niederlanden und Japan fließen in Lösungen ein, die auf den hiesigen Markt und seine Anforderungen zugeschnitten sind.</p><div className="grid gap-4 border-t border-border pt-7 sm:grid-cols-2">{["BAFA- und KfW-zertifiziert seit 2016","IHK-zertifizierter Mobilitätsmanager","Master of Engineering","Münster und die Region"].map((item)=><div key={item} className="flex gap-3 text-sm font-medium text-foreground"><CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary"/>{item}</div>)}</div><Button asChild variant="outline"><Link to="/ueber-planem">Mehr über planem <ArrowRight /></Link></Button></div></div></section>
-  <section className="py-20 md:py-28"><div className="site-container grid items-center gap-12 lg:grid-cols-2"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.ecology" fallback={windradImage.url} alt="Windenergieanlage über einem Feld im Münsterland" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover" /></div><div><p className="eyebrow">Ökologie und Nachhaltigkeit</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-5xl">Natur, Mensch und Mobilität. Im Verbund.</h2><p className="mt-6 max-w-lg text-lg font-light leading-8 text-muted-foreground">Biodiversität, Entsiegelung und natürliche Gebäudekühlung gehören für uns zum Entwurf wie sichere Fußwege, gut geplante Fahrradinfrastruktur und verkehrsberuhigte Fahrbahnen – bevorzugt für E-Mobilität. So steigt der Gesamtwert der Immobilie und die Lebensqualität vor Ort.</p></div></div></section>
    <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Anfrage starten <ArrowRight /></Link></Button></div></section>
    <SeoSection />
 </>; }
