@@ -188,7 +188,7 @@ function QuizPage() {
             <p className="eyebrow !text-brand-light">Wissensquiz</p>
             <div>
               <h1 className="max-w-3xl text-4xl font-extralight leading-tight md:text-6xl">Klimaschutz richtig einordnen.</h1>
-              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Acht Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung nach jeder Antwort.</p>
+              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung und Quellenangabe nach jeder Antwort.</p>
             </div>
           </div>
         </div>
@@ -254,6 +254,10 @@ function QuizPage() {
                   <div className="mt-6 border-l-2 border-primary bg-secondary p-5" aria-live="polite">
                     <p className="font-semibold text-foreground">{selectedIndex === question.correctIndex ? "Richtig." : "Nicht ganz."}</p>
                     <p className="mt-2 leading-7 text-muted-foreground">{question.explanation}</p>
+                    <p className="mt-4 text-xs leading-5 text-muted-foreground/70">
+                      Quelle:{" "}
+                      <a href={question.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">{question.sourceLabel}</a>
+                    </p>
                   </div>
                 )}
 
