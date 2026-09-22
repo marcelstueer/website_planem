@@ -176,9 +176,10 @@ function QuizPage() {
       email: email.trim(),
       message: `Kontaktwunsch aus dem Wissensquiz. Ergebnis: ${score} von ${questions.length} richtig.`,
       privacy_accepted: true,
-      lead_source: attribution?.source ?? "quiz",
-      referrer: attribution?.referrer ?? null,
-      landing_page: attribution?.landingPage ?? null,
+      lead_source: attribution.lead_source ?? "quiz",
+      referrer: attribution.referrer,
+      landing_page: attribution.landing_page,
+      analytics_consent: attribution.analytics_consent,
     });
     setContactStatus(error ? "error" : "done");
   }
