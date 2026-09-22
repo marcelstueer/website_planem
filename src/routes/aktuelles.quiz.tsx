@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/tracking";
 import { cn } from "@/lib/utils";
 
 type QuizQuestion = {
@@ -10,64 +13,100 @@ type QuizQuestion = {
   options: [string, string, string];
   correctIndex: number;
   explanation: string;
+  sourceLabel: string;
+  sourceUrl: string;
 };
 
 const questions: QuizQuestion[] = [
   {
     category: "Mobilität",
-    question: "Wie viel Prozent seines Verkehrshaushalts gibt der Bund ungefähr für den Radverkehr aus?",
-    options: ["ca. 1 %", "ca. 10 %", "ca. 25 %"],
-    correctIndex: 0,
-    explanation: "Historisch liegt der Anteil des Radverkehrs am Bundesverkehrshaushalt bei nur etwa 1 Prozent (Bundestags-Drucksache 19/5009). Für 2027 sind rund 544 Millionen Euro für Radverkehr eingeplant – ein winziger Bruchteil im Vergleich zu den Investitionen in den Straßenbau.",
+    question: "Wie viel Prozent seines Gesamt-Etats gibt das Bundesverkehrsministerium ungefähr für den Radverkehr aus?",
+    options: ["unter 0,5 %", "ca. 1,5 %", "über 8 %"],
+    correctIndex: 1,
+    explanation: "Für 2026 sind rund 553 Millionen Euro für den Radverkehr eingeplant – bei einem Gesamt-Verkehrsetat von rund 38 Milliarden Euro entspricht das etwa 1,5 Prozent. Viele schätzen den Anteil deutlich höher, da das Fahrrad politisch oft als zentrale Säule der Verkehrswende genannt wird.",
+    sourceLabel: "Bundesministerium für Verkehr (BMV)",
+    sourceUrl: "https://www.bmv.de/SharedDocs/DE/Artikel/StV/Radverkehr/finanzielle-foerderung-des-radverkehrs.html",
   },
   {
     category: "Mobilität",
-    question: "Wie viel Mal mehr investiert der Bund in den Bau von Straßen für den Autoverkehr im Vergleich zum Radverkehr?",
-    options: ["etwa doppelt so viel", "etwa 10-mal so viel", "mehr als 50-mal so viel"],
+    question: "Wie hat sich der Bestand an E-Bikes in deutschen Haushalten in den letzten zehn Jahren entwickelt?",
+    options: ["verdoppelt", "vervierfacht", "verachtfacht"],
     correctIndex: 2,
-    explanation: "Allein auf Investitionen in Autoverkehrswege entfallen über 50 Prozent des Verkehrshaushalts – gegenüber rund 1 Prozent für Radverkehr. Das Missverhältnis zeigt, wie unterschiedlich Prioritäten in der Verkehrspolitik gesetzt werden, obwohl das Fahrrad als klimafreundliches Verkehrsmittel gilt.",
+    explanation: "Der Zweirad-Industrie-Verband (ZIV) beziffert den E-Bike-Bestand 2024 auf 15,7 Millionen Stück – das Achtfache von vor zehn Jahren. Mit fast 89 Millionen Fahrrädern und E-Bikes gibt es inzwischen mehr Räder als Einwohner in Deutschland. Das Fahrrad ist ein klar wachsender Markt.",
+    sourceLabel: "ZIV – Zweirad-Industrie-Verband, Marktdaten 2024",
+    sourceUrl: "https://www.ziv-zweirad.de/marktdaten-2024/",
   },
   {
     category: "Mobilität",
-    question: "Welchen Anteil hat der Radverkehr aktuell etwa am gesamten Verkehrsaufkommen in Deutschland (Modal Split)?",
-    options: ["unter 15 %", "etwa 30 %", "über 50 %"],
-    correctIndex: 0,
-    explanation: "Der Radverkehrsanteil liegt in Deutschland seit Jahren bei etwa 11–15 Prozent und stagniert bzw. ist teils rückläufig – trotz politischer Zielsetzungen, ihn deutlich zu erhöhen.",
-  },
-  {
-    category: "Energieeffizienz",
-    question: "Welche Maßnahme an der Gebäudehülle ist in der Regel am teuersten?",
-    options: ["Austausch der Fenster", "Vollständige Fassadendämmung", "Dämmung der obersten Geschossdecke"],
+    question: "Wie hat sich der Marktanteil rein elektrischer Neuwagen (BEV) in der EU von 2024 auf 2025 entwickelt?",
+    options: ["von 5 % auf 8 %", "von 13,6 % auf 17,4 %", "von 25 % auf 40 %"],
     correctIndex: 1,
-    explanation: "Eine komplette Fassadendämmung ist meist die kostenintensivste Einzelmaßnahme bei einer energetischen Sanierung, da große Flächen, Gerüst und oft auch Putzarbeiten nötig sind. Dachgeschossdämmungen sind dagegen oft mit vergleichsweise wenig Aufwand realisierbar.",
+    explanation: "2025 wurden EU-weit rund 1,88 Millionen neue Elektroautos zugelassen – ein Plus von fast 30 Prozent gegenüber 2024. Der Marktanteil stieg von 13,6 auf 17,4 Prozent. Deutschland gehörte mit einem Plus von 43,2 Prozent zu den Wachstumstreibern.",
+    sourceLabel: "ACEA / electrive.net",
+    sourceUrl: "https://www.electrive.net/2026/01/27/eu-weite-elektroauto-neuzulassungen-steigen-um-30-prozent/",
   },
   {
-    category: "Energieeffizienz",
-    question: "Welche Maßnahme zeigt in der Regel am schnellsten eine Wirkung beim CO2-Ausstoß eines Gebäudes?",
-    options: ["Der Einbau einer Wärmepumpe", "Die Dämmung der Fassade", "Der Austausch aller Fenster"],
+    category: "Mobilität",
+    question: "Welchen Anteil hat das Fahrrad am Pendelverkehr (Weg zur Arbeit) in den Niederlanden – im Vergleich zu Deutschland?",
+    options: ["NL 25 % – Deutschland 9 %", "NL 15 % – Deutschland 12 %", "NL 40 % – Deutschland 30 %"],
     correctIndex: 0,
-    explanation: "Eine Wärmepumpe ersetzt die fossile Heizung direkt und senkt den CO2-Ausstoß des Gebäudes unmittelbar nach Inbetriebnahme, sofern der Strom zunehmend aus erneuerbaren Quellen kommt. Dämmmaßnahmen wirken langfristig sehr effektiv, brauchen aber oft mehr Planungs- und Bauzeit, bis sie sich vollständig auszahlen.",
-  },
-  {
-    category: "Energieeffizienz",
-    question: "Was ist meist der wirtschaftlich sinnvollste erste Schritt bei einer energetischen Sanierung?",
-    options: ["Sofort die teuerste Maßnahme umsetzen", "Eine Energieberatung bzw. einen Sanierungsfahrplan erstellen lassen", "Nur die günstigste Einzelmaßnahme wählen"],
-    correctIndex: 1,
-    explanation: "Ein individueller Sanierungsfahrplan (iSFP) zeigt, welche Maßnahmen in welcher Reihenfolge am meisten bringen – und wird zudem staatlich gefördert. So werden teure Fehlinvestitionen vermieden.",
+    explanation: "In den Niederlanden fährt etwa jede vierte berufstätige Person mit dem Rad zur Arbeit. In Deutschland liegt der Radanteil am Pendelverkehr bei nur rund 9 Prozent – trotz vergleichbarer Distanzen in weiten Teilen beider Länder. Der Unterschied liegt vor allem an der Infrastruktur.",
+    sourceLabel: "Nationaler Radverkehrsplan (Portal des BMV)",
+    sourceUrl: "https://nationaler-radverkehrsplan.de/de/aktuell/nachrichten/niederlande-sind-noch-immer-weltweit-fuehrende",
   },
   {
     category: "Klimaschutz",
     question: "Was bedeutet eine globale Erwärmung von 2 °C für die Korallenriffe weltweit?",
     options: ["Etwa 30 % verschwinden", "Etwa 70 % verschwinden", "Praktisch alle verschwinden (über 99 %)"],
     correctIndex: 2,
-    explanation: "Laut Weltklimarat IPCC gehen bei 1,5 °C Erwärmung bereits 70–90 Prozent der Korallenriffe verloren. Bei 2 °C wäre praktisch kein Riff mehr zu retten – ein Unterschied von nur einem halben Grad entscheidet also über das Überleben ganzer Ökosysteme.",
+    explanation: "Laut IPCC gehen bei 1,5 °C Erwärmung bereits 70 bis 90 Prozent der Korallenriffe verloren. Bei 2 °C bleibt gerade einmal 1 Prozent übrig – praktisch alle Riffe wären verloren. Ein halbes Grad entscheidet über das Überleben ganzer Ökosysteme.",
+    sourceLabel: "IPCC-Bericht, zitiert u. a. über ORF",
+    sourceUrl: "https://orf.at/stories/3231175/",
   },
   {
     category: "Klimaschutz",
-    question: "Wie stark hat sich die Erde seit vorindustrieller Zeit bereits im globalen Mittel erwärmt?",
-    options: ["etwa 0,5 °C", "etwa 1,3–1,4 °C", "etwa 3 °C"],
+    question: "Wie hoch schätzt eine McKinsey-Studie die zusätzlichen Investitionen, die Deutschland bis 2045 für die Klimaneutralität benötigt (ohne ohnehin fällige Ersatzinvestitionen)?",
+    options: ["ca. 100 Milliarden Euro", "ca. 1 Billion Euro", "ca. 10 Billionen Euro"],
     correctIndex: 1,
-    explanation: "Aktuell liegt die globale Erwärmung bei rund 1,3 bis 1,4 °C gegenüber vorindustriellem Niveau. Das 1,5-Grad-Ziel des Pariser Abkommens rückt damit immer näher – die verbleibende Zeit zum Gegensteuern wird knapp.",
+    explanation: "Die Studie „Net-Zero Deutschland“ von McKinsey beziffert die zusätzlichen Investitionen auf rund 1 Billion Euro bis 2045 – hinzu kommen etwa 5 Billionen Euro an Ersatzinvestitionen, die ohnehin fällig wären. Laut Studie ist das Ziel gesamtgesellschaftlich sogar kostenneutral erreichbar, weil eingesparte Folgeschäden und Energiekosten die Investitionen langfristig ausgleichen.",
+    sourceLabel: "McKinsey & Company, „Net-Zero Deutschland“",
+    sourceUrl: "https://www.mckinsey.com/de/news/presse/studie-net-zero-deutschland-klimaneutralitaet-chancen-herausforderungen",
+  },
+  {
+    category: "Energieeffizienz",
+    question: "Welcher Bereich der erneuerbaren Energien beschäftigt in Deutschland die meisten Menschen (Stand 2025)?",
+    options: ["Wärmepumpen (Produktion & Installation) – ca. 72.000", "Windenergie – ca. 131.000", "Photovoltaik – ca. 100.000"],
+    correctIndex: 1,
+    explanation: "Insgesamt arbeiteten 2025 rund 436.000 Menschen in der Branche erneuerbare Energien in Deutschland – ein Beschäftigungsrekord. Die Windenergie ist mit rund 131.000 Jobs der größte Bereich, gefolgt von Photovoltaik (knapp 100.000) und Wärmepumpen (rund 72.000).",
+    sourceLabel: "Bertelsmann Stiftung",
+    sourceUrl: "https://www.bertelsmann-stiftung.de/fileadmin/files/user_upload/Studie_Energiewende_als_Jobmotor.pdf",
+  },
+  {
+    category: "Energieeffizienz",
+    question: "Wie viel Fördermittel stellt der Staat 2026 aktuell für die klimagerechte Modernisierung von Gebäuden (BEG-Programm) bereit?",
+    options: ["ca. 2 Milliarden Euro", "ca. 12 Milliarden Euro", "ca. 50 Milliarden Euro"],
+    correctIndex: 1,
+    explanation: "Über die Bundesförderung für effiziente Gebäude (BEG) stellt der Staat 2026 rund 12 Milliarden Euro bereit – für Wärmepumpen (30 bis 70 % Zuschuss), Dämmung (15 bis 25 %) oder komplette Sanierungen zum Effizienzhaus (bis zu 28.000 Euro pro Wohneinheit). Wie viel Sie persönlich an Förderung für Ihr Zuhause bekommen können, erfahren Sie individuell bei planem.",
+    sourceLabel: "KfW / BAFA (Bundesförderung für effiziente Gebäude)",
+    sourceUrl: "https://www.kfw.de/inlandsfoerderung/Bundesf%C3%B6rderung-f%C3%BCr-effiziente-Geb%C3%A4ude/Anpassungen-2026/",
+  },
+  {
+    category: "Energieeffizienz",
+    question: "Wie groß ist der Kostenunterschied zwischen einer Wärmepumpe und einer neuen Gasheizung über die typische Lebensdauer einer Heizung (ca. 20 Jahre) laut Fraunhofer-Studie?",
+    options: ["kein nennenswerter Unterschied", "Gasheizung bis zu 49.000 Euro teurer", "Wärmepumpe immer teurer"],
+    correctIndex: 1,
+    explanation: "Eine Studie des Fraunhofer-Instituts für Solare Energiesysteme (ISE) zeigt: Über 20 Jahre kann eine Gasheizung im Einfamilienhaus bis zu 49.000 Euro teurer sein als eine Wärmepumpe – vor allem wegen steigender CO2-Preise. Die Verbraucherzentrale Rheinland-Pfalz rechnet vor, dass sich eine Wärmepumpe oft schon nach etwa 7 Jahren rechnet.",
+    sourceLabel: "Fraunhofer ISE",
+    sourceUrl: "https://www.ise.fraunhofer.de/de/presse-und-medien/presseinformationen/2024/guenstig-und-klimaschonend-heizen-waermepumpen-kosten-langfristig-weniger-als-das-heizen-mit-gas.html",
+  },
+  {
+    category: "Energieeffizienz",
+    question: "In Japan nutzen rund 90 Prozent der Haushalte Klimasplit-Geräte, die neben Raumkühle auch Raumwärme liefern. Was kostet die Anschaffung von vier solcher Geräte für vier Räume in Japan (inkl. Standard-Montage, wie dort üblich verkauft)?",
+    options: ["ca. 500 Euro", "ca. 2.000 bis 2.500 Euro", "ca. 8.000 Euro"],
+    correctIndex: 1,
+    explanation: "Vier Standard-Klimasplit-Geräte für vier Zimmer kosten in Japan inklusive Montage meist umgerechnet nur rund 2.000 bis 2.500 Euro – deutlich weniger als vergleichbare Multi-Split-Systeme in Deutschland, die für 3 bis 4 Räume oft 5.000 bis 9.000 Euro kosten. Möglich macht das die Massenproduktion für einen riesigen Heimmarkt.",
+    sourceLabel: "Marktpreis-Recherche japanischer Fachhändler (Stand 2026) sowie IEA zur Marktdurchdringung",
+    sourceUrl: "https://iifiir.org/en/news/japanese-households-don-t-make-the-most-of-reversible-heat-pumps",
   },
 ];
 
@@ -75,9 +114,9 @@ export const Route = createFileRoute("/aktuelles/quiz")({
   head: () => ({
     meta: [
       { title: "Wissensquiz zu Klimaschutz & Mobilität | planem" },
-      { name: "description", content: "Acht Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit fundierten Einordnungen nach jeder Antwort." },
+      { name: "description", content: "Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit fundierten Einordnungen und Quellen nach jeder Antwort." },
       { property: "og:title", content: "Wissensquiz: Klimaschutz richtig einordnen | planem" },
-      { property: "og:description", content: "Testen Sie Ihr Wissen zu Mobilität, Energieeffizienz und Klimaschutz in acht Fragen." },
+      { property: "og:description", content: "Testen Sie Ihr Wissen zu Mobilität, Energieeffizienz und Klimaschutz in zehn Fragen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -87,7 +126,7 @@ export const Route = createFileRoute("/aktuelles/quiz")({
 
 function scoreMessage(score: number) {
   if (score <= 3) return "Da geht noch was!";
-  if (score <= 6) return "Solides Wissen!";
+  if (score <= 7) return "Solides Wissen!";
   return "Klimaschutz-Profi!";
 }
 
@@ -96,6 +135,8 @@ function QuizPage() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [shareStatus, setShareStatus] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const headingRef = useRef<HTMLHeadingElement>(null);
   const complete = questionIndex === questions.length;
   const score = answers.reduce((total, answer, index) => total + Number(answer === questions[index]?.correctIndex), 0);
@@ -124,6 +165,25 @@ function QuizPage() {
     setShareStatus("");
   }
 
+  async function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setContactStatus("sending");
+    const attribution = getAttribution();
+    const { error } = await supabase.from("contact_requests").insert({
+      request_type: "allgemein",
+      name: "Quiz-Teilnehmer:in",
+      email: email.trim(),
+      message: `Kontaktwunsch aus dem Wissensquiz. Ergebnis: ${score} von ${questions.length} richtig.`,
+      privacy_accepted: true,
+      lead_source: attribution.lead_source ?? "quiz",
+      referrer: attribution.referrer,
+      landing_page: attribution.landing_page,
+      analytics_consent: attribution.analytics_consent,
+    });
+    setContactStatus(error ? "error" : "done");
+  }
+
   async function shareResult() {
     const text = `Ich habe im planem Wissensquiz ${score} von ${questions.length} Fragen richtig beantwortet.`;
     try {
@@ -149,7 +209,7 @@ function QuizPage() {
             <p className="eyebrow !text-brand-light">Wissensquiz</p>
             <div>
               <h1 className="max-w-3xl text-4xl font-extralight leading-tight md:text-6xl">Klimaschutz richtig einordnen.</h1>
-              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Acht Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung nach jeder Antwort.</p>
+              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung und Quellenangabe nach jeder Antwort.</p>
             </div>
           </div>
         </div>
@@ -169,6 +229,29 @@ function QuizPage() {
                   <Button variant="outline" onClick={restart}><RotateCcw /> Nochmal spielen</Button>
                 </div>
                 {shareStatus && <p className="mt-4 text-sm text-muted-foreground" role="status">{shareStatus}</p>}
+
+                <div className="mt-10 border-t border-border pt-9 text-left">
+                  <p className="eyebrow">Ihre Liegenschaft</p>
+                  <h3 className="mt-4 text-2xl font-light leading-snug md:text-3xl">Und, wie sieht&apos;s mit Ihrer Liegenschaft aus?</h3>
+                  <p className="mt-4 leading-7 text-muted-foreground">Sie möchten wissen, wie Sie ganz persönlich Ihre Energiekosten senken, einen Beitrag zur Emissionsminderung leisten und sich gleichzeitig zukunftsfähig aufstellen können? Wir beraten Sie gerne individuell – kostenlos und unverbindlich.</p>
+                  <Button asChild size="lg" className="mt-7">
+                    <Link to="/kontakt">Jetzt persönlich beraten lassen <ArrowRight /></Link>
+                  </Button>
+                  <form onSubmit={submitContact} className="mt-8 border-t border-border pt-7">
+                    <label htmlFor="quiz-email" className="text-sm font-medium">Lieber kurz per E-Mail? Wir melden uns bei Ihnen.</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <Input id="quiz-email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="ihre@adresse.de" className="sm:flex-1" />
+                      <Button type="submit" variant="outline" disabled={contactStatus === "sending" || contactStatus === "done"}>
+                        {contactStatus === "sending" ? "Wird gesendet …" : "Kontakt aufnehmen"}
+                      </Button>
+                    </div>
+                    <p className="mt-3 text-xs leading-5 text-muted-foreground" role="status">
+                      {contactStatus === "done" && "Vielen Dank – wir melden uns zeitnah bei Ihnen."}
+                      {contactStatus === "error" && "Das hat leider nicht geklappt. Bitte nutzen Sie das Kontaktformular."}
+                      {contactStatus !== "done" && contactStatus !== "error" && <>Mit dem Absenden stimmen Sie unserer <Link to="/datenschutz" className="underline underline-offset-2">Datenschutzerklärung</Link> zu.</>}
+                    </p>
+                  </form>
+                </div>
               </div>
             ) : question ? (
               <div>
@@ -215,6 +298,10 @@ function QuizPage() {
                   <div className="mt-6 border-l-2 border-primary bg-secondary p-5" aria-live="polite">
                     <p className="font-semibold text-foreground">{selectedIndex === question.correctIndex ? "Richtig." : "Nicht ganz."}</p>
                     <p className="mt-2 leading-7 text-muted-foreground">{question.explanation}</p>
+                    <p className="mt-4 text-xs leading-5 text-muted-foreground/70">
+                      Quelle:{" "}
+                      <a href={question.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground">{question.sourceLabel}</a>
+                    </p>
                   </div>
                 )}
 
