@@ -8,6 +8,8 @@ import { useSiteTexts } from "@/lib/site-data";
 import heroImage from "@/assets/planem-hero.jpg";
 import mobilityImage from "@/assets/mobility-planning.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
+import eeExperten from "@/assets/energieeffizienz-experten.jpg.asset.json";
+import emobilNrw from "@/assets/elektromobilitaet-nrw.png.asset.json";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
   { title: "planem | Mobilität & Energieeffizienz aus Münster" },
@@ -34,5 +36,16 @@ function HomePage() { const { text } = useSiteTexts(); return <>
   </div></section>
   <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-12 md:grid-cols-[1fr_1.25fr]"><div><p className="eyebrow">Warum planem</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-6xl">Regional verankert.<br/>International inspiriert.</h2></div><div className="space-y-7 text-lg font-light leading-8 text-muted-foreground"><p>Internationale Expertise aus den Niederlanden und Japan fließen in Lösungen ein, die auf den hiesigen Markt und seine Anforderungen zugeschnitten sind.</p><div className="grid gap-4 border-t border-border pt-7 sm:grid-cols-2">{["BAFA- und KfW-zertifiziert seit 2016","IHK-zertifizierter Mobilitätsmanager","Master of Engineering","Münster und die Region"].map((item)=><div key={item} className="flex gap-3 text-sm font-medium text-foreground"><CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary"/>{item}</div>)}</div><Button asChild variant="outline"><Link to="/ueber-planem">Mehr über planem <ArrowRight /></Link></Button></div></div></section>
    <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Anfrage starten <ArrowRight /></Link></Button></div></section>
+   <section className="border-t border-border bg-secondary py-16"><div className="site-container grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-center">
+     <div className="flex flex-wrap items-center gap-10">
+       <img src={eeExperten.url} alt="Energieeffizienz-Experte für Förderprogramme des Bundes" className="h-16 w-auto" loading="lazy" />
+       <img src={emobilNrw.url} alt="ElektroMobilität NRW" className="h-12 w-auto" loading="lazy" />
+     </div>
+     <div>
+       <p className="eyebrow">Qualifikation und Netzwerk</p>
+       <p className="mt-4 text-lg font-light leading-8 text-muted-foreground">Gelistet in der Energieeffizienz-Expertenliste für Förderprogramme des Bundes (dena) – Voraussetzung für BAFA- und KfW-geförderte Beratungen. Ergänzt durch die fachliche Vernetzung im Kompetenznetz ElektroMobilität NRW rund um Ladeinfrastruktur und betriebliche Mobilität.</p>
+     </div>
+   </div></section>
    <SeoSection />
+
 </>; }
