@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { getAttribution } from "@/lib/tracking";
 import { cn } from "@/lib/utils";
 
 type QuizQuestion = {
@@ -111,9 +114,9 @@ export const Route = createFileRoute("/aktuelles/quiz")({
   head: () => ({
     meta: [
       { title: "Wissensquiz zu Klimaschutz & Mobilität | planem" },
-      { name: "description", content: "Acht Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit fundierten Einordnungen nach jeder Antwort." },
+      { name: "description", content: "Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit fundierten Einordnungen und Quellen nach jeder Antwort." },
       { property: "og:title", content: "Wissensquiz: Klimaschutz richtig einordnen | planem" },
-      { property: "og:description", content: "Testen Sie Ihr Wissen zu Mobilität, Energieeffizienz und Klimaschutz in acht Fragen." },
+      { property: "og:description", content: "Testen Sie Ihr Wissen zu Mobilität, Energieeffizienz und Klimaschutz in zehn Fragen." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -123,7 +126,7 @@ export const Route = createFileRoute("/aktuelles/quiz")({
 
 function scoreMessage(score: number) {
   if (score <= 3) return "Da geht noch was!";
-  if (score <= 6) return "Solides Wissen!";
+  if (score <= 7) return "Solides Wissen!";
   return "Klimaschutz-Profi!";
 }
 
