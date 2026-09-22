@@ -43,6 +43,8 @@ const IMAGE_LABELS: Record<string, string> = {
   "home.mobility": "Startseite – Bild Mobilität",
   "home.energy": "Startseite – Bild Energieeffizienz",
   "about.portrait": "Über planem – Profilbild",
+  "home.ecology": "Über planem – Bild Ökologie",
+  "aktuelles.observation": "Aktuelles – Bild Beobachtung",
 };
 
 function AdminPage() {
