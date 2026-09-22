@@ -229,6 +229,29 @@ function QuizPage() {
                   <Button variant="outline" onClick={restart}><RotateCcw /> Nochmal spielen</Button>
                 </div>
                 {shareStatus && <p className="mt-4 text-sm text-muted-foreground" role="status">{shareStatus}</p>}
+
+                <div className="mt-10 border-t border-border pt-9 text-left">
+                  <p className="eyebrow">Ihre Liegenschaft</p>
+                  <h3 className="mt-4 text-2xl font-light leading-snug md:text-3xl">Und, wie sieht&apos;s mit Ihrer Liegenschaft aus?</h3>
+                  <p className="mt-4 leading-7 text-muted-foreground">Sie möchten wissen, wie Sie ganz persönlich Ihre Energiekosten senken, einen Beitrag zur Emissionsminderung leisten und sich gleichzeitig zukunftsfähig aufstellen können? Wir beraten Sie gerne individuell – kostenlos und unverbindlich.</p>
+                  <Button asChild size="lg" className="mt-7">
+                    <Link to="/kontakt">Jetzt persönlich beraten lassen <ArrowRight /></Link>
+                  </Button>
+                  <form onSubmit={submitContact} className="mt-8 border-t border-border pt-7">
+                    <label htmlFor="quiz-email" className="text-sm font-medium">Lieber kurz per E-Mail? Wir melden uns bei Ihnen.</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <Input id="quiz-email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} placeholder="ihre@adresse.de" className="sm:flex-1" />
+                      <Button type="submit" variant="outline" disabled={contactStatus === "sending" || contactStatus === "done"}>
+                        {contactStatus === "sending" ? "Wird gesendet …" : "Kontakt aufnehmen"}
+                      </Button>
+                    </div>
+                    <p className="mt-3 text-xs leading-5 text-muted-foreground" role="status">
+                      {contactStatus === "done" && "Vielen Dank – wir melden uns zeitnah bei Ihnen."}
+                      {contactStatus === "error" && "Das hat leider nicht geklappt. Bitte nutzen Sie das Kontaktformular."}
+                      {contactStatus !== "done" && contactStatus !== "error" && <>Mit dem Absenden stimmen Sie unserer <Link to="/datenschutz" className="underline underline-offset-2">Datenschutzerklärung</Link> zu.</>}
+                    </p>
+                  </form>
+                </div>
               </div>
             ) : question ? (
               <div>
