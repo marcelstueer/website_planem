@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, Compass, GraduationCap, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
+import { SiteImage } from "@/components/SiteImage";
 import { imageFilterClass, useSiteImages, useSiteTexts } from "@/lib/site-data";
 import marcelProfile from "@/assets/marcel-stueer-profile.png";
+import windradImage from "@/assets/energy-real.jpg.asset.json";
 
 export const Route = createFileRoute("/ueber-planem")({
   head: () => ({ meta: [
@@ -46,6 +48,7 @@ function AboutPage() {
       </div>
     </section>
     <section className="py-20 md:py-24"><div className="site-container"><div className="grid gap-px bg-border md:grid-cols-2">{facts.map(({icon: Icon, title, text: factText}) => <article key={title} className="bg-background p-7 md:p-10"><Icon className="size-7 text-primary"/><h2 className="mt-8 text-2xl font-light">{title}</h2><p className="mt-4 leading-7 text-muted-foreground">{factText}</p></article>)}</div></div></section>
+    <section className="py-20 md:py-28"><div className="site-container grid items-center gap-12 lg:grid-cols-2"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.ecology" fallback={windradImage.url} alt="Windenergieanlage über einem Feld im Münsterland" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover" /></div><div><p className="eyebrow">Ökologie und Nachhaltigkeit</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-5xl">Natur, Mensch und Mobilität. Im Verbund.</h2><p className="mt-6 max-w-lg text-lg font-light leading-8 text-muted-foreground">Biodiversität, Entsiegelung und natürliche Gebäudekühlung gehören für uns zum Entwurf wie sichere Fußwege, gut geplante Fahrradinfrastruktur und verkehrsberuhigte Fahrbahnen – bevorzugt für E-Mobilität. So steigt der Gesamtwert der Immobilie und die Lebensqualität vor Ort.</p></div></div></section>
     <section className="py-20 md:py-28"><div className="site-container grid gap-10 md:grid-cols-[1fr_1.5fr]"><p className="eyebrow">Arbeitsweise</p><div><blockquote className="text-3xl font-light leading-tight md:text-5xl">„Gute Beratung hört zu, schafft Lösungen, die Ressourcen schonen, Werte erhalten und Begeisterung wecken für ein gutes Gefühl von morgen.“</blockquote><p className="mt-8 text-muted-foreground">{text("about.person.name", "Marcel Stüer")}, Gründer von planem</p><Button asChild className="mt-9"><Link to="/kontakt">Persönlich kennenlernen <ArrowRight/></Link></Button></div></div></section>
     <SeoSection />
   </>;
