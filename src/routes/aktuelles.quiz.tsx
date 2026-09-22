@@ -135,6 +135,8 @@ function QuizPage() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [shareStatus, setShareStatus] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const headingRef = useRef<HTMLHeadingElement>(null);
   const complete = questionIndex === questions.length;
   const score = answers.reduce((total, answer, index) => total + Number(answer === questions[index]?.correctIndex), 0);
