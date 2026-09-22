@@ -165,6 +165,24 @@ function QuizPage() {
     setShareStatus("");
   }
 
+  async function submitContact(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setContactStatus("sending");
+    const attribution = getAttribution();
+    const { error } = await supabase.from("contact_requests").insert({
+      request_type: "allgemein",
+      name: "Quiz-Teilnehmer:in",
+      email: email.trim(),
+      message: `Kontaktwunsch aus dem Wissensquiz. Ergebnis: ${score} von ${questions.length} richtig.`,
+      privacy_accepted: true,
+      lead_source: attribution?.source ?? "quiz",
+      referrer: attribution?.referrer ?? null,
+      landing_page: attribution?.landingPage ?? null,
+    });
+    setContactStatus(error ? "error" : "done");
+  }
+
   async function shareResult() {
     const text = `Ich habe im planem Wissensquiz ${score} von ${questions.length} Fragen richtig beantwortet.`;
     try {
