@@ -117,7 +117,7 @@ function scoreMessage(score: number) {
   return "Klimaschutz-Profi!";
 }
 
-function QuizPage() {
+export function Quiz() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -190,14 +190,11 @@ function QuizPage() {
   return (
     <>
       <section className="bg-ink py-14 text-ink-foreground md:py-20">
-        <div className="site-container">
-          <Link to="/aktuelles" className="text-sm text-ink-muted hover:text-ink-foreground">← Zurück zu Aktuelles</Link>
-          <div className="mt-8 grid gap-5 md:grid-cols-[1fr_2fr]">
-            <p className="eyebrow !text-brand-light">Wissensquiz</p>
-            <div>
-              <h1 className="max-w-3xl text-4xl font-extralight leading-tight md:text-6xl">Klimaschutz richtig einordnen.</h1>
-              <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung und Quellenangabe nach jeder Antwort.</p>
-            </div>
+        <div className="site-container grid gap-5 md:grid-cols-[1fr_2fr]">
+          <p className="eyebrow !text-brand-light">Wissensquiz</p>
+          <div>
+            <h2 className="max-w-3xl text-4xl font-extralight leading-tight md:text-6xl">Klimaschutz richtig einordnen.</h2>
+            <p className="mt-5 max-w-2xl text-base font-light leading-7 text-ink-muted md:text-lg">Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit einer fundierten Einordnung und Quellenangabe nach jeder Antwort.</p>
           </div>
         </div>
       </section>
