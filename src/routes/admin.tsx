@@ -86,13 +86,6 @@ function LoginPanel() {
       setError(result.error.message);
       return;
     }
-    if (result.data.session) {
-      try {
-        await claimAdmin();
-      } catch {
-        /* ein Administrator existiert bereits */
-      }
-    }
   }
 
   return (
