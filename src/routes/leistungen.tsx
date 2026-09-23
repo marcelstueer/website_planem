@@ -3,7 +3,7 @@ import { ArrowRight, BatteryCharging, Bike, Building2, ChartNoAxesCombined, Clip
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
-import mobilityImage from "@/assets/mobility-planning.jpg";
+import mobilityImage from "@/assets/mobility-japan.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
 
 export const Route = createFileRoute("/leistungen")({ head: () => ({ meta: [
