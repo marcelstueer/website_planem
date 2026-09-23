@@ -60,6 +60,7 @@ export function VoicesCarousel() {
                   Zum Originalbeitrag <ExternalLink className="size-4" />
                 </a>
               </div>
+              </div>
             </article>
           </CarouselItem>
         ))}
