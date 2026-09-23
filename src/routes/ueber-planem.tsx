@@ -5,7 +5,7 @@ import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
 import { Quiz } from "@/components/Quiz";
 import { imageFilterClass, useSiteImages, useSiteTexts } from "@/lib/site-data";
-import marcelProfile from "@/assets/marcel-stueer-profile.png";
+import marcelProfile from "@/assets/marcel-stueer-profile.webp.asset.json";
 import windradImage from "@/assets/energy-real.jpg.asset.json";
 
 export const Route = createFileRoute("/ueber-planem")({
