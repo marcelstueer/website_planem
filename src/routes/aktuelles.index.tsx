@@ -6,6 +6,7 @@ import { SiteImage } from "@/components/SiteImage";
 import observationImage from "@/assets/mobility-real.jpg.asset.json";
 import { MediaCarousel } from "@/components/MediaCarousel";
 import { VoicesCarousel } from "@/components/VoicesCarousel";
+import { StudyList } from "@/components/StudyList";
 
 export const Route = createFileRoute("/aktuelles/")({ head: () => ({ meta: [
   { title: "Aktuelles zu Mobilität & Energie | planem" }, { name: "description", content: "Künftig: verständlich eingeordnete Fachinformationen zu Mobilität, Energieeffizienz, Förderung und Regulierung." },
