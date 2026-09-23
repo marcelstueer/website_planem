@@ -43,7 +43,7 @@ function AboutPage() {
       <div className="site-container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
         <div className="relative aspect-[4/5] max-w-xl overflow-hidden bg-primary">
           <img src="/planem-logo.svg" alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 opacity-15 brightness-0 invert" />
-          <img src={portrait?.url || marcelProfile.url} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className={`relative h-full w-full object-cover ${imageFilterClass(portrait)}`} />
+          <img src={portrait?.url || marcelProfile} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className={`relative h-full w-full object-cover ${imageFilterClass(portrait)}`} />
         </div>
          <div><p className="eyebrow">Persönlich für Sie da</p><h2 className="mt-5 text-4xl font-light md:text-6xl">{text("about.person.name", "Marcel Stüer")}</h2><p className="mt-3 text-lg text-primary">{text("about.person.role", "Gründer & Ingenieur")}</p><p className="mt-7 max-w-xl text-lg font-light leading-8 text-muted-foreground">Klimaschutz durch Technologie, die heute schon bereitsteht. Bei mir steht die greifbare Transformation im Mittelpunkt: Die Mittel sind da, wir müssen sie nur implementieren. Das ist kein Verzicht, sondern ein Gewinn für alle Seiten – Umwelt, Gesellschaft und Zukunft. Wir müssen das Rad nicht neu erfinden, sondern einfach den Reiter aufs Pferd hieven!</p></div>
       </div>
