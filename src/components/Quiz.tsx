@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check, ChevronRight, RotateCcw, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
@@ -110,19 +110,6 @@ const questions: QuizQuestion[] = [
   },
 ];
 
-export const Route = createFileRoute("/aktuelles/quiz")({
-  head: () => ({
-    meta: [
-      { title: "Wissensquiz zu Klimaschutz & Mobilität | planem" },
-      { name: "description", content: "Zehn Fragen zu Mobilität, Energieeffizienz und Klimaschutz – mit fundierten Einordnungen und Quellen nach jeder Antwort." },
-      { property: "og:title", content: "Wissensquiz: Klimaschutz richtig einordnen | planem" },
-      { property: "og:description", content: "Testen Sie Ihr Wissen zu Mobilität, Energieeffizienz und Klimaschutz in zehn Fragen." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: QuizPage,
-});
 
 function scoreMessage(score: number) {
   if (score <= 3) return "Da geht noch was!";
