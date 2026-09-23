@@ -5,6 +5,9 @@ export type BlueskyPost = {
   topic: string;
   text: string;
   url: string;
+  /** Grafik aus dem Originalbeitrag (Bluesky-CDN). */
+  imageUrl?: string;
+  imageAlt?: string;
 };
 
 /** Stimmen aus der Fachcommunity (Bluesky). Zitate gekürzt, Quelle jeweils verlinkt. */
@@ -16,6 +19,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Energie",
     text: "Erneuerbare wurden dieses Jahr zum größten Stromversorger weltweit.",
     url: "https://bsky.app/profile/solarpapst.bsky.social/post/3mt2lhn6trs2j",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:hro7hrludsxtkehrxpgiukrs/bafkreibfmphpmgbiaxhgnlmdl7wlbv42kj7vdgmwlhdyr5vzzy4lbodjz4",
+    imageAlt: "Grafik: Erneuerbare werden 2026 zur weltweit größten Stromquelle (IEA)",
   },
   {
     author: "Mario Sixtus",
@@ -24,6 +29,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Energie",
     text: "Damit das mal klar ist: eine Einordnung zum Stand der Energiewende.",
     url: "https://bsky.app/profile/sixtus.net/post/3ms66ubjeys2q",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:eronyhtcn3eycaxa4k2i4xtf/bafkreifmh7nu4hzcd5hrxfzvvmh42gy6dbquv6cedqex2lls2vscnzg2eu",
+    imageAlt: "Grafik zum Stand der Energiewende",
   },
   {
     author: "Brummelbär",
@@ -32,6 +39,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Speicher",
     text: "Australien zeigt wunderbar, wie das mit den Batterien funktioniert. Das Geniale an den Akkus: sie brauchen wenig Netzausbau und können direkt neben jedes Umspannwerk gestellt werden, um das Maximum aus den bestehenden Leitungen herauszuholen.",
     url: "https://bsky.app/profile/brummelbaer.bsky.social/post/3molnuhdpu22t",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:bezdgslh7mfrvjt4bfhog4y4/bafkreia5izvrrwkshnjrszue4nc7kxxkasmusiwrmzzylq2wuz7szjlhiq",
+    imageAlt: "Grafik zum Batteriespeicher-Ausbau in Australien",
   },
   {
     author: "Jutta Paulus",
@@ -48,6 +57,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Strompreis",
     text: "„Die Erneuerbaren machen unseren Strom teuer“ – falsch. Der Strompreis wird über die Merit Order vom teuersten benötigten Strom bestimmt, und das ist Gasstrom. Je mehr Erneuerbare, desto seltener springen Gaskraftwerke ein und desto billiger wird der Strom.",
     url: "https://bsky.app/profile/solarpapst.bsky.social/post/3mhkv6b3vzc2e",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:hro7hrludsxtkehrxpgiukrs/bafkreidvr6gqobpaycbxvit3f5t7n72r7nsgjnpcp6mfdxducrp5wuzbma",
+    imageAlt: "Grafik zur Merit Order und zur Strompreisbildung",
   },
   {
     author: "Katja Diehl",
@@ -56,6 +67,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Mobilität",
     text: "Menschen in Leipzig atmen laut Studie rund 2,1 Mikrogramm Plastik pro Tag über die Luft ein – das erhöht das Sterberisiko durch Herz-Kreislauf-Erkrankungen und Lungenkrebs um etwa ein Zehntel. Thema: Reifenabrieb.",
     url: "https://bsky.app/profile/katjadiehl.bsky.social/post/3mgigisbkh22u",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:j7d3m5kttl7nhqotn23s4lid/bafkreiehjrx2k3q4jvpoxbqiqrh3mkck7vi2z3bybuthonx4xdud4wkuvu",
+    imageAlt: "Vorschaubild zum Beitrag über Reifenabrieb und Feinstaub",
   },
   {
     author: "Jan Rosenow",
@@ -64,6 +77,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Wärmepumpe",
     text: "Wenig bekannt: Wärmepumpen senken den Gasverbrauch selbst dann, wenn sie zu 100 % mit Strom aus einem Gaskraftwerk betrieben werden.",
     url: "https://bsky.app/profile/janrosenow.bsky.social/post/3memetyp4kc2c",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:2iv3f7svsfxfr5r53bgymkjk/bafkreihaoxhaeddzvcfsi7myojjrni6yay6xirropujvtc6p4kbc2uimvu",
+    imageAlt: "Grafik zum Gasverbrauch von Wärmepumpen",
   },
   {
     author: "Volker Quaschning",
@@ -72,6 +87,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Energie",
     text: "Weltweit verdoppelt sich das Tempo beim Ausbau erneuerbarer Energien alle fünf Jahre. Solar und Wind machen Deutschland unabhängig von riskanten Energieimporten – trotzdem zahlen wir lieber Milliarden für Öl und Gas.",
     url: "https://bsky.app/profile/volkerquaschning.bsky.social/post/3mdzmy3ic232q",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ckefdb2kyo6zblcl27qejwmb/bafkreicsgsvh7q5oqubxxzqe3jix4vgmjfkstxzjhrzjmf5wngfo5s7w2a",
+    imageAlt: "Grafik mit Wachstumsraten beim weltweiten Ausbau von Photovoltaik und Windkraft",
   },
   {
     author: "Stefan Krauter",
@@ -80,6 +97,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Speicher",
     text: "Natrium-Ionen-Akkus werden billiger als Lithium-Ionen-Akkus: Bis 2050 soll eine Kilowattstunde gespeicherter Strom nur noch 1,1 bis 1,4 Cent kosten. Damit werden Wind und Sonne selbst mit Speicher billiger als jede andere Energieform.",
     url: "https://bsky.app/profile/solarpapst.bsky.social/post/3mc2bh7rqr22e",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:hro7hrludsxtkehrxpgiukrs/bafkreicrbtpuqwcz6r5xxcgqcht4i3jdxxwgsurhj4mmpiihfggr7ywpaa",
+    imageAlt: "Grafik zu Speicherkosten von Natrium-Ionen-Akkus",
   },
   {
     author: "Katja Diehl",
@@ -88,6 +107,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Mobilität",
     text: "Auf europäischer Ebene das gleiche Bild wie in Deutschland: Der Verkehrssektor bleibt das Problem. Andere Sektoren dekarbonisieren dreimal so schnell. 2030 werden 50 % der europäischen Emissionen aus der Mobilität stammen.",
     url: "https://bsky.app/profile/katjadiehl.bsky.social/post/3ma7aow6jrs2k",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:j7d3m5kttl7nhqotn23s4lid/bafkreibpkj37grtuq7aprvqg4o6qrayxgoa5a7slnfkpgp4jyu6uaihjwe",
+    imageAlt: "Grafik: Anteil des Verkehrs an den CO2-Emissionen in Europa",
   },
   {
     author: "Felix Hamer",
@@ -96,6 +117,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Nutzfahrzeuge",
     text: "2020 war in China fast jeder neue Lkw ein Diesel. Im ersten Halbjahr 2025 lag der Anteil batterieelektrischer Lkw bei 22 %, für 2026 werden 60 % erwartet. Treiber ist schlicht die Wirtschaftlichkeit.",
     url: "https://bsky.app/profile/electricfelix.eurosky.social/post/3m735q3crwc2f",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:xf53ujprnmfktaxb77fztor6/bafkreigsmqqelomh2xzgita3xyslpnv5utyxzhzxh6o5akdbexkszfhfxa",
+    imageAlt: "Grafik zum Anteil batterieelektrischer Lkw in China",
   },
   {
     author: "Jan Rosenow",
@@ -104,6 +127,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Elektromobilität",
     text: "Die Energiewende passiert oft an unerwarteten Orten in erstaunlichem Tempo. In Nepal entfielen im vergangenen Jahr 76 % aller verkauften Pkw auf Elektrofahrzeuge – vor fünf Jahren lag der Wert praktisch bei null.",
     url: "https://bsky.app/profile/janrosenow.bsky.social/post/3m6fi3uj7os2t",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:2iv3f7svsfxfr5r53bgymkjk/bafkreielr4ymfbscgkmlkisxb7wovo35ejar2yvvkzcito4aebwlm6ziea",
+    imageAlt: "Grafik zum Elektroauto-Anteil in Nepal",
   },
   {
     author: "Stefan Krauter",
@@ -112,6 +137,8 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Verkehrswende",
     text: "2023 wurden in Deutschland mehr Wege zu Fuß, mit dem Rad oder dem ÖPNV zurückgelegt als 2002, die Zahl der Autofahrten ging leicht zurück – aber viel zu wenig für eine Verkehrswende. Quelle: Agentur für Erneuerbare Energien.",
     url: "https://bsky.app/profile/solarpapst.bsky.social/post/3m4ajjz3b2c2x",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:hro7hrludsxtkehrxpgiukrs/bafkreidfsyjtimau7ae63cwml4ex3pnljak6iqlviw35t54feui4tsk4ne",
+    imageAlt: "Grafik zur Entwicklung der Verkehrsmittelnutzung in Deutschland",
   },
   {
     author: "Stefan Krauter",
@@ -120,5 +147,7 @@ export const blueskyPosts: BlueskyPost[] = [
     topic: "Verkehrswende",
     text: "Entwicklung der Treibhausgasemissionen durch den Verkehr in Deutschland: Von einer Verkehrswende ist kaum etwas zu spüren.",
     url: "https://bsky.app/profile/solarpapst.bsky.social/post/3m4ajphtk6c2x",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:hro7hrludsxtkehrxpgiukrs/bafkreifx3bndo3n6iibwyngr5gzryh3sokrm6tz4benzkibftzfnvnh2qm",
+    imageAlt: "Grafik zur Entwicklung der Treibhausgasemissionen im Verkehr in Deutschland",
   },
 ];

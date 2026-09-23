@@ -23,14 +23,30 @@ export function VoicesCarousel() {
       <CarouselContent className="mt-6">
         {blueskyPosts.map((post) => (
           <CarouselItem key={post.url} className="sm:basis-1/2 lg:basis-1/3">
-            <article className="flex h-full flex-col border border-border bg-background p-7">
+            <article className="flex h-full flex-col border border-border bg-background">
+              {post.imageUrl && (
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block aspect-[16/10] overflow-hidden border-b border-border bg-secondary"
+                >
+                  <img
+                    src={post.imageUrl}
+                    alt={post.imageAlt ?? post.topic}
+                    loading="lazy"
+                    className="h-full w-full object-contain transition duration-500 hover:scale-[1.02]"
+                  />
+                </a>
+              )}
+              <div className="flex flex-1 flex-col p-7">
               <div className="flex items-center gap-3 text-xs uppercase tracking-[.16em] text-muted-foreground">
                 <span className="border border-primary px-2 py-1 font-semibold text-primary">
                   {post.topic}
                 </span>
                 <span>{new Date(post.date).toLocaleDateString("de-DE")}</span>
               </div>
-              <Quote className="mt-6 size-5 text-primary" />
+              {!post.imageUrl && <Quote className="mt-6 size-5 text-primary" />}
               <p className="mt-4 flex-1 text-base leading-7 text-muted-foreground">{post.text}</p>
               <div className="mt-6 border-t border-border pt-4">
                 <p className="text-sm font-medium">{post.author}</p>
@@ -43,6 +59,7 @@ export function VoicesCarousel() {
                 >
                   Zum Originalbeitrag <ExternalLink className="size-4" />
                 </a>
+              </div>
               </div>
             </article>
           </CarouselItem>
