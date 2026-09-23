@@ -3,7 +3,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Image as ImageIcon, Inbox, Info, LogOut, Save, Type } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { claimAdmin } from "@/lib/admin.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
