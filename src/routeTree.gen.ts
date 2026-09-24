@@ -18,6 +18,8 @@ import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LeistungenRouteImport } from './routes/leistungen'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
+import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
+import { Route as LeistungenMobilitaetskonzepteRouteImport } from './routes/leistungen.mobilitaetskonzepte'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +66,17 @@ const AktuellesIndexRoute = AktuellesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AktuellesRoute,
 } as any)
+const LeistungenIndexRoute = LeistungenIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LeistungenRoute,
+} as any)
+const LeistungenMobilitaetskonzepteRoute =
+  LeistungenMobilitaetskonzepteRouteImport.update({
+    id: '/mobilitaetskonzepte',
+    path: '/mobilitaetskonzepte',
+    getParentRoute: () => LeistungenRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,9 +85,11 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/leistungen': typeof LeistungenRoute
+  '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
+  '/leistungen/': typeof LeistungenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -82,9 +97,10 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/leistungen': typeof LeistungenRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles': typeof AktuellesIndexRoute
+  '/leistungen': typeof LeistungenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -94,9 +110,11 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
-  '/leistungen': typeof LeistungenRoute
+  '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
+  '/leistungen/': typeof LeistungenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,7 +127,9 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
+    | '/leistungen/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,9 +137,10 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
-    | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles'
+    | '/leistungen'
   id:
     | '__root__'
     | '/'
@@ -130,7 +151,9 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
+    | '/leistungen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,7 +163,7 @@ export interface RootRouteChildren {
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
-  LeistungenRoute: typeof LeistungenRoute
+  LeistungenRoute: typeof LeistungenRouteWithChildren
   UeberPlanemRoute: typeof UeberPlanemRoute
 }
 
@@ -209,6 +232,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AktuellesIndexRouteImport
       parentRoute: typeof AktuellesRoute
     }
+    '/leistungen/': {
+      id: '/leistungen/'
+      path: '/'
+      fullPath: '/leistungen/'
+      preLoaderRoute: typeof LeistungenIndexRouteImport
+      parentRoute: typeof LeistungenRoute
+    }
+    '/leistungen/mobilitaetskonzepte': {
+      id: '/leistungen/mobilitaetskonzepte'
+      path: '/mobilitaetskonzepte'
+      fullPath: '/leistungen/mobilitaetskonzepte'
+      preLoaderRoute: typeof LeistungenMobilitaetskonzepteRouteImport
+      parentRoute: typeof LeistungenRoute
+    }
   }
 }
 
@@ -224,6 +261,20 @@ const AktuellesRouteWithChildren = AktuellesRoute._addFileChildren(
   AktuellesRouteChildren,
 )
 
+interface LeistungenRouteChildren {
+  LeistungenMobilitaetskonzepteRoute: typeof LeistungenMobilitaetskonzepteRoute
+  LeistungenIndexRoute: typeof LeistungenIndexRoute
+}
+
+const LeistungenRouteChildren: LeistungenRouteChildren = {
+  LeistungenMobilitaetskonzepteRoute: LeistungenMobilitaetskonzepteRoute,
+  LeistungenIndexRoute: LeistungenIndexRoute,
+}
+
+const LeistungenRouteWithChildren = LeistungenRoute._addFileChildren(
+  LeistungenRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -231,7 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
-  LeistungenRoute: LeistungenRoute,
+  LeistungenRoute: LeistungenRouteWithChildren,
   UeberPlanemRoute: UeberPlanemRoute,
 }
 export const routeTree = rootRouteImport
