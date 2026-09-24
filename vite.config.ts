@@ -17,6 +17,7 @@ export default defineConfig({
       { path: "/" },
       { path: "/leistungen" },
       { path: "/leistungen/mobilitaetskonzepte" },
+      { path: "/leistungen/energieberatung" },
       { path: "/ueber-planem" },
       { path: "/aktuelles" },
       { path: "/kontakt" },
