@@ -6,7 +6,7 @@ import { SiteImage } from "@/components/SiteImage";
 import mobilityImage from "@/assets/mobility-japan.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
 
-export const Route = createFileRoute("/leistungen")({ head: () => ({ meta: [
+export const Route = createFileRoute("/leistungen/")({ head: () => ({ meta: [
   { title: "Leistungen | planem Münster" }, { name: "description", content: "Mobilitätskonzepte, Stellplatzreduzierung, E-Mobilität sowie Energieeffizienzberatung, Audits und Fördermittel." },
   { property: "og:title", content: "Leistungen | planem" }, { property: "og:description", content: "Integrierte Planung für Mobilität und Energieeffizienz." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }
 ] }), component: ServicesPage });
