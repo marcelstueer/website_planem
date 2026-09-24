@@ -19,6 +19,7 @@ import { Route as LeistungenRouteImport } from './routes/leistungen'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
+import { Route as LeistungenEnergieberatungRouteImport } from './routes/leistungen.energieberatung'
 import { Route as LeistungenMobilitaetskonzepteRouteImport } from './routes/leistungen.mobilitaetskonzepte'
 
 const IndexRoute = IndexRouteImport.update({
@@ -71,6 +72,12 @@ const LeistungenIndexRoute = LeistungenIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LeistungenRoute,
 } as any)
+const LeistungenEnergieberatungRoute =
+  LeistungenEnergieberatungRouteImport.update({
+    id: '/energieberatung',
+    path: '/energieberatung',
+    getParentRoute: () => LeistungenRoute,
+  } as any)
 const LeistungenMobilitaetskonzepteRoute =
   LeistungenMobilitaetskonzepteRouteImport.update({
     id: '/mobilitaetskonzepte',
@@ -87,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles': typeof AktuellesIndexRoute
   '/leistungen': typeof LeistungenIndexRoute
@@ -112,6 +121,7 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/ueber-planem'
+    | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles'
     | '/leistungen'
@@ -151,6 +163,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
@@ -239,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeistungenIndexRouteImport
       parentRoute: typeof LeistungenRoute
     }
+    '/leistungen/energieberatung': {
+      id: '/leistungen/energieberatung'
+      path: '/energieberatung'
+      fullPath: '/leistungen/energieberatung'
+      preLoaderRoute: typeof LeistungenEnergieberatungRouteImport
+      parentRoute: typeof LeistungenRoute
+    }
     '/leistungen/mobilitaetskonzepte': {
       id: '/leistungen/mobilitaetskonzepte'
       path: '/mobilitaetskonzepte'
@@ -262,11 +282,13 @@ const AktuellesRouteWithChildren = AktuellesRoute._addFileChildren(
 )
 
 interface LeistungenRouteChildren {
+  LeistungenEnergieberatungRoute: typeof LeistungenEnergieberatungRoute
   LeistungenMobilitaetskonzepteRoute: typeof LeistungenMobilitaetskonzepteRoute
   LeistungenIndexRoute: typeof LeistungenIndexRoute
 }
 
 const LeistungenRouteChildren: LeistungenRouteChildren = {
+  LeistungenEnergieberatungRoute: LeistungenEnergieberatungRoute,
   LeistungenMobilitaetskonzepteRoute: LeistungenMobilitaetskonzepteRoute,
   LeistungenIndexRoute: LeistungenIndexRoute,
 }
