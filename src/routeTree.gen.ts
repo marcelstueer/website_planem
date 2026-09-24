@@ -15,9 +15,11 @@ import { Route as AktuellesRouteImport } from './routes/aktuelles'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as LeistungenRouteImport } from './routes/leistungen'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
+import { Route as LeistungenMobilitaetskonzepteRouteImport } from './routes/leistungen.mobilitaetskonzepte'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -49,6 +51,11 @@ const KontaktRoute = KontaktRouteImport.update({
   path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeistungenRoute = LeistungenRouteImport.update({
+  id: '/leistungen',
+  path: '/leistungen',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UeberPlanemRoute = UeberPlanemRouteImport.update({
   id: '/ueber-planem',
   path: '/ueber-planem',
@@ -60,10 +67,16 @@ const AktuellesIndexRoute = AktuellesIndexRouteImport.update({
   getParentRoute: () => AktuellesRoute,
 } as any)
 const LeistungenIndexRoute = LeistungenIndexRouteImport.update({
-  id: '/leistungen/',
-  path: '/leistungen/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => LeistungenRoute,
 } as any)
+const LeistungenMobilitaetskonzepteRoute =
+  LeistungenMobilitaetskonzepteRouteImport.update({
+    id: '/mobilitaetskonzepte',
+    path: '/mobilitaetskonzepte',
+    getParentRoute: () => LeistungenRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,7 +85,9 @@ export interface FileRoutesByFullPath {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
 }
@@ -83,6 +98,7 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles': typeof AktuellesIndexRoute
   '/leistungen': typeof LeistungenIndexRoute
 }
@@ -94,7 +110,9 @@ export interface FileRoutesById {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/leistungen': typeof LeistungenRouteWithChildren
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
 }
@@ -107,7 +125,9 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
   fileRoutesByTo: FileRoutesByTo
@@ -118,6 +138,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles'
     | '/leistungen'
   id:
@@ -128,7 +149,9 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/leistungen'
     | '/ueber-planem'
+    | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
   fileRoutesById: FileRoutesById
@@ -140,8 +163,8 @@ export interface RootRouteChildren {
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
+  LeistungenRoute: typeof LeistungenRouteWithChildren
   UeberPlanemRoute: typeof UeberPlanemRoute
-  LeistungenIndexRoute: typeof LeistungenIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -188,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leistungen': {
+      id: '/leistungen'
+      path: '/leistungen'
+      fullPath: '/leistungen'
+      preLoaderRoute: typeof LeistungenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ueber-planem': {
       id: '/ueber-planem'
       path: '/ueber-planem'
@@ -204,10 +234,17 @@ declare module '@tanstack/react-router' {
     }
     '/leistungen/': {
       id: '/leistungen/'
-      path: '/leistungen'
+      path: '/'
       fullPath: '/leistungen/'
       preLoaderRoute: typeof LeistungenIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof LeistungenRoute
+    }
+    '/leistungen/mobilitaetskonzepte': {
+      id: '/leistungen/mobilitaetskonzepte'
+      path: '/mobilitaetskonzepte'
+      fullPath: '/leistungen/mobilitaetskonzepte'
+      preLoaderRoute: typeof LeistungenMobilitaetskonzepteRouteImport
+      parentRoute: typeof LeistungenRoute
     }
   }
 }
@@ -224,6 +261,20 @@ const AktuellesRouteWithChildren = AktuellesRoute._addFileChildren(
   AktuellesRouteChildren,
 )
 
+interface LeistungenRouteChildren {
+  LeistungenMobilitaetskonzepteRoute: typeof LeistungenMobilitaetskonzepteRoute
+  LeistungenIndexRoute: typeof LeistungenIndexRoute
+}
+
+const LeistungenRouteChildren: LeistungenRouteChildren = {
+  LeistungenMobilitaetskonzepteRoute: LeistungenMobilitaetskonzepteRoute,
+  LeistungenIndexRoute: LeistungenIndexRoute,
+}
+
+const LeistungenRouteWithChildren = LeistungenRoute._addFileChildren(
+  LeistungenRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -231,8 +282,8 @@ const rootRouteChildren: RootRouteChildren = {
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
+  LeistungenRoute: LeistungenRouteWithChildren,
   UeberPlanemRoute: UeberPlanemRoute,
-  LeistungenIndexRoute: LeistungenIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

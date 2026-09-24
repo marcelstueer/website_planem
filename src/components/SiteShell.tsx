@@ -21,7 +21,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <img src="/planem-logo.svg" alt="planem" className="h-12 w-auto" width="166" height="48" />
           </Link>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Hauptnavigation">
-            {navigation.map((item) => (
+            {navigation.map((item) => item.to === "/leistungen" ? (
+              <div key={item.to} className="group relative">
+                <Link to={item.to} className="nav-link" activeProps={{ className: "nav-link is-active" }}>{item.label}</Link>
+                <div className="invisible absolute left-0 top-full pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <Link to="/leistungen/mobilitaetskonzepte" className="block whitespace-nowrap border border-border bg-background px-4 py-3 text-sm hover:text-primary">Mobilitätskonzepte</Link>
+                </div>
+              </div>
+            ) : (
               <Link key={item.to} to={item.to} className="nav-link" activeProps={{ className: "nav-link is-active" }}>
                 {item.label}
               </Link>
@@ -44,6 +51,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   {item.label}
                 </Link>
               ))}
+              <Link to="/leistungen/mobilitaetskonzepte" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted">↳ Mobilitätskonzepte</Link>
             </div>
           </nav>
         )}
