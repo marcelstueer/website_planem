@@ -8,8 +8,10 @@ import { useSiteTexts } from "@/lib/site-data";
 import heroImage from "@/assets/planem-hero.jpg";
 import mobilityImage from "@/assets/mobility-japan.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
-import eeExperten from "@/assets/energieeffizienz-experten.jpg.asset.json";
-import emobilNrw from "@/assets/elektromobilitaet-nrw.png.asset.json";
+import eeExpertenUrl from "@/assets/energieeffizienz-experten.jpg";
+import emobilNrwUrl from "@/assets/elektromobilitaet-nrw.png";
+const eeExperten = { url: eeExpertenUrl };
+const emobilNrw = { url: emobilNrwUrl };
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
   { title: "planem | Mobilität & Energieeffizienz aus Münster" },
