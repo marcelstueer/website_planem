@@ -37,14 +37,6 @@ const TEXT_LABELS: Record<string, string> = {
   "about.person.role": "Über planem – Rolle",
 };
 
-const IMAGE_LABELS: Record<string, string> = {
-  "home.hero": "Startseite – Hauptbild",
-  "home.mobility": "Startseite – Bild Mobilität",
-  "home.energy": "Startseite – Bild Energieeffizienz",
-  "about.portrait": "Über planem – Profilbild",
-  "home.ecology": "Über planem – Bild Ökologie",
-  "aktuelles.observation": "Aktuelles – Bild Beobachtung",
-};
 
 function AdminPage() {
   const [session, setSession] = useState<unknown>(null);
