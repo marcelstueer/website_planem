@@ -261,6 +261,16 @@ export function MediaLibrary() {
         ))}
       </div>
       {media.data?.length === 0 && <p className="mt-6 text-muted-foreground">Noch keine eigenen Medien hochgeladen.</p>}
+      <h3 className="mt-14 text-2xl font-extralight">Fest eingebaute Bilder ({imageLibrary.length})</h3>
+      <p className="mt-1 text-sm text-muted-foreground">Fotos und KI-generierte Bilder, die fest in der Website liegen. Sie sind bei jedem Bildplatz unter „Aus Bibliothek wählen“ verfügbar.</p>
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {imageLibrary.map((img) => (
+          <div key={img.url} className="border border-border">
+            <div className="aspect-[4/3] bg-muted"><img src={img.url} alt={img.label} loading="lazy" className="h-full w-full object-cover" /></div>
+            <p className="p-3 text-xs text-muted-foreground">{img.label}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

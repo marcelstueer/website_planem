@@ -144,6 +144,15 @@ function Dashboard() {
             Für dieses Konto sind keine Redaktionsrechte hinterlegt. Bitte melden Sie sich mit dem Administrator-Konto an.
           </p>
         ) : (
+          <>
+          <div className="mt-8 flex gap-3 border border-border bg-secondary p-4 text-sm text-muted-foreground">
+            <Info className="mt-0.5 size-4 shrink-0 text-primary" />
+            <p>
+              Gespeicherte Änderungen an Texten, Bildern und Diagrammen erscheinen sofort auf der Website – ein erneutes
+              Veröffentlichen ist dafür nicht nötig. Nur Änderungen, die Lovable am Aufbau der Seite vornimmt (neue Seiten,
+              neue fest eingebaute Bilder), brauchen „Publish“ im Lovable-Editor bzw. einen neuen Upload auf Ihren Webspace.
+            </p>
+          </div>
           <Tabs defaultValue="texte" className="mt-10">
             <TabsList className="flex-wrap">
               <TabsTrigger value="texte"><Type className="mr-2 size-4" /> Texte</TabsTrigger>
@@ -158,6 +167,7 @@ function Dashboard() {
             <TabsContent value="diagramme" className="mt-8"><ChartEditor /></TabsContent>
             <TabsContent value="anfragen" className="mt-8"><RequestList /></TabsContent>
           </Tabs>
+          </>
         )}
       </div>
     </section>
