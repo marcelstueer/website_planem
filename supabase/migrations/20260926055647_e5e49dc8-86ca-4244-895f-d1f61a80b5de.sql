@@ -1,0 +1,1 @@
+update public.site_images set url = '/library/' || regexp_replace(url, '^.*/', '') where url like '/__l5e/%';
