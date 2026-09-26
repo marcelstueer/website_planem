@@ -108,7 +108,9 @@ function ContactPage() {
       .join("\n");
 
     const attribution = getAttribution();
+    const id = crypto.randomUUID();
     const { error } = await supabase.from("contact_requests").insert({
+      id,
       request_type: "angebot",
       name: String(data.get("name")).trim(),
       email: String(data.get("email")).trim(),
@@ -130,6 +132,15 @@ function ContactPage() {
       setStatus("error");
       return;
     }
+    // Notification email to info@planem.de (runs on the Lovable-hosted site, also when the page is on IONOS).
+    const notifyBase = window.location.hostname.endsWith("lovable.app") || window.location.hostname === "localhost"
+      ? ""
+      : "https://planem.lovable.app";
+    fetch(`${notifyBase}/api/public/contact-notify`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id }),
+    }).catch((e) => console.error(e));
     setStatus("success");
     form.reset();
   }
@@ -175,7 +186,7 @@ function ContactPage() {
             {status === "success" ? (
               <div className="flex min-h-[520px] flex-col items-start justify-center">
                 <CheckCircle2 className="size-12 text-primary" />
-                <h2 className="mt-6 text-3xl font-light">Vielen Dank für Ihre Anfrage.</h2>
+                <h2 className="mt-6 text-3xl font-light">Vielen Dank, wir melden uns bei Ihnen.</h2>
                 <p className="mt-4 max-w-md leading-7 text-muted-foreground">
                   Ihre Angaben wurden sicher übermittelt. planem prüft Ihr Vorhaben und meldet sich mit einer ersten
                   Einschätzung bei Ihnen.

@@ -21,6 +21,8 @@ import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
 import { Route as LeistungenEnergieberatungRouteImport } from './routes/leistungen.energieberatung'
 import { Route as LeistungenMobilitaetskonzepteRouteImport } from './routes/leistungen.mobilitaetskonzepte'
+import { Route as ApiPublicContactNotifyRouteImport } from './routes/api/public/contact-notify'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -84,6 +86,17 @@ const LeistungenMobilitaetskonzepteRoute =
     path: '/mobilitaetskonzepte',
     getParentRoute: () => LeistungenRoute,
   } as any)
+const ApiPublicContactNotifyRoute = ApiPublicContactNotifyRouteImport.update({
+  id: '/api/public/contact-notify',
+  path: '/api/public/contact-notify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -98,6 +111,8 @@ export interface FileRoutesByFullPath {
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
+  '/api/public/contact-notify': typeof ApiPublicContactNotifyRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +125,8 @@ export interface FileRoutesByTo {
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles': typeof AktuellesIndexRoute
   '/leistungen': typeof LeistungenIndexRoute
+  '/api/public/contact-notify': typeof ApiPublicContactNotifyRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +142,8 @@ export interface FileRoutesById {
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
   '/leistungen/': typeof LeistungenIndexRoute
+  '/api/public/contact-notify': typeof ApiPublicContactNotifyRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +160,8 @@ export interface FileRouteTypes {
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
+    | '/api/public/contact-notify'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -153,6 +174,8 @@ export interface FileRouteTypes {
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles'
     | '/leistungen'
+    | '/api/public/contact-notify'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -167,6 +190,8 @@ export interface FileRouteTypes {
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
     | '/leistungen/'
+    | '/api/public/contact-notify'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,6 +203,8 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRouteWithChildren
   UeberPlanemRoute: typeof UeberPlanemRoute
+  ApiPublicContactNotifyRoute: typeof ApiPublicContactNotifyRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +293,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeistungenMobilitaetskonzepteRouteImport
       parentRoute: typeof LeistungenRoute
     }
+    '/api/public/contact-notify': {
+      id: '/api/public/contact-notify'
+      path: '/api/public/contact-notify'
+      fullPath: '/api/public/contact-notify'
+      preLoaderRoute: typeof ApiPublicContactNotifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -306,6 +347,8 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRouteWithChildren,
   UeberPlanemRoute: UeberPlanemRoute,
+  ApiPublicContactNotifyRoute: ApiPublicContactNotifyRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
