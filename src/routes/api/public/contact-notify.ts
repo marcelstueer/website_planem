@@ -30,7 +30,7 @@ export const Route = createFileRoute('/api/public/contact-notify')({
         const pick = (p: string) => lines.find((l) => l.startsWith(p))?.slice(p.length).trim()
         const restFrom = (p: string) => {
           const i = lines.findIndex((l) => l.startsWith(p))
-          return i < 0 ? undefined : [lines[i].slice(p.length), ...lines.slice(i + 1)].join('\n').trim()
+          return i < 0 ? undefined : [lines[i]!.slice(p.length), ...lines.slice(i + 1)].join('\n').trim()
         }
         const { sendTemplateEmail } = await import('@/lib/email-templates/send-email')
         try {
