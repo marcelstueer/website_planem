@@ -28,6 +28,10 @@ export const Route = createFileRoute('/api/public/contact-notify')({
 
         const lines = String(r.message ?? '').split('\n')
         const pick = (p: string) => lines.find((l) => l.startsWith(p))?.slice(p.length).trim()
+        const restFrom = (p: string) => {
+          const i = lines.findIndex((l) => l.startsWith(p))
+          return i < 0 ? undefined : [lines[i]!.slice(p.length), ...lines.slice(i + 1)].join('\n').trim()
+        }
         const { sendTemplateEmail } = await import('@/lib/email-templates/send-email')
         try {
           await sendTemplateEmail('contact-notification', 'info@planem.de', {
@@ -41,7 +45,7 @@ export const Route = createFileRoute('/api/public/contact-notify')({
               organization: r.organization,
               email: r.email,
               phone: r.phone,
-              message: pick('Besonderheiten:') ?? (lines.length === 1 ? r.message : undefined),
+              message: restFrom('Anliegen:') ?? restFrom('Besonderheiten:') ?? (lines.length === 1 ? r.message : undefined),
               source: r.lead_source,
             },
           })
