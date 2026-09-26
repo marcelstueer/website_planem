@@ -3,18 +3,18 @@ import { Body, Container, Head, Heading, Html, Preview, Section, Text } from '@r
 import type { TemplateEntry } from './registry'
 
 interface Props {
-  segment?: string
-  goals?: string
-  stage?: string
-  name?: string
-  organization?: string
-  email?: string
-  phone?: string
-  message?: string
-  source?: string
+  segment?: string | null | undefined
+  goals?: string | null | undefined
+  stage?: string | null | undefined
+  name?: string | null | undefined
+  organization?: string | null | undefined
+  email?: string | null | undefined
+  phone?: string | null | undefined
+  message?: string | null | undefined
+  source?: string | null | undefined
 }
 
-const Row = ({ label, value }: { label: string; value?: string }) => (
+const Row = ({ label, value }: { label: string; value?: string | null | undefined }) => (
   <Text style={row}>
     <strong>{label}:</strong> {value || '–'}
   </Text>
