@@ -270,8 +270,8 @@ const kb = (b: number) => (b > 1_000_000 ? `${(b / 1_000_000).toFixed(1)} MB` : 
 /* ---------------- Diagramme ---------------- */
 
 function parseData(text: string) {
-  return text.split("\n").map((l) => l.split(/[;\t]/)).filter((p) => p.length >= 2 && p[0].trim())
-    .map(([label, value]) => ({ label: label.trim(), value: Number(value.trim().replace(",", ".")) || 0 }));
+  return text.split("\n").map((l) => l.split(/[;\t]/)).filter((p) => p.length >= 2 && (p[0] ?? "").trim())
+    .map(([label = "", value = ""]) => ({ label: label.trim(), value: Number(value.trim().replace(",", ".")) || 0 }));
 }
 const dataToText = (d: unknown) => (Array.isArray(d) ? d.map((p: { label: string; value: number }) => `${p.label}; ${p.value}`).join("\n") : "");
 
