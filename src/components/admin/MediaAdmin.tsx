@@ -20,8 +20,10 @@ const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
 // Order in which image slots appear on the website (page by page, top to bottom).
 const IMAGE_SLOTS: { key: string; label: string; page: string }[] = [
   { key: "home.hero", label: "Hauptbild", page: "Startseite" },
-  { key: "home.mobility", label: "Karte Mobilität", page: "Startseite · Leistungen" },
-  { key: "home.energy", label: "Karte Energieeffizienz", page: "Startseite · Leistungen" },
+  { key: "home.mobility", label: "Karte Mobilität", page: "Startseite" },
+  { key: "home.energy", label: "Karte Energieeffizienz", page: "Startseite" },
+  { key: "leistungen.mobility", label: "Bild Mobilität", page: "Leistungen" },
+  { key: "leistungen.energy", label: "Bild Energie", page: "Leistungen" },
   { key: "about.portrait", label: "Profilbild", page: "Über planem" },
   { key: "home.ecology", label: "Natur, Mensch und Mobilität", page: "Über planem" },
   { key: "aktuelles.observation", label: "Beobachtung", page: "Aktuelles" },
