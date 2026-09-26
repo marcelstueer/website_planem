@@ -45,7 +45,7 @@ export const Route = createFileRoute('/api/public/contact-notify')({
               organization: r.organization,
               email: r.email,
               phone: r.phone,
-              message: pick('Besonderheiten:') ?? (lines.length === 1 ? r.message : undefined),
+              message: restFrom('Anliegen:') ?? restFrom('Besonderheiten:') ?? (lines.length === 1 ? r.message : undefined),
               source: r.lead_source,
             },
           })
