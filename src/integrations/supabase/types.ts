@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      charts: {
+        Row: {
+          chart_type: string
+          created_at: string
+          data: Json
+          icon: string | null
+          id: string
+          image_url: string | null
+          page: string
+          position: number
+          source: string
+          subtitle: string
+          title: string
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          chart_type?: string
+          created_at?: string
+          data?: Json
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          page?: string
+          position?: number
+          source?: string
+          subtitle?: string
+          title?: string
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          chart_type?: string
+          created_at?: string
+          data?: Json
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          page?: string
+          position?: number
+          source?: string
+          subtitle?: string
+          title?: string
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_requests: {
         Row: {
           analytics_consent: boolean
@@ -74,6 +122,39 @@ export type Database = {
         }
         Relationships: []
       }
+      media_items: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          kind: string
+          name: string
+          path: string | null
+          size_bytes: number | null
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          kind?: string
+          name?: string
+          path?: string | null
+          size_bytes?: number | null
+          url: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          kind?: string
+          name?: string
+          path?: string | null
+          size_bytes?: number | null
+          url?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           created_at: string
@@ -97,26 +178,38 @@ export type Database = {
       }
       site_images: {
         Row: {
+          anthracite_filter: boolean
           created_at: string
+          description: string
           dim_filter: boolean
           gray_filter: boolean
           key: string
+          overlay_color: string
+          overlay_icon: string | null
           updated_at: string
           url: string | null
         }
         Insert: {
+          anthracite_filter?: boolean
           created_at?: string
+          description?: string
           dim_filter?: boolean
           gray_filter?: boolean
           key: string
+          overlay_color?: string
+          overlay_icon?: string | null
           updated_at?: string
           url?: string | null
         }
         Update: {
+          anthracite_filter?: boolean
           created_at?: string
+          description?: string
           dim_filter?: boolean
           gray_filter?: boolean
           key?: string
+          overlay_color?: string
+          overlay_icon?: string | null
           updated_at?: string
           url?: string | null
         }
