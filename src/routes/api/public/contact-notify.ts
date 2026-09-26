@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 const ALLOWED = ['https://planem.de', 'https://www.planem.de', 'https://planem.lovable.app']
 const cors = (origin: string | null) => ({
-  'Access-Control-Allow-Origin': origin && (ALLOWED.includes(origin) || origin.endsWith('.lovable.app') || origin.startsWith('http://localhost')) ? origin : ALLOWED[0],
+  'Access-Control-Allow-Origin': origin && (ALLOWED.includes(origin) || origin.endsWith('.lovable.app') || origin.startsWith('http://localhost')) ? origin : 'https://planem.de',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'content-type',
 })
