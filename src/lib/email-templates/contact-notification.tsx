@@ -45,7 +45,7 @@ const ContactNotification = (p: Props) => (
 
 export const template = {
   component: ContactNotification,
-  subject: (d: Record<string, any>) => `Neue Anfrage: ${d.name ?? ''} (${d.organization ?? ''})`,
+  subject: (d: Record<string, any>) => `Neue Anfrage: ${d['name'] ?? ''} (${d['organization'] ?? ''})`,
   displayName: 'Kontaktanfrage an planem',
   to: 'info@planem.de',
   previewData: {
