@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, type FormEvent, type ReactNode, type ComponentType } from "react";
 import {
-  ArrowLeft,
-  ArrowRight,
+  MoreHorizontal,
   
   CheckCircle2,
   ClipboardList,
@@ -55,6 +54,7 @@ const SEGMENTS: Option[] = [
   { value: "unternehmen", label: "Unternehmen / Gewerbebetrieb", hint: "Produktion, Handel, Dienstleistung", icon: Factory },
   { value: "kommune", label: "Kommune / Öffentliche Einrichtung", hint: "Verwaltung, Schulen, Liegenschaften", icon: Landmark },
   { value: "architektur", label: "Architekt / Planungsbüro", hint: "Projektentwicklung und Genehmigung", icon: Ruler },
+  { value: "sonstige", label: "Sonstige", hint: "Passt in keine der Kategorien", icon: MoreHorizontal },
 ];
 
 const GOALS: Option[] = [
@@ -70,23 +70,14 @@ const STAGES: Option[] = [
   { value: "akut", label: "Akuter Handlungsbedarf", hint: "z. B. Sanierungsauflage oder Frist", icon: ShieldAlert },
 ];
 
-const STEP_TITLES = [
-  "Welcher Gruppe gehören Sie an?",
-  "Welches Ziel verfolgen Sie primär mit Ihrem Nichtwohngebäude?",
-  "In welchem Stadium befindet sich Ihr Projekt?",
-  "Fast geschafft! Wohin dürfen wir das Ergebnis Ihrer Förderfähigkeits-Prüfung senden?",
-];
-
 const labelOf = (options: Option[], value: string) => options.find((o) => o.value === value)?.label ?? value;
+const NONE = "nicht angegeben";
 
 function ContactPage() {
-  const [step, setStep] = useState(0);
   const [segment, setSegment] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
   const [stage, setStage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-
-  const canContinue = step === 0 ? Boolean(segment) : step === 1 ? goals.length > 0 : step === 2 ? Boolean(stage) : true;
 
   function toggleGoal(value: string) {
     setGoals((prev) => (prev.includes(value) ? prev.filter((g) => g !== value) : [...prev, value]));
@@ -99,13 +90,11 @@ function ContactPage() {
     const data = new FormData(form);
     const notes = String(data.get("message") ?? "").trim();
     const summary = [
-      `Gruppe: ${labelOf(SEGMENTS, segment)}`,
-      `Ziele: ${goals.map((g) => labelOf(GOALS, g)).join(", ")}`,
-      `Projektstadium: ${labelOf(STAGES, stage)}`,
-      notes ? `Besonderheiten: ${notes}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
+      `Gruppe: ${segment ? labelOf(SEGMENTS, segment) : NONE}`,
+      `Ziele: ${goals.length ? goals.map((g) => labelOf(GOALS, g)).join(", ") : NONE}`,
+      `Projektstadium: ${stage ? labelOf(STAGES, stage) : NONE}`,
+      `Anliegen: ${notes}`,
+    ].join("\n");
 
     const attribution = getAttribution();
     const id = crypto.randomUUID();
@@ -115,11 +104,11 @@ function ContactPage() {
       name: String(data.get("name")).trim(),
       email: String(data.get("email")).trim(),
       phone: String(data.get("phone") ?? "").trim() || null,
-      organization: String(data.get("organization")).trim(),
+      organization: String(data.get("organization") ?? "").trim() || null,
       message: summary,
-      segment,
+      segment: segment || null,
       goals,
-      project_stage: stage,
+      project_stage: stage || null,
       privacy_accepted: data.get("privacy_accepted") === "on",
       lead_source: attribution.lead_source,
       referrer: attribution.referrer,
@@ -149,7 +138,6 @@ function ContactPage() {
     setSegment("");
     setGoals([]);
     setStage("");
-    setStep(0);
     setStatus("idle");
   }
 
@@ -161,8 +149,8 @@ function ContactPage() {
             <p className="eyebrow">Kontakt</p>
             <h1 className="mt-5 text-5xl font-extralight leading-tight md:text-6xl">Erzählen Sie von Ihrem Vorhaben.</h1>
             <p className="mt-6 max-w-md text-lg font-light leading-8 text-muted-foreground">
-              In vier kurzen Schritten erfassen wir Ihr Projekt – im Anschluss erhalten Sie eine erste, kostenfreie
-              Einschätzung für die nächsten Schritte in Ihrem Vorhaben.
+              Schreiben Sie uns kurz Ihr Anliegen – im Anschluss erhalten Sie eine erste, kostenfreie Einschätzung für
+              die nächsten Schritte in Ihrem Vorhaben.
             </p>
             <div className="mt-10 space-y-5 border-t border-border pt-7 text-sm">
               <a href="mailto:info@planem.de" className="flex items-center gap-3 font-medium hover:text-primary">
@@ -196,138 +184,118 @@ function ContactPage() {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={submit} className="flex min-h-[520px] flex-col">
-                <div>
-                  <div className="flex items-center justify-between text-xs font-medium tracking-wide text-muted-foreground">
-                    <span>
-                      Schritt {step + 1} von {STEP_TITLES.length}
-                    </span>
-                    <span>{Math.round(((step + 1) / STEP_TITLES.length) * 100)} %</span>
+              <form onSubmit={submit} className="space-y-10">
+                <div className="space-y-5">
+                  <h2 className="text-2xl font-light leading-snug md:text-3xl">Ihre Kontaktdaten</h2>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field id="name" label="Name *">
+                      <Input id="name" name="name" required minLength={2} maxLength={120} autoComplete="name" />
+                    </Field>
+                    <Field id="email" label="E-Mail *">
+                      <Input id="email" name="email" type="email" required maxLength={254} autoComplete="email" />
+                    </Field>
+                    <Field id="organization" label="Unternehmen / Organisation (optional)">
+                      <Input id="organization" name="organization" maxLength={160} autoComplete="organization" />
+                    </Field>
+                    <Field id="phone" label="Telefon (optional)">
+                      <Input id="phone" name="phone" type="tel" maxLength={50} autoComplete="tel" />
+                    </Field>
                   </div>
-                  <div className="mt-2 h-1.5 w-full overflow-hidden bg-secondary">
-                    <div
-                      className="h-full bg-primary transition-all duration-500 ease-out"
-                      style={{ width: `${((step + 1) / STEP_TITLES.length) * 100}%` }}
+                  <Field id="message" label="Ihr Anliegen *">
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      minLength={5}
+                      maxLength={4500}
+                      className="min-h-28"
+                      placeholder="Worum geht es? Gebäudetyp, Fläche, Fristen, vorliegende Unterlagen …"
                     />
-                  </div>
+                  </Field>
                 </div>
 
-                <div key={step} className="mt-9 flex-1 animate-in fade-in slide-in-from-right-4 duration-300">
-                  <h2 className="text-2xl font-light leading-snug md:text-3xl">{STEP_TITLES[step]}</h2>
+                <div className="space-y-8 border-t border-border pt-8">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wide text-primary">Optional</p>
+                    <h2 className="mt-2 text-xl font-light md:text-2xl">Hilft uns bei der Einordnung</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Diese Fragen können Sie gern überspringen.
+                    </p>
+                  </div>
 
-                  {step === 0 && (
-                    <div className="mt-7 grid gap-3">
+                  <fieldset>
+                    <legend className="text-sm font-medium">
+                      Welcher Gruppe gehören Sie an? <span className="font-normal text-muted-foreground">(optional)</span>
+                    </legend>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
                       {SEGMENTS.map((option) => (
                         <Card
                           key={option.value}
                           option={option}
                           selected={segment === option.value}
-                          onSelect={() => setSegment(option.value)}
+                          onSelect={() => setSegment(segment === option.value ? "" : option.value)}
                         />
                       ))}
                     </div>
-                  )}
+                  </fieldset>
 
-                  {step === 1 && (
-                    <>
-                      <p className="mt-3 text-sm text-muted-foreground">Mehrfachauswahl möglich.</p>
-                      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                        {GOALS.map((option) => (
-                          <Card
-                            key={option.value}
-                            option={option}
-                            selected={goals.includes(option.value)}
-                            onSelect={() => toggleGoal(option.value)}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
+                  <fieldset>
+                    <legend className="text-sm font-medium">
+                      Welches Ziel verfolgen Sie primär mit Ihrem Nichtwohngebäude?{" "}
+                      <span className="font-normal text-muted-foreground">(optional, Mehrfachauswahl möglich)</span>
+                    </legend>
+                    <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {GOALS.map((option) => (
+                        <Card
+                          key={option.value}
+                          option={option}
+                          selected={goals.includes(option.value)}
+                          onSelect={() => toggleGoal(option.value)}
+                        />
+                      ))}
+                    </div>
+                  </fieldset>
 
-                  {step === 2 && (
-                    <div className="mt-7 grid gap-3">
+                  <fieldset>
+                    <legend className="text-sm font-medium">
+                      In welchem Stadium befindet sich Ihr Projekt?{" "}
+                      <span className="font-normal text-muted-foreground">(optional)</span>
+                    </legend>
+                    <div className="mt-3 grid gap-3">
                       {STAGES.map((option) => (
                         <Card
                           key={option.value}
                           option={option}
                           selected={stage === option.value}
-                          onSelect={() => setStage(option.value)}
+                          onSelect={() => setStage(stage === option.value ? "" : option.value)}
                         />
                       ))}
                     </div>
-                  )}
-
-                  {step === 3 && (
-                    <div className="mt-7 space-y-5">
-                      <div className="grid gap-5 sm:grid-cols-2">
-                        <Field id="name" label="Name *">
-                          <Input id="name" name="name" required minLength={2} autoComplete="name" />
-                        </Field>
-                        <Field id="organization" label="Unternehmen / Organisation *">
-                          <Input id="organization" name="organization" required autoComplete="organization" />
-                        </Field>
-                        <Field id="email" label="E-Mail *">
-                          <Input id="email" name="email" type="email" required autoComplete="email" />
-                        </Field>
-                        <Field id="phone" label="Telefon (optional)">
-                          <Input id="phone" name="phone" type="tel" autoComplete="tel" />
-                        </Field>
-                      </div>
-                      <Field id="message" label="Besonderheiten des Projekts (optional)">
-                        <Textarea
-                          id="message"
-                          name="message"
-                          maxLength={5000}
-                          className="min-h-28"
-                          placeholder="Gebäudetyp, Fläche, Fristen, bereits vorliegende Unterlagen …"
-                        />
-                      </Field>
-                      <label className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
-                        <input type="checkbox" name="privacy_accepted" required className="mt-1 size-4 accent-primary" />
-                        <span>
-                          Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage zu. Weitere
-                          Informationen stehen in der{" "}
-                          <Link to="/datenschutz" className="font-medium text-foreground underline underline-offset-4">
-                            Datenschutzerklärung
-                          </Link>
-                          .
-                        </span>
-                      </label>
-                      <div className="border border-border bg-secondary/40 p-4 text-sm leading-6 text-muted-foreground">
-                        <span className="font-medium text-foreground">Ihre Angaben: </span>
-                        {labelOf(SEGMENTS, segment)} · {goals.map((g) => labelOf(GOALS, g)).join(", ")} ·{" "}
-                        {labelOf(STAGES, stage)}
-                      </div>
-                      {status === "error" && (
-                        <p role="alert" className="text-sm text-destructive">
-                          Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an
-                          info@planem.de.
-                        </p>
-                      )}
-                    </div>
-                  )}
+                  </fieldset>
                 </div>
 
-                <div className="mt-10 flex items-center justify-between gap-4 border-t border-border pt-6">
-                  {step > 0 ? (
-                    <Button type="button" variant="ghost" onClick={() => setStep((s) => s - 1)}>
-                      <ArrowLeft />
-                      Zurück
-                    </Button>
-                  ) : (
-                    <span />
+                <div className="space-y-5 border-t border-border pt-6">
+                  <label className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+                    <input type="checkbox" name="privacy_accepted" required className="mt-1 size-4 accent-primary" />
+                    <span>
+                      Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage zu. Weitere
+                      Informationen stehen in der{" "}
+                      <Link to="/datenschutz" className="font-medium text-foreground underline underline-offset-4">
+                        Datenschutzerklärung
+                      </Link>
+                      .
+                    </span>
+                  </label>
+                  {status === "error" && (
+                    <p role="alert" className="text-sm text-destructive">
+                      Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an
+                      info@planem.de.
+                    </p>
                   )}
-                  {step < STEP_TITLES.length - 1 ? (
-                    <Button type="button" size="lg" disabled={!canContinue} onClick={() => setStep((s) => s + 1)}>
-                      Weiter
-                      <ArrowRight />
-                    </Button>
-                  ) : (
-                    <Button type="submit" size="lg" disabled={status === "sending"}>
-                      {status === "sending" ? "Wird gesendet …" : "Jetzt Förderfähigkeit kostenfrei prüfen"}
-                      <Send />
-                    </Button>
-                  )}
+                  <Button type="submit" size="lg" disabled={status === "sending"}>
+                    {status === "sending" ? "Wird gesendet …" : "Anfrage senden"}
+                    <Send />
+                  </Button>
                 </div>
               </form>
             )}
