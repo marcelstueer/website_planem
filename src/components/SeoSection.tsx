@@ -1,8 +1,18 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useSiteTexts } from "@/lib/site-data";
+import { PageCharts } from "@/components/PageCharts";
 
-export function SeoSection({ contentKey = "seo.shared" }: { contentKey?: string }) {
+export function SeoSection(props: { contentKey?: string }) {
+  return (
+    <>
+      <PageCharts />
+      <SeoBlock {...props} />
+    </>
+  );
+}
+
+function SeoBlock({ contentKey = "seo.shared" }: { contentKey?: string }) {
   const { text } = useSiteTexts();
   const [open, setOpen] = useState(false);
   const raw = text(contentKey);

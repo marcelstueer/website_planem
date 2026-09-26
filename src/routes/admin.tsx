@@ -1,15 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Image as ImageIcon, Inbox, Info, LogOut, Save, Type } from "lucide-react";
+import { BarChart3, Film, Image as ImageIcon, Inbox, Info, LogOut, Save, Type } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { imageLibrary } from "@/lib/image-library";
+import { ChartEditor, ImageEditor, MediaLibrary } from "@/components/admin/MediaAdmin";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -38,14 +37,6 @@ const TEXT_LABELS: Record<string, string> = {
   "about.person.role": "Über planem – Rolle",
 };
 
-const IMAGE_LABELS: Record<string, string> = {
-  "home.hero": "Startseite – Hauptbild",
-  "home.mobility": "Startseite – Bild Mobilität",
-  "home.energy": "Startseite – Bild Energieeffizienz",
-  "about.portrait": "Über planem – Profilbild",
-  "home.ecology": "Über planem – Bild Ökologie",
-  "aktuelles.observation": "Aktuelles – Bild Beobachtung",
-};
 
 function AdminPage() {
   const [session, setSession] = useState<unknown>(null);
@@ -154,13 +145,17 @@ function Dashboard() {
           </p>
         ) : (
           <Tabs defaultValue="texte" className="mt-10">
-            <TabsList>
+            <TabsList className="flex-wrap">
               <TabsTrigger value="texte"><Type className="mr-2 size-4" /> Texte</TabsTrigger>
               <TabsTrigger value="bilder"><ImageIcon className="mr-2 size-4" /> Bilder</TabsTrigger>
+              <TabsTrigger value="medien"><Film className="mr-2 size-4" /> Medien</TabsTrigger>
+              <TabsTrigger value="diagramme"><BarChart3 className="mr-2 size-4" /> Diagramme</TabsTrigger>
               <TabsTrigger value="anfragen"><Inbox className="mr-2 size-4" /> Anfragen</TabsTrigger>
             </TabsList>
             <TabsContent value="texte" className="mt-8"><TextEditor /></TabsContent>
             <TabsContent value="bilder" className="mt-8"><ImageEditor /></TabsContent>
+            <TabsContent value="medien" className="mt-8"><MediaLibrary /></TabsContent>
+            <TabsContent value="diagramme" className="mt-8"><ChartEditor /></TabsContent>
             <TabsContent value="anfragen" className="mt-8"><RequestList /></TabsContent>
           </Tabs>
         )}
@@ -217,113 +212,6 @@ function TextEditor() {
   );
 }
 
-function ImageEditor() {
-  const queryClient = useQueryClient();
-  const [busy, setBusy] = useState<string | null>(null);
-
-  const query = useQuery({
-    queryKey: ["admin_site_images"],
-    queryFn: async () => {
-      const { data, error } = await supabase.from("site_images").select("key,url,gray_filter,dim_filter").order("key");
-      if (error) throw error;
-      return data ?? [];
-    },
-  });
-
-  function refresh() {
-    queryClient.invalidateQueries({ queryKey: ["admin_site_images"] });
-    queryClient.invalidateQueries({ queryKey: ["site_images"] });
-  }
-
-  async function upload(key: string, file: File) {
-    setBusy(key);
-    const path = `${key}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "-")}`;
-    const { error } = await supabase.storage.from("site-images").upload(path, file, { upsert: true });
-    if (!error) {
-      const { data } = await supabase.storage.from("site-images").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
-      if (data?.signedUrl) {
-        await supabase.from("site_images").update({ url: data.signedUrl }).eq("key", key);
-        refresh();
-      }
-    }
-    setBusy(null);
-  }
-
-  async function toggle(key: string, field: "gray_filter" | "dim_filter", value: boolean) {
-    await supabase.from("site_images").update(field === "gray_filter" ? { gray_filter: value } : { dim_filter: value }).eq("key", key);
-    refresh();
-  }
-
-  async function pick(key: string, url: string) {
-    await supabase.from("site_images").update({ url }).eq("key", key);
-    refresh();
-  }
-
-  async function reset(key: string) {
-    await supabase.from("site_images").update({ url: null }).eq("key", key);
-    refresh();
-  }
-
-  if (query.isLoading) return <p className="text-muted-foreground">Wird geladen …</p>;
-
-  return (
-    <div className="grid gap-6 md:grid-cols-2">
-      {(query.data ?? []).map((row) => (
-        <div key={row.key} className="border border-border p-5">
-          <p className="font-medium">{IMAGE_LABELS[row.key] ?? row.key}</p>
-          <div className="mt-4 aspect-[7/5] overflow-hidden bg-muted">
-            {row.url ? (
-              <img src={row.url} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Standardbild aktiv</div>
-            )}
-          </div>
-          <input
-            type="file"
-            accept="image/*"
-            className="mt-4 block w-full text-sm"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) void upload(row.key, file);
-            }}
-          />
-          {busy === row.key && <p className="mt-2 text-sm text-muted-foreground">Wird hochgeladen …</p>}
-          <details className="mt-4">
-            <summary className="cursor-pointer text-sm text-muted-foreground underline underline-offset-4">Aus Bildbibliothek wählen</summary>
-            <div className="mt-3 grid grid-cols-3 gap-2">
-              {imageLibrary.map((item) => (
-                <button
-                  key={item.url}
-                  type="button"
-                  title={item.label}
-                  onClick={() => void pick(row.key, item.url)}
-                  className="group relative aspect-[4/3] overflow-hidden border border-border transition hover:border-primary"
-                >
-                  <img src={item.url} alt={item.label} loading="lazy" className="h-full w-full object-cover" />
-                </button>
-              ))}
-            </div>
-          </details>
-          <div className="mt-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <Label htmlFor={`${row.key}-gray`}>Grau-Filter</Label>
-              <Switch id={`${row.key}-gray`} checked={row.gray_filter} onCheckedChange={(v) => toggle(row.key, "gray_filter", v)} />
-            </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor={`${row.key}-dim`}>Transparent-Filter</Label>
-              <Switch id={`${row.key}-dim`} checked={row.dim_filter} onCheckedChange={(v) => toggle(row.key, "dim_filter", v)} />
-            </div>
-          </div>
-          {row.url && (
-            <Button variant="ghost" size="sm" className="mt-3" onClick={() => reset(row.key)}>
-              Auf Standardbild zurücksetzen
-            </Button>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function RequestList() {
   const query = useQuery({
