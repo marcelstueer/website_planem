@@ -257,7 +257,7 @@ export function Quiz() {
 
                 <h2 ref={headingRef} tabIndex={-1} className="mt-8 text-2xl font-light leading-snug outline-none sm:text-3xl md:text-4xl">{question.question}</h2>
                 <div className="mt-8 grid gap-3" role="group" aria-label="Antwortmöglichkeiten">
-                  {(orders[questionIndex] ?? [0, 1, 2]).map((index) => { const option = question.options[index];
+                  {(orders[questionIndex] ?? [0, 1, 2]).map((index, position) => { const option = question.options[index];
                     const answered = selectedIndex !== null;
                     const isCorrect = index === question.correctIndex;
                     const isWrongSelection = answered && index === selectedIndex && !isCorrect;
@@ -277,7 +277,7 @@ export function Quiz() {
                         aria-disabled={answered}
                         aria-pressed={selectedIndex === index}
                       >
-                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">{String.fromCharCode(65 + index)}</span>
+                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">{String.fromCharCode(65 + position)}</span>
                         <span className="flex-1">{option}</span>
                         {showCorrect && <Check className="text-primary" aria-label="Richtige Antwort" />}
                         {isWrongSelection && <X className="text-destructive" aria-label="Falsche Antwort" />}

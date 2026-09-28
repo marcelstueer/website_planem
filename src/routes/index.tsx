@@ -49,5 +49,6 @@ function HomePage() { const { text } = useSiteTexts(); return <>
      </div>
    </div></section>
    <SeoSection />
+   <section className="border-t border-border py-12"><div className="site-container flex flex-col justify-between gap-6 md:flex-row md:items-center"><div><p className="eyebrow">Unsere Partner</p><p className="mt-3 text-2xl font-light">Gemeinsam mit starken Partnern aus Planung und Praxis.</p></div><Button asChild variant="outline"><Link to="/partner">Partner &amp; Referenzen <ArrowRight /></Link></Button></div></section>
 
 </>; }
