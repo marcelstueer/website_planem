@@ -2,12 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { showPartners } from "@/lib/partners";
 
 const navigation = [
   { label: "Start", to: "/" as const },
   { label: "Leistungen", to: "/leistungen" as const },
   { label: "Über planem", to: "/ueber-planem" as const },
-  { label: "Partner", to: "/partner" as const },
   { label: "Aktuelles", to: "/aktuelles" as const },
   { label: "Kontakt", to: "/kontakt" as const },
 ];
@@ -22,7 +22,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <img src="/planem-logo.svg" alt="planem" className="h-12 w-auto" width="166" height="48" />
           </Link>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Hauptnavigation">
-            {navigation.map((item) => item.to === "/leistungen" ? (
+            {navigation.filter(() => true).concat(showPartners ? [{ label: "Partner", to: "/partner" as never }] : []).map((item) => item.to === "/leistungen" ? (
               <div key={item.to} className="group relative">
                 <Link to={item.to} className="nav-link" activeProps={{ className: "nav-link is-active" }}>{item.label}</Link>
                 <div className="invisible absolute left-0 top-full pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
@@ -47,7 +47,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         {open && (
           <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobile Navigation">
             <div className="mx-auto flex max-w-7xl flex-col gap-1">
-              {navigation.map((item) => (
+              {navigation.filter(() => true).concat(showPartners ? [{ label: "Partner", to: "/partner" as never }] : []).map((item) => (
                 <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-base font-medium hover:bg-muted" activeProps={{ className: "rounded-md bg-muted px-3 py-3 text-base font-semibold text-primary" }}>
                   {item.label}
                 </Link>
