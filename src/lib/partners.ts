@@ -7,3 +7,6 @@ export const partners: Partner[] = [
   { name: "Platzhalter Partner 2", beschreibung: "Platzhalter: Hier steht in zwei bis drei Sätzen, was wir gemeinsam machen.", url: "https://example.com" },
   { name: "Platzhalter Partner 3", beschreibung: "Platzhalter: Hier steht in zwei bis drei Sätzen, was wir gemeinsam machen.", url: "https://example.com" },
 ];
+
+/** Seite und Links erst zeigen, wenn echte Partner eingetragen sind. */
+export const showPartners = partners.some((p) => !p.name.startsWith("Platzhalter"));
