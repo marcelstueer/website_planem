@@ -57,7 +57,7 @@ const questions: QuizQuestion[] = [
   {
     category: "Klimaschutz",
     question: "Was bedeutet eine globale Erwärmung von 2 °C für die Korallenriffe weltweit?",
-    options: ["Etwa 30 % verschwinden", "Etwa 70 % verschwinden", "Praktisch alle verschwinden (über 99 %)"],
+    options: ["Etwa 30 % verschwinden", "Etwa 70 % verschwinden", "Über 99 % verschwinden"],
     correctIndex: 2,
     explanation: "Laut IPCC gehen bei 1,5 °C Erwärmung bereits 70 bis 90 Prozent der Korallenriffe verloren. Bei 2 °C bleibt gerade einmal 1 Prozent übrig – praktisch alle Riffe wären verloren. Ein halbes Grad entscheidet über das Überleben ganzer Ökosysteme.",
     sourceLabel: "IPCC-Bericht, zitiert u. a. über ORF",
@@ -75,7 +75,7 @@ const questions: QuizQuestion[] = [
   {
     category: "Energieeffizienz",
     question: "Welcher Bereich der erneuerbaren Energien beschäftigt in Deutschland die meisten Menschen (Stand 2025)?",
-    options: ["Wärmepumpen (Produktion & Installation) – ca. 72.000", "Windenergie – ca. 131.000", "Photovoltaik – ca. 100.000"],
+    options: ["Wärmepumpen (Produktion & Installation)", "Windenergie", "Photovoltaik"],
     correctIndex: 1,
     explanation: "Insgesamt arbeiteten 2025 rund 436.000 Menschen in der Branche erneuerbare Energien in Deutschland – ein Beschäftigungsrekord. Die Windenergie ist mit rund 131.000 Jobs der größte Bereich, gefolgt von Photovoltaik (knapp 100.000) und Wärmepumpen (rund 72.000).",
     sourceLabel: "Bertelsmann Stiftung",
@@ -92,8 +92,8 @@ const questions: QuizQuestion[] = [
   },
   {
     category: "Energieeffizienz",
-    question: "Wie groß ist der Kostenunterschied zwischen einer Wärmepumpe und einer neuen Gasheizung über die typische Lebensdauer einer Heizung (ca. 20 Jahre) laut Fraunhofer-Studie?",
-    options: ["kein nennenswerter Unterschied", "Gasheizung bis zu 49.000 Euro teurer", "Wärmepumpe immer teurer"],
+    question: "Über 20 Jahre gerechnet: Um wie viel teurer kann laut Fraunhofer ISE eine Gasheizung im Einfamilienhaus gegenüber einer Wärmepumpe werden?",
+    options: ["bis zu 4.900 Euro", "bis zu 49.000 Euro", "bis zu 149.000 Euro"],
     correctIndex: 1,
     explanation: "Eine Studie des Fraunhofer-Instituts für Solare Energiesysteme (ISE) zeigt: Über 20 Jahre kann eine Gasheizung im Einfamilienhaus bis zu 49.000 Euro teurer sein als eine Wärmepumpe – vor allem wegen steigender CO2-Preise. Die Verbraucherzentrale Rheinland-Pfalz rechnet vor, dass sich eine Wärmepumpe oft schon nach etwa 7 Jahren rechnet.",
     sourceLabel: "Fraunhofer ISE",
@@ -128,6 +128,13 @@ export function Quiz() {
   const complete = questionIndex === questions.length;
   const score = answers.reduce((total, answer, index) => total + Number(answer === questions[index]?.correctIndex), 0);
   const question = questions[questionIndex];
+  const [orders, setOrders] = useState<number[][]>(() => questions.map(() => [0, 1, 2]));
+  const shuffleAll = () => setOrders(questions.map(() => {
+    const o = [0, 1, 2];
+    for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = o[i]!; o[i] = o[j]!; o[j] = t; }
+    return o;
+  }));
+  useEffect(() => { shuffleAll(); }, []);
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -150,6 +157,7 @@ export function Quiz() {
     setAnswers([]);
     setSelectedIndex(null);
     setShareStatus("");
+    shuffleAll();
   }
 
   async function submitContact(event: FormEvent<HTMLFormElement>) {
@@ -249,7 +257,7 @@ export function Quiz() {
 
                 <h2 ref={headingRef} tabIndex={-1} className="mt-8 text-2xl font-light leading-snug outline-none sm:text-3xl md:text-4xl">{question.question}</h2>
                 <div className="mt-8 grid gap-3" role="group" aria-label="Antwortmöglichkeiten">
-                  {question.options.map((option, index) => {
+                  {(orders[questionIndex] ?? [0, 1, 2]).map((index, position) => { const option = question.options[index];
                     const answered = selectedIndex !== null;
                     const isCorrect = index === question.correctIndex;
                     const isWrongSelection = answered && index === selectedIndex && !isCorrect;
@@ -269,7 +277,7 @@ export function Quiz() {
                         aria-disabled={answered}
                         aria-pressed={selectedIndex === index}
                       >
-                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">{String.fromCharCode(65 + index)}</span>
+                        <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-current text-xs font-semibold">{String.fromCharCode(65 + position)}</span>
                         <span className="flex-1">{option}</span>
                         {showCorrect && <Check className="text-primary" aria-label="Richtige Antwort" />}
                         {isWrongSelection && <X className="text-destructive" aria-label="Falsche Antwort" />}

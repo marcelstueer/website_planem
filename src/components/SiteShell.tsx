@@ -7,6 +7,7 @@ const navigation = [
   { label: "Start", to: "/" as const },
   { label: "Leistungen", to: "/leistungen" as const },
   { label: "Über planem", to: "/ueber-planem" as const },
+  { label: "Partner", to: "/partner" as const },
   { label: "Aktuelles", to: "/aktuelles" as const },
   { label: "Kontakt", to: "/kontakt" as const },
 ];

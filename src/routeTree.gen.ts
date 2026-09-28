@@ -16,6 +16,7 @@ import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LeistungenRouteImport } from './routes/leistungen'
+import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
@@ -57,6 +58,11 @@ const KontaktRoute = KontaktRouteImport.update({
 const LeistungenRoute = LeistungenRouteImport.update({
   id: '/leistungen',
   path: '/leistungen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerRoute = PartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UeberPlanemRoute = UeberPlanemRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
+  '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
+  '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
+    | '/partner'
     | '/ueber-planem'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/datenschutz'
     | '/impressum'
     | '/kontakt'
+    | '/partner'
     | '/ueber-planem'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
+    | '/partner'
     | '/ueber-planem'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRouteWithChildren
+  PartnerRoute: typeof PartnerRoute
   UeberPlanemRoute: typeof UeberPlanemRoute
   ApiPublicContactNotifyRoute: typeof ApiPublicContactNotifyRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -256,6 +269,13 @@ declare module '@tanstack/react-router' {
       path: '/leistungen'
       fullPath: '/leistungen'
       preLoaderRoute: typeof LeistungenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner': {
+      id: '/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof PartnerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ueber-planem': {
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRouteWithChildren,
+  PartnerRoute: PartnerRoute,
   UeberPlanemRoute: UeberPlanemRoute,
   ApiPublicContactNotifyRoute: ApiPublicContactNotifyRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
