@@ -131,7 +131,7 @@ export function Quiz() {
   const [orders, setOrders] = useState<number[][]>(() => questions.map(() => [0, 1, 2]));
   const shuffleAll = () => setOrders(questions.map(() => {
     const o = [0, 1, 2];
-    for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; }
+    for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = o[i]!; o[i] = o[j]!; o[j] = t; }
     return o;
   }));
   useEffect(() => { shuffleAll(); }, []);
