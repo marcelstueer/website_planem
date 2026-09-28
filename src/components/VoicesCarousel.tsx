@@ -1,3 +1,4 @@
+import Autoplay from "embla-carousel-autoplay";
 import { ExternalLink, Quote } from "lucide-react";
 import {
   Carousel,
@@ -10,7 +11,7 @@ import { blueskyPosts } from "@/lib/bluesky-posts";
 
 export function VoicesCarousel() {
   return (
-    <Carousel opts={{ align: "start", loop: true }} className="mt-10">
+    <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]} className="mt-10">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
           Ausgewählte Beiträge aus der Fachcommunity auf Bluesky.
