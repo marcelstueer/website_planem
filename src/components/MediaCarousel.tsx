@@ -1,3 +1,4 @@
+import Autoplay from "embla-carousel-autoplay";
 import { Bike, Bus, Car, ExternalLink, Flame, Headphones, Leaf, TrainFront, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +41,7 @@ function Visual({ item }: { item: MediaItem }) {
 
 export function MediaCarousel() {
   return (
-    <Carousel opts={{ align: "start" }} className="mt-10">
+    <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]} className="mt-10">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
           Gehört, gelesen und mit Blick auf die Praxis eingeordnet.
