@@ -147,6 +147,7 @@ export function ImageEditor() {
                 <FilterSwitch id={`${row.key}-gray`} label="Grau-Filter" checked={row.gray_filter} disabled={!!row.anthracite_filter} onChange={(v) => update(row.key, { gray_filter: v })} />
                 <FilterSwitch id={`${row.key}-dim`} label="Transparent-Filter" checked={row.dim_filter} disabled={!!row.anthracite_filter} onChange={(v) => update(row.key, { dim_filter: v })} />
                 <FilterSwitch id={`${row.key}-anth`} label="Anthrazit-Filter" checked={!!row.anthracite_filter} onChange={(v) => update(row.key, { anthracite_filter: v })} />
+                <FilterSwitch id={`${row.key}-ai`} label="Kennzeichnung „KI-generiertes Bild“" checked={!!row.ai_label} onChange={(v) => update(row.key, { ai_label: v })} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>

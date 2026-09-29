@@ -44,7 +44,7 @@ export function SiteImage({ imageKey, fallback, alt, className, ...rest }: Props
   const { images } = useSiteImages();
   const image = images[imageKey];
   const src = image?.url || fallback;
-  const ai = isAiGenerated(src);
+  const ai = image ? !!image.ai_label : isAiGenerated(src);
   const img = <img src={src} alt={ai ? `${alt} (KI-generiert)` : alt} className={cn(className, imageFilterClass(image))} {...rest} />;
   if (!image?.overlay_icon && !ai) return img;
   const absolute = className?.includes("absolute");
