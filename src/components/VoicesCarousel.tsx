@@ -56,9 +56,9 @@ export function VoicesCarousel() {
                   href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-2 text-sm underline underline-offset-4 hover:text-primary"
+                  className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  Zum Originalbeitrag <ExternalLink className="size-4" />
+                  Beitrag auf Bluesky lesen <ExternalLink className="size-4" />
                 </a>
               </div>
               </div>

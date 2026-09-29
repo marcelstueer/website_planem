@@ -30,7 +30,7 @@ export function StudyList() {
             <p className="mt-2 text-sm leading-7">{study.essence}</p>
           </div>
           <div className="mt-auto pt-7">
-            <Button asChild size="sm" variant="outline">
+            <Button asChild className="w-full sm:w-auto">
               <a href={study.url} target="_blank" rel="noopener noreferrer">
                 Zur Studie <ExternalLink />
               </a>
