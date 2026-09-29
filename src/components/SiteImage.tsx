@@ -26,7 +26,7 @@ export function AiBadge() {
 }
 
 /** Icon centred over an image, sized at ~22% of the shorter edge. Parent must be positioned. */
-export function ImageOverlayIcon({ image }: { image?: Partial<SiteImageRow> }) {
+export function ImageOverlayIcon({ image }: { image?: Partial<SiteImageRow> | undefined }) {
   const entry = image?.overlay_icon ? MEDIA_ICONS[image.overlay_icon] : undefined;
   if (!entry) return null;
   const Icon = entry.icon;
