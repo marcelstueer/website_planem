@@ -48,11 +48,18 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Mobile Navigation">
             <div className="mx-auto flex max-w-7xl flex-col gap-1">
               {navigation.filter(() => true).concat(showPartners ? [{ label: "Partner", to: "/partner" as never }] : []).map((item) => (
-                <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-base font-medium hover:bg-muted" activeProps={{ className: "rounded-md bg-muted px-3 py-3 text-base font-semibold text-primary" }}>
-                  {item.label}
-                </Link>
+                <div key={item.to} className="flex flex-col gap-1">
+                  <Link to={item.to} onClick={() => setOpen(false)} className="rounded-md px-3 py-3 text-base font-medium hover:bg-muted" activeProps={{ className: "rounded-md bg-muted px-3 py-3 text-base font-semibold text-primary" }} activeOptions={{ exact: item.to === "/leistungen" }}>
+                    {item.label}
+                  </Link>
+                  {item.to === "/leistungen" && (
+                    <>
+                      <Link to="/leistungen/mobilitaetskonzepte" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted" activeProps={{ className: "text-primary font-semibold" }}>↳ Mobilitätskonzepte</Link>
+                      <Link to="/leistungen/energieberatung" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted" activeProps={{ className: "text-primary font-semibold" }}>↳ Energieberatung & BEG</Link>
+                    </>
+                  )}
+                </div>
               ))}
-              <Link to="/leistungen/mobilitaetskonzepte" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted">↳ Mobilitätskonzepte</Link><Link to="/leistungen/energieberatung" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted">↳ Energieberatung & BEG</Link>
             </div>
           </nav>
         )}
