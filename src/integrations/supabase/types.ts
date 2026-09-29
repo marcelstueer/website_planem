@@ -178,6 +178,7 @@ export type Database = {
       }
       site_images: {
         Row: {
+          ai_label: boolean
           anthracite_filter: boolean
           created_at: string
           description: string
@@ -190,6 +191,7 @@ export type Database = {
           url: string | null
         }
         Insert: {
+          ai_label?: boolean
           anthracite_filter?: boolean
           created_at?: string
           description?: string
@@ -202,6 +204,7 @@ export type Database = {
           url?: string | null
         }
         Update: {
+          ai_label?: boolean
           anthracite_filter?: boolean
           created_at?: string
           description?: string
