@@ -19,7 +19,7 @@ export const isAiGenerated = (url?: string) => !!url && AI_GENERATED.test(url);
 
 export function AiBadge() {
   return (
-    <span className="pointer-events-none absolute bottom-2 right-2 z-10 bg-ink/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[.12em] text-ink-foreground">
+    <span className="pointer-events-none absolute bottom-2 right-3 z-10 text-[10px] font-normal tracking-[.08em] text-ink-muted/80 [text-shadow:0_1px_2px_color-mix(in_oklch,var(--color-ink)_60%,transparent)]">
       KI-generiertes Bild
     </span>
   );
