@@ -81,10 +81,10 @@ export function ServiceStar() {
               {FLOWS.map(([a, b], i) => (
                 <g key={`f${i}`} style={{ opacity: visible ? 1 : 0, transition: `opacity .6s ${1.4 + i * 0.1}s` }}>
                   <circle r="0.7" className="fill-primary">
-                    <animateMotion dur={`${5 + (i % 4)}s`} begin={`${i * 0.7}s`} repeatCount="indefinite" path={flowPath(a, b)} />
+                    <animateMotion dur={`${5 + (i % 4)}s`} begin={`-${i * 0.7}s`} repeatCount="indefinite" path={flowPath(a, b)} />
                   </circle>
                   <circle r="1.6" className="fill-primary/20">
-                    <animateMotion dur={`${5 + (i % 4)}s`} begin={`${i * 0.7}s`} repeatCount="indefinite" path={flowPath(a, b)} />
+                    <animateMotion dur={`${5 + (i % 4)}s`} begin={`-${i * 0.7}s`} repeatCount="indefinite" path={flowPath(a, b)} />
                   </circle>
                 </g>
               ))}
