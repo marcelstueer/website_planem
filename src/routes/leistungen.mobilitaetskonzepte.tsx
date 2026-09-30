@@ -79,7 +79,7 @@ const steps = [
 
 function Section({ id, label, title, children, muted }: { id?: string; label: string; title: string; children: React.ReactNode; muted?: boolean }) {
   return (
-    <section id={id} className={`py-20 md:py-28 ${muted ? "bg-secondary/60" : ""}`}>
+    <section id={id} className={`scroll-mt-24 py-20 md:py-28 ${muted ? "bg-secondary/60" : ""}`}>
       <div className="site-container grid gap-10 border-t border-border pt-8 md:grid-cols-[1fr_2.4fr]">
         <p className="eyebrow">{label}</p>
         <div>
