@@ -34,7 +34,7 @@ export const CHART_PAGES: { path: string; label: string }[] = [
   { path: "/", label: "Startseite" },
   { path: "/leistungen", label: "Leistungen" },
   { path: "/leistungen/mobilitaetskonzepte", label: "Mobilitätskonzepte" },
-  { path: "/leistungen/energieberatung", label: "Energieberatung & BEG" },
+  { path: "/leistungen/energieberatung", label: "Energieeffizienzberatung" },
   { path: "/ueber-planem", label: "Über planem" },
   { path: "/aktuelles", label: "Aktuelles" },
   { path: "/kontakt", label: "Kontakt" },

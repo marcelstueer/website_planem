@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Calculator, ClipboardList, FileCheck2, Gauge, Leaf, Ruler, ThermometerSun, Wrench } from "lucide-react";
+import { ArrowRight, Banknote, Building2, Calculator, ClipboardList, FileCheck2, Gauge, Leaf, Ruler, ThermometerSun, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
 
-const TITLE = "Energieberatung & BEG-Förderung (KfW/BAFA) | planem Münster";
+const TITLE = "Energieeffizienzberatung & Fördermittel (KfW/BAFA) | planem Münster";
 const DESC = "Energieberatung für Nichtwohngebäude: Heizlastberechnung, hydraulischer Abgleich und Förderbegleitung BEG / BEG EM für Wärmepumpe und Effizienzgebäude.";
 
 export const Route = createFileRoute("/leistungen/energieberatung")({
@@ -20,6 +20,15 @@ const programs = [
   { icon: Leaf, title: "BEG – Bundesförderung für effiziente Gebäude", text: "Das Förderprogramm des Bundes für Neubau und Sanierung. Umgesetzt über KfW (Kredite und Zuschüsse) und BAFA. Voraussetzung ist die Begleitung durch eine Energieeffizienz-Expertin oder einen -Experten aus der dena-Liste." },
   { icon: Wrench, title: "BEG EM – Einzelmaßnahmen", text: "Förderung einzelner Schritte wie Heizungstausch auf Wärmepumpe, Dämmung der Gebäudehülle, Fenster oder Anlagentechnik. Beim Heizungstausch läuft der Antrag über die KfW." },
   { icon: Gauge, title: "Effizienzgebäude (WG / NWG)", text: "Umfassende Sanierung oder Neubau auf ein definiertes Effizienzgebäude-Niveau. Je besser das Niveau, desto höher die Förderung." },
+];
+
+const process = [
+  { icon: Building2, label: "Gebäudeaufnahme vor Ort" },
+  { icon: Ruler, label: "Heizlastberechnung" },
+  { icon: ThermometerSun, label: "Hydraulischer Abgleich" },
+  { icon: FileCheck2, label: "Förderantrag KfW / BAFA" },
+  { icon: Wrench, label: "Umsetzung Wärmepumpe" },
+  { icon: Banknote, label: "Nachweis & Auszahlung" },
 ];
 
 const steps = [
@@ -41,7 +50,7 @@ function EnergyPage() {
   return <>
     <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-8 md:grid-cols-[1fr_2fr]">
       <p className="eyebrow">Leistungen / Energieeffizienz</p>
-      <div><h1 className="max-w-4xl text-5xl font-extralight leading-[1.05] md:text-7xl">Energieberatung und BEG-Förderung. Aus einer Hand.</h1>
+      <div><h1 className="max-w-4xl text-5xl font-extralight leading-[1.05] md:text-7xl">Energieeffizienzberatung und Fördermittel. Aus einer Hand.</h1>
         <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">Von der Heizlastberechnung bis zur Auszahlung der Fördermittel: Wir begleiten Ihren Heizungstausch auf Wärmepumpe oder Ihr Effizienzgebäude – für geringere Kosten heute und langfristige Kosteneffizienz.</p>
         <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/kontakt">Förderfähigkeit prüfen <ArrowRight /></Link></Button></div>
         <p className="mt-6 text-sm text-muted-foreground">BAFA- und KfW-zertifiziert seit 2016 · gelistet in der Energieeffizienz-Expertenliste (dena)</p></div>
@@ -54,7 +63,13 @@ function EnergyPage() {
 
     <section id="vorgehen" className="scroll-mt-24 bg-secondary py-16 md:py-24"><div className="site-container">
       <p className="eyebrow">Unser Vorgehen</p><h2 className="mt-4 text-4xl font-light md:text-5xl">Beispiel: Heizungstausch auf Wärmepumpe im Nichtwohngebäude.</h2>
-      <div className="mt-10 grid gap-5 lg:grid-cols-3">{steps.map(({ icon: Icon, title, points }) => <article key={title} className="border border-border bg-background p-7"><Icon className="size-7 text-primary" /><h3 className="mt-6 text-xl font-medium">{title}</h3><ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{points.map((p) => <li key={p} className="flex gap-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />{p}</li>)}</ul></article>)}</div>
+      <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-6">{process.map(({ icon: Icon, label }, i) => <li key={label} className="relative flex flex-col items-center text-center">
+        {i < process.length - 1 && <span aria-hidden className="absolute left-[calc(50%+2.75rem)] top-10 hidden h-px w-[calc(100%-5.5rem+2.5rem)] bg-border lg:block" />}
+        <div className="flex size-20 items-center justify-center rounded-full border border-border bg-background"><Icon className="size-8 text-primary" strokeWidth={1.5} /></div>
+        <span className="mt-4 text-xs font-medium text-primary">{String(i + 1).padStart(2, "0")}</span>
+        <p className="mt-1 text-sm font-medium leading-5">{label}</p>
+      </li>)}</ol>
+      <p className="mx-auto mt-12 max-w-3xl border-t border-border pt-6 text-center text-sm leading-7 text-muted-foreground">Gebäudeaufnahme → Heizlastberechnung (DIN EN 12831-1) → Wärmepumpen-Dimensionierung → Hydraulischer Abgleich (Verfahren B) → Bestätigung zum Antrag (BzA) & KfW-Antrag → Angebotsprüfung & Umsetzung → Bestätigung nach Durchführung (BnD) → Auszahlung der Fördermittel</p>
     </div></section>
 
     <section id="unterlagen" className="scroll-mt-24 py-16 md:py-24"><div className="site-container grid gap-12 md:grid-cols-2">
