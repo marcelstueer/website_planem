@@ -36,9 +36,8 @@ function ImprintPage() {
             <Block title="Angaben gemäß § 5 DDG">
               <p>
                 <strong className="font-medium text-foreground">Marcel Stüer</strong><br />
-                Ingenieurbüro aus Münster<br />
-                Gebäude und Mobilität – Zusammen gedacht.<br />
-                Unabhängige Planung und Beratung für zukunftsfähige Gebäude, Betriebe und Quartiere.
+                Ingenieurdienstleistung<br />
+                Gebäude und Mobilität. Unabhängige Planung und Beratung für zukunftsfähige Gebäude, Betriebe und Quartiere.
               </p>
               <p className="mt-3">Bohlweg 21<br />48147 Münster<br />Deutschland</p>
             </Block>
