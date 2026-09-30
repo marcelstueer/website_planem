@@ -27,7 +27,7 @@ export function ServiceStar() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } }, { threshold: 0.25 });
+    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { setVisible(true); io.disconnect(); } }, { threshold: 0.25 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -53,7 +53,7 @@ export function ServiceStar() {
               <circle cx="50" cy="50" r={R} fill="none" className="stroke-border" strokeWidth="0.15" strokeDasharray="0.6 0.9" />
               <circle cx="50" cy="50" r={R * 0.55} fill="none" className="stroke-border" strokeWidth="0.1" />
               {points.map((p, i) => {
-                const n = points[(i + 1) % points.length];
+                const n = points[(i + 1) % points.length]!;
                 return <line key={`r${i}`} x1={p.x} y1={p.y} x2={n.x} y2={n.y} className="stroke-primary/25" strokeWidth="0.15"
                   style={{ strokeDasharray: 30, strokeDashoffset: visible ? 0 : 30, transition: `stroke-dashoffset 1.2s ease ${0.9 + i * 0.06}s` }} />;
               })}
@@ -76,7 +76,7 @@ export function ServiceStar() {
 
             {NODES.map(({ icon: Icon, label }, i) => (
               <div key={label} className="absolute flex w-32 -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center"
-                style={{ left: `${points[i].x}%`, top: `${points[i].y}%`, opacity: visible ? 1 : 0, transform: `translate(-50%,-50%) scale(${visible ? 1 : 0.85})`, transition: `all .6s ease ${0.5 + i * 0.08}s` }}>
+                style={{ left: `${points[i]!.x}%`, top: `${points[i]!.y}%`, opacity: visible ? 1 : 0, transform: `translate(-50%,-50%) scale(${visible ? 1 : 0.85})`, transition: `all .6s ease ${0.5 + i * 0.08}s` }}>
                 <div className="flex size-14 items-center justify-center rounded-full border border-primary/40 bg-background shadow-sm">
                   <Icon className="size-6 text-primary" strokeWidth={1.5} />
                 </div>
