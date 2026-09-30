@@ -10,6 +10,7 @@ import heroImage from "@/assets/planem-hero.jpg";
 import mobilityImage from "@/assets/mobility-japan.jpg";
 import energyImage from "@/assets/energy-consulting.jpg";
 import { QualificationsCarousel } from "@/components/QualificationsCarousel";
+import { ServiceStar } from "@/components/ServiceStar";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
   { title: "planem | Mobilität & Energieeffizienz aus Münster" },
@@ -28,6 +29,7 @@ function HomePage() { const { text } = useSiteTexts(); return <>
       <div className="mt-16 grid gap-4 border-t border-ink-border pt-5 text-sm text-ink-muted sm:grid-cols-3"><span>Mobilitätskonzepte</span><span>Energieeffizienzberatung</span><span>Fördermittelbegleitung</span></div>
     </div>
   </section>
+   <ServiceStar />
    <section className="py-20 md:py-28"><div className="site-container"><SectionHeading eyebrow="Kompetenz im Verbund" title="Vernetzt gedacht. Gemeinsam zum passenden Konzept. " text="Anforderungen werden zu Lösungen, die individuell fundiert, wirtschaftlich, nachhaltig und im Alltag sinnvoll sind." />
     <div className="grid gap-5 md:grid-cols-2">
        <article className="group overflow-hidden bg-card"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.mobility" fallback={mobilityImage} alt="Geschützter Radweg mit Radzählsäule in Valencia" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" /></div><div className="border border-t-0 border-border p-7 md:p-9"><CarFront className="mb-7 size-7 text-primary"/><h3 className="text-3xl font-light">Mobilität: Zukunftsgerecht</h3><p className="mt-4 leading-7 text-muted-foreground">Effektive Konzepte für eine Verkehrswende von Betrieben, Liegenschaften und Quartieren. Durch Fördermittel, E-Mobilität oder Stellplatzreduzierung mehr Lebensqualität für die Menschen vor Ort und Wertsteigerung im Immobilienquartier.</p><Link to="/leistungen" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">Mehr erfahren <ArrowRight className="size-4"/></Link></div></article>
