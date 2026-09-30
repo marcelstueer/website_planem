@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
 
-const TITLE = "Energieberatung & BEG-Förderung (KfW/BAFA) | planem Münster";
+const TITLE = "Energieeffizienzberatung & Fördermittel (KfW/BAFA) | planem Münster";
 const DESC = "Energieberatung für Nichtwohngebäude: Heizlastberechnung, hydraulischer Abgleich und Förderbegleitung BEG / BEG EM für Wärmepumpe und Effizienzgebäude.";
 
 export const Route = createFileRoute("/leistungen/energieberatung")({
