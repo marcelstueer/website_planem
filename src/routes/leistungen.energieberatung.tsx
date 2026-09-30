@@ -47,17 +47,17 @@ function EnergyPage() {
         <p className="mt-6 text-sm text-muted-foreground">BAFA- und KfW-zertifiziert seit 2016 · gelistet in der Energieeffizienz-Expertenliste (dena)</p></div>
     </div></section>
 
-    <section className="py-16 md:py-24"><div className="site-container">
+    <section id="foerderprogramme" className="scroll-mt-24 py-16 md:py-24"><div className="site-container">
       <p className="eyebrow">Förderprogramme</p><h2 className="mt-4 text-4xl font-light md:text-5xl">BEG, BEG EM und Effizienzgebäude.</h2>
       <div className="mt-10 grid border-y border-border md:grid-cols-3">{programs.map(({ icon: Icon, title, text }, i) => <article key={title} className={`py-8 md:px-8 ${i > 0 ? "border-t md:border-l md:border-t-0" : ""}`}><Icon className="size-6 text-primary" /><h3 className="mt-6 text-xl font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div>
     </div></section>
 
-    <section className="bg-secondary py-16 md:py-24"><div className="site-container">
+    <section id="vorgehen" className="scroll-mt-24 bg-secondary py-16 md:py-24"><div className="site-container">
       <p className="eyebrow">Unser Vorgehen</p><h2 className="mt-4 text-4xl font-light md:text-5xl">Beispiel: Heizungstausch auf Wärmepumpe im Nichtwohngebäude.</h2>
       <div className="mt-10 grid gap-5 lg:grid-cols-3">{steps.map(({ icon: Icon, title, points }) => <article key={title} className="border border-border bg-background p-7"><Icon className="size-7 text-primary" /><h3 className="mt-6 text-xl font-medium">{title}</h3><ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{points.map((p) => <li key={p} className="flex gap-2"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />{p}</li>)}</ul></article>)}</div>
     </div></section>
 
-    <section className="py-16 md:py-24"><div className="site-container grid gap-12 md:grid-cols-2">
+    <section id="unterlagen" className="scroll-mt-24 py-16 md:py-24"><div className="site-container grid gap-12 md:grid-cols-2">
       <div><ClipboardList className="size-7 text-primary" /><h2 className="mt-5 text-3xl font-light md:text-4xl">Was wir von Ihnen benötigen</h2><ul className="mt-6 grid gap-3 sm:grid-cols-2">{docs.map((d) => <li key={d} className="border-l-2 border-primary pl-3 text-sm">{d}</li>)}</ul></div>
       <div><Calculator className="size-7 text-primary" /><h2 className="mt-5 text-3xl font-light md:text-4xl">Wofür sich das lohnt</h2><p className="mt-6 leading-7 text-muted-foreground">Heizlastberechnung und hydraulischer Abgleich sichern die Förderung einer neuen Heizung, dimensionieren die Wärmepumpe richtig, optimieren die Heizflächen, senken die Heizkosten, verlängern die Lebensdauer der Anlage und sorgen für Wärmekomfort in allen Räumen.</p></div>
     </div></section>

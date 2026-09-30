@@ -148,7 +148,7 @@ function MobilityConceptPage() {
         </div>
       </section>
 
-      <Section label="01 / Grundlagen" title="Warum ein Mobilitätskonzept?">
+      <Section id="grundlagen" label="01 / Grundlagen" title="Warum ein Mobilitätskonzept?">
         <div className="max-w-2xl space-y-5 leading-8 text-muted-foreground">
           <p>Ein Mobilitätskonzept beschreibt, wie die künftigen Nutzer:innen eines Gebäudes oder Quartiers mobil sein werden – und welche baulichen und organisatorischen Maßnahmen dafür nötig sind. Statt pauschal Stellplätze nach einem starren Schlüssel herzustellen, wird der tatsächliche Bedarf ermittelt und durch Alternativen wie Carsharing, Fahrradinfrastruktur und eine gute ÖPNV-Anbindung ergänzt.</p>
           <p>Immer mehr Kommunen akzeptieren oder verlangen ein qualifiziertes Mobilitätskonzept als Teil des <strong className="font-medium text-foreground">Stellplatznachweises in der Baugenehmigung</strong>. Das Instrument ist rechtlich unmittelbar an das Bauordnungsrecht gekoppelt: Landesbauordnungen und kommunale Stellplatzsatzungen legen fest, wann und in welchem Umfang der Stellplatzschlüssel reduziert werden darf.</p>
@@ -157,7 +157,7 @@ function MobilityConceptPage() {
         </div>
       </Section>
 
-      <Section label="02 / Wirtschaftlichkeit" title="Der finanzielle Vorteil für Ihr Projekt" muted>
+      <Section id="kostenvorteile" label="02 / Wirtschaftlichkeit" title="Der finanzielle Vorteil für Ihr Projekt" muted>
         <div className="grid border border-border bg-background md:grid-cols-3">
           {[
             { k: "Regulär", v: "80", d: "Stellplätze bei 100 WE und Schlüssel 0,8" },
@@ -179,7 +179,7 @@ function MobilityConceptPage() {
         </div>
       </Section>
 
-      <Section label="03 / Methodik" title="Unsere Methodik: die Nutzeranalyse">
+      <Section id="methodik" label="03 / Methodik" title="Unsere Methodik: die Nutzeranalyse">
         <div className="max-w-2xl space-y-5 leading-8 text-muted-foreground">
           <p>Grundlage jedes Konzepts ist eine <strong className="font-medium text-foreground">sozioökonomische Nutzeranalyse</strong>. Haushaltsgröße, Einkommensstruktur, Altersverteilung und die Pkw-Besitzquote im Quartier fließen gemeinsam mit der Lage und dem ÖPNV-Angebot in die Bedarfsermittlung ein.</p>
           <p>Daraus ergibt sich, wie viele Stellplätze tatsächlich benötigt werden und welche besonderen Erfordernisse bestehen – etwa für Familien, Senior:innen oder gewerbliche Nutzungen.</p>
@@ -200,7 +200,7 @@ function MobilityConceptPage() {
         </ul>
       </Section>
 
-      <Section label="04 / Förderung" title="Fördermittel, mitgedacht" muted>
+      <Section id="foerderung" label="04 / Förderung" title="Fördermittel, mitgedacht" muted>
         <div className="grid gap-px border border-border bg-border md:grid-cols-2">
           <div className="bg-background p-7">
             <h3 className="font-medium">Bund: Ladeinfrastruktur in Mehrparteienhäusern</h3>
