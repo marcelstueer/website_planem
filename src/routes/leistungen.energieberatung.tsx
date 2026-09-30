@@ -50,7 +50,7 @@ function EnergyPage() {
   return <>
     <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-8 md:grid-cols-[1fr_2fr]">
       <p className="eyebrow">Leistungen / Energieeffizienz</p>
-      <div><h1 className="max-w-4xl text-5xl font-extralight leading-[1.05] md:text-7xl">Energieeffizienzberatung und Fördermittel für Nichtwohngebäude.</h1>
+      <div><h1 className="max-w-4xl text-5xl font-extralight leading-[1.05] md:text-7xl">Effizienzberatung und Fördermittel für Nichtwohngebäude.</h1>
         <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">Von der Heizlastberechnung bis zur Auszahlung der Fördermittel: Wir begleiten Ihren Heizungstausch auf Wärmepumpe oder Ihr Effizienzgebäude – für geringere Kosten heute und langfristige Kosteneffizienz.</p>
         <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/kontakt">Förderfähigkeit prüfen <ArrowRight /></Link></Button></div>
         <p className="mt-6 text-sm text-muted-foreground">BAFA- und KfW-zertifiziert seit 2016 · gelistet in der Energieeffizienz-Expertenliste (dena)</p></div>
