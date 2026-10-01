@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
 import { Quiz } from "@/components/Quiz";
-import { imageFilterClass, useSiteImages, useSiteTexts } from "@/lib/site-data";
+import { useSiteTexts } from "@/lib/site-data";
 import marcelProfile from "@/assets/marcel-stueer-profile.webp";
 import windradImage from "@/assets/energy-real.jpg";
 
@@ -29,9 +29,6 @@ const facts = [
 
 function AboutPage() {
   const { text } = useSiteTexts();
-  const { images } = useSiteImages();
-  const portrait = images["about.portrait"];
-
   return <>
     <section className="py-20 md:py-28">
       <div className="site-container grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
@@ -43,7 +40,7 @@ function AboutPage() {
       <div className="site-container grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
         <div className="relative aspect-[4/5] max-w-xl overflow-hidden bg-primary">
           <img src="/planem-logo.svg" alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 w-4/5 -translate-x-1/2 -translate-y-1/2 opacity-15 brightness-0 invert" />
-          <img src={portrait?.url || marcelProfile} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className={`relative h-full w-full object-cover ${imageFilterClass(portrait)}`} />
+          <SiteImage imageKey="about.portrait" fallback={marcelProfile} alt={`${text("about.person.name", "Marcel Stüer")}, ${text("about.person.role", "Gründer & Ingenieur")}`} className="relative h-full w-full object-cover" />
         </div>
          <div><p className="eyebrow">Persönlich für Sie da</p><h2 className="mt-5 text-4xl font-light md:text-6xl">{text("about.person.name", "Marcel Stüer")}</h2><p className="mt-3 text-lg text-primary">{text("about.person.role", "Gründer & Ingenieur")}</p><p className="mt-7 max-w-xl text-lg font-light leading-8 text-muted-foreground">Klimaschutz durch Technologie, die heute schon bereitsteht. Bei mir steht die greifbare Transformation im Mittelpunkt: Die (Förder-)Mittel sind da, wir müssen sie nur implementieren. Das ist kein Verzicht, sondern ein Gewinn für alle Seiten – Umwelt, Gesellschaft und Zukunft. Wir müssen das Rad nicht neu erfinden, sondern einfach den Reiter aufs Pferd hieven!</p></div>
       </div>

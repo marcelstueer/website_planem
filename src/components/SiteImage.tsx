@@ -44,12 +44,17 @@ export function ImageOverlayIcon({ image }: { image?: Partial<SiteImageRow> | un
 export function LogoOverlay({ image }: { image?: Partial<SiteImageRow> | undefined }) {
   if (!image?.logo_overlay) return null;
   return (
-    <span className="pointer-events-none absolute right-[3cqmin] top-[3cqmin] z-10 flex max-w-[38%] items-center bg-background/75 px-[2cqmin] py-[1.25cqmin] shadow-md backdrop-blur-sm [container-type:size]">
+    <span
+      className={cn(
+        "pointer-events-none absolute right-[3cqmin] top-[3cqmin] z-10 flex max-w-[42%] items-center px-[2cqmin] py-[1.25cqmin] shadow-md backdrop-blur-sm",
+        image.anthracite_filter ? "bg-ink/65" : "bg-background/75",
+      )}
+    >
       <img
         src="/planem-logo.svg"
         alt=""
         aria-hidden="true"
-        className={cn("h-auto w-[28cqmin] min-w-20", image.anthracite_filter && "brightness-0 invert")}
+        className={cn("h-auto w-[40cqmin] min-w-20", image.anthracite_filter && "brightness-0 invert")}
       />
     </span>
   );
@@ -64,7 +69,7 @@ export function SiteImage({ imageKey, fallback, alt, className, ...rest }: Props
   if (!image?.overlay_icon && !image?.logo_overlay && !ai) return img;
   const absolute = className?.includes("absolute");
   return (
-    <span className={cn("overflow-hidden", absolute ? "absolute inset-0" : "relative block h-full w-full")}>
+    <span className={cn("overflow-hidden [container-type:size]", absolute ? "absolute inset-0" : "relative block h-full w-full")}>
       {img}
       <ImageOverlayIcon image={image} />
       <LogoOverlay image={image} />
