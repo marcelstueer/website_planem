@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { imageLibrary } from "@/lib/image-library";
 import { compressToWebp, MEDIA_ICONS } from "@/lib/media-icons";
 import { imageFilterClass, SITE_IMAGE_COLUMNS, type SiteImageRow } from "@/lib/site-data";
-import { ImageOverlayIcon } from "@/components/SiteImage";
+import { ImageOverlayIcon, LogoOverlay } from "@/components/SiteImage";
 import { ChartCard, type ChartRow } from "@/components/PageCharts";
 import { cn } from "@/lib/utils";
 
@@ -112,11 +112,12 @@ export function ImageEditor() {
               <p className="eyebrow">{slot?.page ?? "Weitere"}</p>
               <p className="mt-2 text-lg font-light">{slot?.label ?? row.key}</p>
               <p className="mt-4 text-xs text-muted-foreground">Live-Vorschau – so erscheint das Bild auf der Website</p>
-              <div className="relative mt-2 aspect-[7/5] overflow-hidden bg-muted">
+              <div className="relative mt-2 aspect-[7/5] overflow-hidden bg-muted [container-type:size]">
                 {row.url ? (
                   <>
                     <img src={row.url} alt="" className={cn("h-full w-full object-cover transition", imageFilterClass(row))} />
                     <ImageOverlayIcon image={row} />
+                    <LogoOverlay image={row} />
                   </>
                 ) : (
                   <div className="flex h-full items-center justify-center text-sm text-muted-foreground">Standardbild aktiv (Filter wirken erst bei eigenem Bild)</div>
@@ -147,6 +148,7 @@ export function ImageEditor() {
                 <FilterSwitch id={`${row.key}-gray`} label="Grau-Filter" checked={row.gray_filter} disabled={!!row.anthracite_filter} onChange={(v) => update(row.key, { gray_filter: v })} />
                 <FilterSwitch id={`${row.key}-dim`} label="Transparent-Filter" checked={row.dim_filter} disabled={!!row.anthracite_filter} onChange={(v) => update(row.key, { dim_filter: v })} />
                 <FilterSwitch id={`${row.key}-anth`} label="Anthrazit-Filter" checked={!!row.anthracite_filter} onChange={(v) => update(row.key, { anthracite_filter: v })} />
+                <FilterSwitch id={`${row.key}-logo`} label="Logo-Overlay anzeigen" checked={!!row.logo_overlay} onChange={(v) => update(row.key, { logo_overlay: v })} />
                 <FilterSwitch id={`${row.key}-ai`} label="Kennzeichnung „KI-generiertes Bild“" checked={!!row.ai_label} onChange={(v) => update(row.key, { ai_label: v })} />
               </div>
               <div className="grid grid-cols-2 gap-3">

@@ -185,6 +185,7 @@ export type Database = {
           dim_filter: boolean
           gray_filter: boolean
           key: string
+          logo_overlay: boolean
           overlay_color: string
           overlay_icon: string | null
           updated_at: string
@@ -198,6 +199,7 @@ export type Database = {
           dim_filter?: boolean
           gray_filter?: boolean
           key: string
+          logo_overlay?: boolean
           overlay_color?: string
           overlay_icon?: string | null
           updated_at?: string
@@ -211,6 +213,7 @@ export type Database = {
           dim_filter?: boolean
           gray_filter?: boolean
           key?: string
+          logo_overlay?: boolean
           overlay_color?: string
           overlay_icon?: string | null
           updated_at?: string
