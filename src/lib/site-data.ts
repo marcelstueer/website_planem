@@ -11,9 +11,10 @@ export type SiteImageRow = {
   overlay_color?: string;
   description?: string;
   ai_label?: boolean;
+  logo_overlay?: boolean;
 };
 
-export const SITE_IMAGE_COLUMNS = "key,url,gray_filter,dim_filter,anthracite_filter,overlay_icon,overlay_color,description,ai_label";
+export const SITE_IMAGE_COLUMNS = "key,url,gray_filter,dim_filter,anthracite_filter,overlay_icon,overlay_color,description,ai_label,logo_overlay";
 
 export function useSiteTexts() {
   const query = useQuery({

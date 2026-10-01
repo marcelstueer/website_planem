@@ -40,18 +40,34 @@ export function ImageOverlayIcon({ image }: { image?: Partial<SiteImageRow> | un
   );
 }
 
+/** Planem wordmark in the top-right corner, adapted for dark filtered images. */
+export function LogoOverlay({ image }: { image?: Partial<SiteImageRow> | undefined }) {
+  if (!image?.logo_overlay) return null;
+  return (
+    <span className="pointer-events-none absolute right-[3cqmin] top-[3cqmin] z-10 flex max-w-[38%] items-center bg-background/75 px-[2cqmin] py-[1.25cqmin] shadow-md backdrop-blur-sm [container-type:size]">
+      <img
+        src="/planem-logo.svg"
+        alt=""
+        aria-hidden="true"
+        className={cn("h-auto w-[28cqmin] min-w-20", image.anthracite_filter && "brightness-0 invert")}
+      />
+    </span>
+  );
+}
+
 export function SiteImage({ imageKey, fallback, alt, className, ...rest }: Props) {
   const { images } = useSiteImages();
   const image = images[imageKey];
   const src = image?.url || fallback;
   const ai = image ? !!image.ai_label : isAiGenerated(src);
   const img = <img src={src} alt={ai ? `${alt} (KI-generiert)` : alt} className={cn(className, imageFilterClass(image))} {...rest} />;
-  if (!image?.overlay_icon && !ai) return img;
+  if (!image?.overlay_icon && !image?.logo_overlay && !ai) return img;
   const absolute = className?.includes("absolute");
   return (
     <span className={cn("overflow-hidden", absolute ? "absolute inset-0" : "relative block h-full w-full")}>
       {img}
       <ImageOverlayIcon image={image} />
+      <LogoOverlay image={image} />
       {ai && <AiBadge />}
     </span>
   );
