@@ -54,7 +54,7 @@ export function LogoOverlay({ image }: { image?: Partial<SiteImageRow> | undefin
         src="/planem-logo.svg"
         alt=""
         aria-hidden="true"
-        className={cn("h-auto w-[40cqmin] min-w-20", image.anthracite_filter && "brightness-0 invert")}
+        className={cn("h-auto w-[32cqmin] min-w-20", image.anthracite_filter && "brightness-0 invert")}
       />
     </span>
   );
