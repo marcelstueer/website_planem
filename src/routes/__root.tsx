@@ -10,7 +10,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 function NotFoundComponent() {
   return <div className="flex min-h-[70vh] items-center justify-center px-5"><div className="max-w-md text-center"><p className="eyebrow">Fehler 404</p><h1 className="mt-4 text-5xl font-light">Diese Seite gibt es nicht.</h1><p className="mt-4 text-muted-foreground">Vielleicht finden Sie auf der Startseite den passenden Weg.</p><Button asChild className="mt-7"><Link to="/">Zur Startseite</Link></Button></div></div>;
 }
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error); const router = useRouter();
   useEffect(() => { reportLovableError(error, { boundary: "tanstack_root_error_component" }); }, [error]);
   return <div className="flex min-h-[70vh] items-center justify-center px-5"><div className="max-w-md text-center"><h1 className="text-3xl font-light">Diese Seite konnte nicht geladen werden.</h1><p className="mt-4 text-muted-foreground">Bitte versuchen Sie es erneut.</p><Button className="mt-7" onClick={() => { router.invalidate(); reset(); }}>Erneut versuchen</Button></div></div>;
