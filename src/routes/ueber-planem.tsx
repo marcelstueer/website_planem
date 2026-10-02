@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Briefcase, Coins, Handshake, MapPin, Phone, Route } from "lucide-react";
+import { ArrowRight, Award, Briefcase, Coins, Handshake, MapPin, Phone, Route as RouteIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
@@ -37,7 +37,7 @@ const experience = [
 
 const values = [
   { icon: Phone, title: "Direkter Ansprechpartner", text: "Sie sprechen immer mit mir – vom Erstgespräch bis zum Nachweis." },
-  { icon: Route, title: "Mobilität und Energie zusammen", text: "Stellplätze, Ladeinfrastruktur und Gebäudeenergie in einem Konzept." },
+  { icon: RouteIcon, title: "Mobilität und Energie zusammen", text: "Stellplätze, Ladeinfrastruktur und Gebäudeenergie in einem Konzept." },
   { icon: Coins, title: "Förderung & Wirtschaftlichkeit", text: "BAFA- und KfW-Mittel von Anfang an eingeplant." },
   { icon: MapPin, title: "Regional erreichbar", text: "Münster, Münsterland, Ostwestfalen und Osnabrücker Land." },
 ];
