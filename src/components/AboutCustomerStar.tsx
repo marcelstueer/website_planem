@@ -53,7 +53,7 @@ export function AboutCustomerStar() {
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">Direkt und koordiniert</p>
           <h2 className="mt-4 text-4xl font-light leading-tight md:text-5xl">Ihr Projekt steht im Mittelpunkt.</h2>
-          <p className="mt-5 text-lg font-light leading-8 text-muted-foreground">Sie bestimmen, was langfristig funktionieren soll. Ich verbinde die passenden Themen, behalte Wirtschaftlichkeit und Vorgaben im Blick und bleibe Ihr direkter Ansprechpartner.</p>
+          <p className="mt-5 text-lg font-light leading-8 text-muted-foreground">Sie bestimmen, was langfristig funktionieren soll. Wir verbinden die passenden Themen, behalte Wirtschaftlichkeit und Vorgaben im Blick und bleiben Ihr direkter Ansprechpartner.</p>
         </div>
 
         <div ref={ref}>
