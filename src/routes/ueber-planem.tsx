@@ -86,10 +86,67 @@ function AboutPage() {
          <div><p className="eyebrow">Persönlich für Sie da</p><h2 className="mt-5 text-4xl font-light md:text-6xl">{text("about.person.name", "Marcel Stüer")}</h2><p className="mt-3 text-lg text-primary">{text("about.person.role", "Gründer & Ingenieur")}</p><p className="mt-7 max-w-xl text-lg font-light leading-8 text-muted-foreground">Klimaschutz durch Technologie, die heute schon bereitsteht. Bei mir steht die greifbare Transformation im Mittelpunkt: Die (Förder-)Mittel sind da, wir müssen sie nur implementieren. Das ist kein Verzicht, sondern ein Gewinn für alle Seiten – Umwelt, Gesellschaft und Zukunft. Wir müssen das Rad nicht neu erfinden, sondern einfach den Reiter aufs Pferd hieven!</p></div>
       </div>
     </section>
-    <section className="py-20 md:py-24"><div className="site-container"><div className="grid gap-px bg-border md:grid-cols-2">{facts.map(({icon: Icon, title, text: factText}) => <article key={title} className="bg-background p-7 md:p-10"><Icon className="size-7 text-primary"/><h2 className="mt-8 text-2xl font-light">{title}</h2><p className="mt-4 leading-7 text-muted-foreground">{factText}</p></article>)}</div></div></section>
+    <section className="py-20 md:py-24">
+      <div className="site-container grid gap-12 lg:grid-cols-2">
+        <div>
+          <p className="eyebrow">Warum planem</p>
+          <h2 className="mt-5 text-4xl font-light leading-tight md:text-5xl">Eigenverantwortlich gestalten. Messbar beitragen.</h2>
+          <p className="mt-6 text-lg font-light leading-8 text-muted-foreground">Ich habe planem gegründet, weil ich Projekte selbst verantworten und messbar etwas bewirken möchte: Energie einsparen, CO₂ reduzieren, die Mobilitätswende mitgestalten und Biodiversität in jedes Projekt mitdenken. planem soll ein Werkzeug für ökologischen Wandel sein – mit wirtschaftlicher Tragfähigkeit als Grundlage.</p>
+        </div>
+        <div className="border-l-2 border-primary pl-8">
+          <p className="eyebrow">Einzelunternehmer – bewusst</p>
+          <h3 className="mt-5 text-2xl font-light">Direkter Draht zum Experten.</h3>
+          <ul className="mt-6 space-y-3 text-lg font-light leading-8 text-muted-foreground">
+            <li>Keine Warteschleifen, keine Weitergabe an wechselnde Sachbearbeiter.</li>
+            <li>Wer Sie berät, rechnet, plant und stellt auch den Förderantrag – ich.</li>
+            <li>Freiberufliche Ingenieurtätigkeit: unabhängig von Herstellern und Handwerksbetrieben.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section className="border-y border-border bg-secondary py-20 md:py-24">
+      <div className="site-container">
+        <p className="eyebrow">Qualifikation</p>
+        <h2 className="mt-5 text-4xl font-light md:text-5xl">Ausbildung und Zertifikate</h2>
+        <div className="mt-10 grid gap-px bg-border">
+          {qualifications.map((q) => (
+            <div key={q.title} className="grid gap-2 bg-background p-6 md:grid-cols-[auto_1.4fr_1fr_1fr] md:items-center md:gap-6">
+              <Award className="size-6 text-primary" strokeWidth={1.5} />
+              <p className="font-medium">{q.title}</p>
+              <p className="text-sm text-muted-foreground">{q.area}</p>
+              <p className="text-sm text-primary">{q.use}</p>
+            </div>
+          ))}
+        </div>
+        <h3 className="mt-14 flex items-center gap-3 text-2xl font-light"><Briefcase className="size-6 text-primary" strokeWidth={1.5} />Berufserfahrung und Netzwerk</h3>
+        <ul className="mt-6 grid gap-4 md:grid-cols-2">
+          {experience.map((e) => <li key={e} className="border-l border-primary/50 pl-5 leading-7 text-muted-foreground">{e}</li>)}
+        </ul>
+      </div>
+    </section>
+    <section className="py-20 md:py-24">
+      <div className="site-container grid items-center gap-12 lg:grid-cols-2">
+        <ValuesDiagram />
+        <div>
+          <p className="eyebrow">Arbeitsweise</p>
+          <h2 className="mt-5 text-4xl font-light leading-tight md:text-5xl">Worauf Sie sich verlassen können.</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {values.map(({ icon: Icon, title, text: t }) => (
+              <div key={title}><Icon className="size-6 text-primary" strokeWidth={1.5} /><h3 className="mt-3 font-medium">{title}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{t}</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
     <section className="py-20 md:py-28"><div className="site-container grid items-center gap-12 lg:grid-cols-2"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.ecology" fallback={windradImage} alt="Windenergieanlage über einem Feld im Münsterland" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover" /></div><div><p className="eyebrow">Ökologie und Nachhaltigkeit</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-5xl">Natur, Mensch und Mobilität. Im Verbund.</h2><p className="mt-6 max-w-lg text-lg font-light leading-8 text-muted-foreground">Biodiversität, Entsiegelung und natürliche Gebäudekühlung gehören für uns zum Entwurf wie sichere Fußwege, gut geplante Fahrradinfrastruktur und verkehrsberuhigte Fahrbahnen – bevorzugt für E-Mobilität. So steigt der Gesamtwert der Immobilie und die Lebensqualität vor Ort.</p></div></div></section>
     <Quiz />
-    <section className="py-20 md:py-28"><div className="site-container grid gap-10 md:grid-cols-[1fr_1.5fr]"><p className="eyebrow">Arbeitsweise</p><div><blockquote className="text-3xl font-light leading-tight md:text-5xl">„Gute Beratung hört zu, schafft Lösungen, die Ressourcen schonen, Werte erhalten und Begeisterung wecken für ein gutes Gefühl von morgen.“</blockquote><p className="mt-8 text-muted-foreground">{text("about.person.name", "Marcel Stüer")}, Gründer von planem</p><Button asChild className="mt-9"><Link to="/kontakt">Persönlich kennenlernen <ArrowRight/></Link></Button></div></div></section>
+    <section className="py-20 md:py-28"><div className="site-container grid gap-10 md:grid-cols-[1fr_1.5fr]"><p className="eyebrow">Haltung</p><div><blockquote className="text-3xl font-light leading-tight md:text-5xl">„Gute Beratung hört zu, schafft Lösungen, die Ressourcen schonen, Werte erhalten und Begeisterung wecken für ein gutes Gefühl von morgen.“</blockquote><p className="mt-8 text-muted-foreground">{text("about.person.name", "Marcel Stüer")}, Gründer von planem</p></div></div></section>
+    <section className="bg-ink py-20 text-ink-foreground md:py-24">
+      <div className="site-container flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
+        <div><h2 className="text-3xl font-light md:text-5xl">Lassen Sie uns sprechen.</h2><p className="mt-4 max-w-xl text-lg font-light text-ink-muted">Ein unverbindliches Erstgespräch – direkt mit mir, ohne Umwege.</p></div>
+        <Button asChild size="lg"><Link to="/kontakt">Unverbindliches Erstgespräch vereinbaren <ArrowRight /></Link></Button>
+      </div>
+    </section>
     <SeoSection />
   </>;
 }
