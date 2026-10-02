@@ -1,129 +1,178 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  BatteryCharging, Building2, ClipboardCheck, Coins, Handshake, Route, Sprout,
-  SquareParking, TreeDeciduous, Wind, type LucideIcon,
+  ArrowUpRight,
+  BatteryCharging,
+  Building2,
+  Coins,
+  Mail,
+  Phone,
+  Route,
+  Scale,
+  Sprout,
+  UserRound,
+  type LucideIcon,
 } from "lucide-react";
 
-type Node = { icon: LucideIcon; label: string };
+type ServiceNode = {
+  icon: LucideIcon;
+  label: string;
+  detail: string;
+  href: string;
+  externalAction?: boolean;
+};
 
-const NODES: Node[] = [
-  { icon: Route, label: "Mobilitätskonzepte" },
-  { icon: SquareParking, label: "Stellplatzreduzierung" },
-  { icon: BatteryCharging, label: "E-Mobilität" },
-  { icon: Building2, label: "Gebäude-Energiekonzepte" },
-  { icon: Coins, label: "Fördermittel Energieeffizienz" },
-  { icon: ClipboardCheck, label: "Audit & Management" },
-  { icon: Wind, label: "Erneuerbare Energien" },
-  { icon: Sprout, label: "Nachhaltigkeit" },
-  { icon: TreeDeciduous, label: "Ökologie" },
+const NODES: ServiceNode[] = [
+  { icon: Phone, label: "Direkt anrufen", detail: "+49 (0)170 7490612", href: "tel:+491707490612", externalAction: true },
+  { icon: Mail, label: "E-Mail schreiben", detail: "info@planem.de", href: "mailto:info@planem.de", externalAction: true },
+  { icon: Coins, label: "Fördermittel", detail: "Chancen nutzen", href: "/leistungen/energieberatung#foerderprogramme" },
+  { icon: Building2, label: "Gebäudeenergie", detail: "Kosten langfristig senken", href: "/leistungen/energieberatung" },
+  { icon: Sprout, label: "Nachhaltigkeit", detail: "Zukunftsfähig handeln", href: "/leistungen" },
+  { icon: BatteryCharging, label: "E-Mobilität", detail: "Infrastruktur mitdenken", href: "/leistungen/mobilitaetskonzepte#foerderung" },
+  { icon: Scale, label: "Stellplatzreduzierung", detail: "Vorgaben wirtschaftlich lösen", href: "/leistungen/mobilitaetskonzepte#kostenvorteile" },
+  { icon: Route, label: "Mobilitätskonzepte", detail: "Bedarf fundiert planen", href: "/leistungen/mobilitaetskonzepte" },
 ];
 
-const R = 34; // radius in % of the square
-const RI = R * 0.55;
-// Sinnvolle Verknüpfungen: Datenpunkte wandern zwischen diesen Bereichen
-const FLOWS: [number, number][] = [[0, 1], [1, 2], [3, 6], [3, 4], [4, 5], [6, 7], [7, 8], [2, 6], [0, 8], [5, 3]];
+const RADIUS = 34;
 
 export function ServiceStar() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [activeNode, setActiveNode] = useState<number | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
   useEffect(() => {
     const el = ref.current;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(motionQuery.matches);
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { setVisible(true); io.disconnect(); } }, { threshold: 0.25 });
-    io.observe(el);
-    return () => io.disconnect();
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  const points = NODES.map((_, i) => {
-    const a = (i / NODES.length) * Math.PI * 2 - Math.PI / 2;
-    return { x: 50 + R * Math.cos(a), y: 50 + R * Math.sin(a) };
+  const points = NODES.map((_, index) => {
+    const angle = (index / NODES.length) * Math.PI * 2 - Math.PI / 2;
+    return { x: 50 + RADIUS * Math.cos(angle), y: 50 + RADIUS * Math.sin(angle) };
   });
-  const angle = (i: number) => (i / NODES.length) * Math.PI * 2 - Math.PI / 2;
-  const inner = NODES.map((_, i) => ({ x: 50 + RI * Math.cos(angle(i)), y: 50 + RI * Math.sin(angle(i)) }));
-  const outerPts = points.map((p) => `${p.x},${p.y}`).join(" ");
-  const innerPts = inner.map((p) => `${p.x},${p.y}`).join(" ");
-  // Route: Bereich → Innenring → über Ecken entlang des Rings → Bereich (und zurück)
-  const flowPath = (a: number, b: number) => {
-    const n = NODES.length;
-    const fwd = (b - a + n) % n;
-    const step = fwd <= n / 2 ? 1 : -1;
-    const route = [points[a]!];
-    if (Math.min(fwd, n - fwd) === 1) route.push(points[b]!);
-    else {
-      for (let i = a; ; i = (i + step + n) % n) { route.push(inner[i]!); if (i === b) break; }
-      route.push(points[b]!);
-    }
-    const back = [...route].reverse().slice(1);
-    return "M" + [...route, ...back].map((p) => `${p.x},${p.y}`).join(" L");
-  };
 
   return (
-    <section className="py-20 md:py-28">
+    <section className="overflow-hidden py-20 md:py-28">
       <div className="site-container">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">Aus einer Hand</p>
           <h2 className="mt-4 text-4xl font-light leading-tight md:text-5xl">Alle Bereiche vernetzt. Sie im Zentrum.</h2>
-          <p className="mt-5 text-lg font-light leading-8 text-muted-foreground">Mobilität, Energie und Nachhaltigkeit greifen ineinander – und jede Lösung entsteht gemeinsam mit Ihnen.</p>
+          <p className="mt-5 text-lg font-light leading-8 text-muted-foreground">Sie definieren das Ziel. planem koordiniert Mobilität, Gebäudeenergie und Förderung zu einer langfristig wirtschaftlichen und belastbaren Lösung.</p>
         </div>
 
         <div ref={ref}>
-          {/* Desktop / tablet: radial star */}
-          <div className="relative mx-auto mt-14 hidden aspect-square w-full max-w-[720px] md:block">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden>
-              <polygon points={outerPts} fill="none" className="stroke-primary/30" strokeWidth="0.18"
-                style={{ strokeDasharray: 300, strokeDashoffset: visible ? 0 : 300, transition: "stroke-dashoffset 1.6s ease .8s" }} />
-              <polygon points={innerPts} fill="none" className="stroke-border" strokeWidth="0.18" strokeDasharray="0.8 0.8" />
-              {points.map((p, i) => (
-                <line key={i} x1="50" y1="50" x2={p.x} y2={p.y} className="stroke-primary/70" strokeWidth="0.22"
-                  style={{ strokeDasharray: 45, strokeDashoffset: visible ? 0 : 45, transition: `stroke-dashoffset 1s ease ${i * 0.08}s` }} />
-              ))}
-              {inner.map((p, i) => <rect key={`v${i}`} x={p.x - 0.5} y={p.y - 0.5} width="1" height="1" className="fill-background stroke-primary/60" strokeWidth="0.15" />)}
-              {FLOWS.map(([a, b], i) => (
-                <g key={`f${i}`} style={{ opacity: visible ? 1 : 0, transition: `opacity .6s ${1.4 + i * 0.1}s` }}>
-                  <circle r="0.7" className="fill-primary">
-                    <animateMotion dur={`${5 + (i % 4)}s`} begin={i ? `-${(i * 0.7).toFixed(1)}s` : "0s"} repeatCount="indefinite" path={flowPath(a, b)} />
-                  </circle>
-                  <circle r="1.6" className="fill-primary/20">
-                    <animateMotion dur={`${5 + (i % 4)}s`} begin={i ? `-${(i * 0.7).toFixed(1)}s` : "0s"} repeatCount="indefinite" path={flowPath(a, b)} />
-                  </circle>
-                </g>
-              ))}
+          <div className="relative mx-auto mt-14 hidden aspect-square w-full max-w-[760px] md:block">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
+              <circle cx="50" cy="50" r="16" fill="none" className="stroke-primary/35" strokeWidth="0.35" strokeDasharray="1.2 1.2" />
+              <circle cx="50" cy="50" r={RADIUS} fill="none" className="stroke-border" strokeWidth="0.18" strokeDasharray="0.8 0.8" />
+              {points.map((point, index) => {
+                const isActive = activeNode === index;
+                return (
+                  <g key={NODES[index]?.label}>
+                    <line
+                      x1="50"
+                      y1="50"
+                      x2={point.x}
+                      y2={point.y}
+                      className={isActive ? "stroke-primary" : "stroke-primary/35"}
+                      strokeWidth={isActive ? "0.48" : "0.24"}
+                      style={{
+                        strokeDasharray: 48,
+                        strokeDashoffset: visible ? 0 : 48,
+                        transition: `stroke-dashoffset 1s ease ${index * 0.08}s, stroke-width .2s ease, stroke .2s ease`,
+                      }}
+                    />
+                    {visible && !reducedMotion && (
+                      <circle r={isActive ? "0.9" : "0.55"} className="fill-primary">
+                        <animateMotion
+                          dur={isActive ? "2.8s" : `${4.8 + (index % 3)}s`}
+                          begin={`-${(index * 0.55).toFixed(1)}s`}
+                          repeatCount="indefinite"
+                          path={`M50,50 L${point.x},${point.y} L50,50`}
+                        />
+                      </circle>
+                    )}
+                  </g>
+                );
+              })}
             </svg>
 
-            <div className="absolute left-1/2 top-1/2 flex size-36 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl bg-ink text-ink-foreground shadow-xl ring-8 ring-primary/15">
-              <Handshake className="size-9 text-brand-light" strokeWidth={1.5} />
-              <span className="mt-2 text-lg font-light">Gemeinsam</span>
-              <span className="text-[10px] uppercase tracking-[0.18em] text-ink-muted">mit Ihnen</span>
+            <div className="absolute left-1/2 top-1/2 z-20 flex size-48 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border-4 border-primary bg-background p-5 text-center shadow-xl">
+              <UserRound className="size-8 text-primary" strokeWidth={1.5} />
+              <span className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Ihr Projekt</span>
+              <strong className="mt-1 text-lg font-medium leading-tight">Sie im Mittelpunkt</strong>
+              <span className="mt-2 text-[11px] leading-4 text-muted-foreground">wirtschaftlich · regelkonform · langfristig</span>
+            </div>
+            <div className="absolute left-1/2 top-[31%] z-20 -translate-x-1/2 bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground shadow-sm">
+              planem koordiniert
             </div>
 
-            {NODES.map(({ icon: Icon, label }, i) => (
-              <div key={label} style={{ opacity: visible ? 1 : 0, transition: `opacity .6s ease ${0.5 + i * 0.08}s` }}>
-                <div className="absolute flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md border border-primary/50 bg-background shadow-sm"
-                  style={{ left: `${points[i]!.x}%`, top: `${points[i]!.y}%` }}>
-                  <Icon className="size-6 text-primary" strokeWidth={1.5} />
-                </div>
-                <span className="absolute w-32 -translate-x-1/2 -translate-y-1/2 text-center text-xs font-medium leading-tight"
-                  style={{ left: `${50 + (R + 11) * Math.cos(angle(i))}%`, top: `${50 + (R + 10) * Math.sin(angle(i))}%` }}>{label}</span>
-              </div>
-            ))}
+            {NODES.map(({ icon: Icon, label, detail, href, externalAction }, index) => {
+              const point = points[index];
+              if (!point) return null;
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  onMouseEnter={() => setActiveNode(index)}
+                  onMouseLeave={() => setActiveNode(null)}
+                  onFocus={() => setActiveNode(index)}
+                  onBlur={() => setActiveNode(null)}
+                  aria-label={`${label}: ${detail}`}
+                  className="group absolute z-30 flex w-40 -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center focus-visible:outline-none"
+                  style={{
+                    left: `${point.x}%`,
+                    top: `${point.y}%`,
+                    opacity: visible ? 1 : 0,
+                    transition: `opacity .5s ease ${0.35 + index * 0.07}s`,
+                  }}
+                >
+                  <span className="flex size-16 items-center justify-center rounded-md border border-primary/45 bg-background shadow-md transition duration-300 group-hover:-translate-y-1 group-hover:scale-125 group-hover:border-primary group-hover:shadow-xl group-focus-visible:-translate-y-1 group-focus-visible:scale-125 group-focus-visible:border-primary group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2">
+                    <Icon className="size-7 text-primary transition-transform duration-300 group-hover:scale-105" strokeWidth={1.5} />
+                  </span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold leading-tight text-foreground">
+                    {label}<ArrowUpRight className="size-3 text-primary opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden="true" />
+                  </span>
+                  <span className="mt-1 text-[11px] leading-4 text-muted-foreground">{detail}</span>
+                  {externalAction && <span className="sr-only">Direkte Kontaktaktion</span>}
+                </a>
+              );
+            })}
           </div>
 
-          {/* Mobile: stacked network */}
           <div className="mt-10 md:hidden">
-            <div className="mx-auto flex w-fit flex-col items-center rounded-full bg-ink px-8 py-5 text-ink-foreground">
-              <Handshake className="size-7 text-brand-light" strokeWidth={1.5} />
-              <span className="mt-1 font-light">Gemeinsam mit Ihnen</span>
+            <div className="mx-auto flex max-w-xs flex-col items-center rounded-md border-2 border-primary bg-background px-6 py-5 text-center shadow-lg">
+              <UserRound className="size-7 text-primary" strokeWidth={1.5} />
+              <span className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">Ihr Projekt</span>
+              <strong className="mt-1 text-lg font-medium">Sie im Mittelpunkt</strong>
+              <span className="mt-2 text-xs leading-5 text-muted-foreground">wirtschaftlich · regelkonform · langfristig</span>
+              <span className="mt-4 bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground">planem koordiniert</span>
             </div>
-            <div className="relative ml-6 mt-2 border-l border-primary/40 pl-6">
-              {NODES.map(({ icon: Icon, label }, i) => (
-                <div key={label} className="relative flex items-center gap-4 py-3"
-                  style={{ opacity: visible ? 1 : 0, transform: `translateX(${visible ? 0 : -8}px)`, transition: `all .5s ease ${i * 0.06}s` }}>
-                  <span className="absolute -left-6 top-1/2 h-px w-6 bg-primary/40" />
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-background">
+            <div className="relative mt-7 grid gap-3 sm:grid-cols-2">
+              {NODES.map(({ icon: Icon, label, detail, href }, index) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="group flex min-h-20 items-center gap-4 border border-border bg-background p-4 shadow-sm transition duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : 8}px)`, transitionDelay: `${index * 0.05}s` }}
+                >
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-md border border-primary/40 bg-secondary">
                     <Icon className="size-5 text-primary" strokeWidth={1.5} />
-                  </div>
-                  <span className="text-sm font-medium">{label}</span>
-                </div>
+                  </span>
+                  <span className="min-w-0 text-left">
+                    <span className="flex items-center gap-1 text-sm font-semibold">{label}<ArrowUpRight className="size-3 shrink-0 text-primary" /></span>
+                    <span className="mt-1 block text-xs leading-4 text-muted-foreground">{detail}</span>
+                  </span>
+                </a>
               ))}
             </div>
           </div>
