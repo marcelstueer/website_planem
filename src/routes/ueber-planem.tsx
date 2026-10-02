@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Compass, GraduationCap, MapPin } from "lucide-react";
+import { ArrowRight, Award, Briefcase, Coins, Handshake, MapPin, Phone, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
@@ -20,12 +20,53 @@ export const Route = createFileRoute("/ueber-planem")({
   component: AboutPage,
 });
 
-const facts = [
-  { icon: GraduationCap, title: "Technisches Fundament", text: "Master of Engineering im Technischen Management, Bachelor of Science in Umwelttechnik und Ausbildung zum Technischen Zeichner. Seit 20 Jahren im technischen Klimaschutz aktiv." },
-  { icon: Award, title: "Zertifizierte Expertise", text: "Seit 2016 BAFA- und KfW-zertifizierter Energieberater für Nichtwohngebäude sowie IHK-zertifizierter Mobilitätsmanager." },
-  { icon: Compass, title: "Internationale Perspektive", text: "Berufliche Erfahrungen aus den USA, Japan und den Niederlanden erweitern den Blick auf bewährte Lösungen." },
-  { icon: MapPin, title: "Regional erreichbar", text: "Persönliche Beratung in Münster und im Münsterland, in Ostwestfalen sowie im Osnabrücker Land." },
+const qualifications = [
+  { title: "Master of Engineering – Technisches Management", area: "Ingenieurwesen / BWL", use: "Unternehmensführung, Projektmanagement" },
+  { title: "Bachelor of Science – Umwelttechnik", area: "Umwelt / Technik", use: "Fachliche Basis Energie & Nachhaltigkeit" },
+  { title: "BAFA-/KfW-Energieberater Nichtwohngebäude (seit 2016)", area: "Energieeffizienz", use: "Kernkompetenz Fördermittelberatung" },
+  { title: "IHK-Zertifikat Mobilitätsmanager", area: "Mobilität / Verkehr", use: "Kernkompetenz Mobilitätskonzepte" },
+  { title: "Ausbildung Technischer Zeichner (1997–2001)", area: "Technische Planung", use: "Planungsverständnis, Dokumentation" },
 ];
+
+const experience = [
+  "Aufbau neuer Geschäftsfelder im letzten Anstellungsverhältnis: Energieberatung Nichtwohngebäude, Energieaudit nach DIN EN 16247, Energiemanagement nach ISO 50001 und Mobilitätsmanagement.",
+  "Vertriebserfahrung bei MAN Diesel (Kleinkraftwerke / Biogas) in Augsburg und München.",
+  "Sehr gute Englischkenntnisse durch Aufenthalte in den USA und Australien; berufliche Kontakte nach Japan und in die Niederlande.",
+  "Gelistet in der Energieeffizienz-Expertenliste des Bundes (dena) und vernetzt im Kompetenznetz ElektroMobilität NRW.",
+];
+
+const values = [
+  { icon: Phone, title: "Direkter Ansprechpartner", text: "Sie sprechen immer mit mir – vom Erstgespräch bis zum Nachweis." },
+  { icon: Route, title: "Mobilität und Energie zusammen", text: "Stellplätze, Ladeinfrastruktur und Gebäudeenergie in einem Konzept." },
+  { icon: Coins, title: "Förderung & Wirtschaftlichkeit", text: "BAFA- und KfW-Mittel von Anfang an eingeplant." },
+  { icon: MapPin, title: "Regional erreichbar", text: "Münster, Münsterland, Ostwestfalen und Osnabrücker Land." },
+];
+
+function ValuesDiagram() {
+  const pos = [{ x: 50, y: 12 }, { x: 88, y: 50 }, { x: 50, y: 88 }, { x: 12, y: 50 }];
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" aria-hidden>
+        <polygon points={pos.map((p) => `${p.x},${p.y}`).join(" ")} fill="none" className="stroke-primary/30" strokeWidth="0.3" strokeDasharray="1 1" />
+        {pos.map((p, i) => <line key={i} x1="50" y1="50" x2={p.x} y2={p.y} className="stroke-primary/60" strokeWidth="0.35" />)}
+        {pos.map((p, i) => (
+          <circle key={`d${i}`} r="1" className="fill-primary">
+            <animateMotion dur="4s" begin={`-${i}s`} repeatCount="indefinite" path={`M50,50 L${p.x},${p.y} L50,50`} />
+          </circle>
+        ))}
+      </svg>
+      <div className="absolute left-1/2 top-1/2 flex size-24 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl bg-ink text-ink-foreground ring-8 ring-primary/15">
+        <Handshake className="size-7 text-brand-light" strokeWidth={1.5} />
+        <span className="mt-1 text-sm font-light">planem</span>
+      </div>
+      {values.map(({ icon: Icon, title }, i) => (
+        <div key={title} className="absolute flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md border border-primary/50 bg-background shadow-sm" style={{ left: `${pos[i]!.x}%`, top: `${pos[i]!.y}%` }} title={title}>
+          <Icon className="size-6 text-primary" strokeWidth={1.5} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function AboutPage() {
   const { text } = useSiteTexts();
