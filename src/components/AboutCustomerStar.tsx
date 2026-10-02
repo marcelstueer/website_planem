@@ -1,0 +1,106 @@
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, BatteryCharging, Building2, Coins, Mail, Phone, Route, Scale, Sprout, UserRound, type LucideIcon } from "lucide-react";
+
+type CustomerNode = { icon: LucideIcon; label: string; detail: string; href: string };
+
+const NODES: CustomerNode[] = [
+  { icon: Phone, label: "Direkt anrufen", detail: "+49 (0)170 7490612", href: "tel:+491707490612" },
+  { icon: Mail, label: "E-Mail schreiben", detail: "info@planem.de", href: "mailto:info@planem.de" },
+  { icon: Coins, label: "Fördermittel", detail: "Chancen nutzen", href: "/leistungen/energieberatung#foerderprogramme" },
+  { icon: Building2, label: "Gebäudeenergie", detail: "Kosten langfristig senken", href: "/leistungen/energieberatung" },
+  { icon: Sprout, label: "Nachhaltigkeit", detail: "Zukunftsfähig handeln", href: "/leistungen" },
+  { icon: BatteryCharging, label: "E-Mobilität", detail: "Infrastruktur mitdenken", href: "/leistungen/mobilitaetskonzepte#foerderung" },
+  { icon: Scale, label: "Stellplatzreduzierung", detail: "Vorgaben wirtschaftlich lösen", href: "/leistungen/mobilitaetskonzepte#kostenvorteile" },
+  { icon: Route, label: "Mobilitätskonzepte", detail: "Bedarf fundiert planen", href: "/leistungen/mobilitaetskonzepte" },
+];
+
+const RADIUS = 34;
+
+export function AboutCustomerStar() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState<number | null>(null);
+  const [featuredNode, setFeaturedNode] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(el);
+    if (motionQuery.matches) return () => observer.disconnect();
+    let index = 0;
+    const interval = window.setInterval(() => {
+      setFeaturedNode(index % NODES.length);
+      index += 1;
+    }, 2400);
+    return () => { observer.disconnect(); window.clearInterval(interval); };
+  }, []);
+
+  const points = NODES.map((_, index) => {
+    const angle = (index / NODES.length) * Math.PI * 2 - Math.PI / 2;
+    return { x: 50 + RADIUS * Math.cos(angle), y: 50 + RADIUS * Math.sin(angle) };
+  });
+
+  return (
+    <section className="border-b border-border py-20 md:py-24">
+      <div className="site-container">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">Direkt und koordiniert</p>
+          <h2 className="mt-4 text-4xl font-light leading-tight md:text-5xl">Ihr Projekt steht im Mittelpunkt.</h2>
+          <p className="mt-5 text-lg font-light leading-8 text-muted-foreground">Sie bestimmen, was langfristig funktionieren soll. Ich verbinde die passenden Themen, behalte Wirtschaftlichkeit und Vorgaben im Blick und bleibe Ihr direkter Ansprechpartner.</p>
+        </div>
+
+        <div ref={ref}>
+          <div className="relative mx-auto mt-14 hidden aspect-square w-full max-w-[760px] md:block" onMouseLeave={() => setHoveredNode(null)}>
+            <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
+              <circle cx="50" cy="50" r="16" fill="none" className="stroke-primary/35" strokeWidth="0.35" strokeDasharray="1.2 1.2" />
+              <circle cx="50" cy="50" r={RADIUS} fill="none" className="stroke-border" strokeWidth="0.18" strokeDasharray="0.8 0.8" />
+              {points.map((point, index) => <line key={NODES[index]?.label} x1="50" y1="50" x2={point.x} y2={point.y} className={hoveredNode === index ? "stroke-primary" : "stroke-primary/35"} strokeWidth={hoveredNode === index ? "0.48" : "0.24"} style={{ strokeDasharray: 48, strokeDashoffset: visible ? 0 : 48, transition: `stroke-dashoffset 1s ease ${index * 0.08}s, stroke-width .2s ease` }} />)}
+            </svg>
+
+            <div className="absolute left-1/2 top-1/2 z-20 flex size-48 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border-4 border-primary bg-background p-5 text-center shadow-xl">
+              <UserRound className="size-8 text-primary" strokeWidth={1.5} />
+              <span className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Ihr Projekt</span>
+              <strong className="mt-1 text-lg font-medium leading-tight">Sie im Mittelpunkt</strong>
+              <span className="mt-2 text-[11px] leading-4 text-muted-foreground">wirtschaftlich · regelkonform · langfristig</span>
+            </div>
+            <div className="absolute left-1/2 top-[31%] z-20 -translate-x-1/2 bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-foreground shadow-sm">planem koordiniert</div>
+
+            {NODES.map(({ icon: Icon, label, detail, href }, index) => {
+              const point = points[index];
+              if (!point) return null;
+              const isFeatured = hoveredNode === null && featuredNode === index;
+              return (
+                <a key={label} href={href} aria-label={`${label}: ${detail}`} onMouseEnter={() => setHoveredNode(index)} onMouseLeave={() => setHoveredNode(null)} onFocus={() => setHoveredNode(index)} onBlur={() => setHoveredNode(null)} className="group absolute z-30 flex w-40 -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center focus-visible:outline-none" style={{ left: `${point.x}%`, top: `${point.y}%`, opacity: visible ? 1 : 0, transition: `opacity .5s ease ${0.35 + index * 0.07}s` }}>
+                  <span className={`flex size-16 items-center justify-center rounded-md border bg-background shadow-md transition duration-500 group-hover:-translate-y-1 group-hover:scale-125 group-hover:border-primary group-hover:shadow-xl group-focus-visible:-translate-y-1 group-focus-visible:scale-125 group-focus-visible:border-primary group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2 ${isFeatured ? "-translate-y-1 scale-110 border-primary shadow-lg" : "border-primary/45"}`}><Icon className="size-7 text-primary" strokeWidth={1.5} /></span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold leading-tight text-foreground">{label}<ArrowUpRight className="size-3 text-primary opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden="true" /></span>
+                  <span className="mt-1 text-[11px] leading-4 text-muted-foreground">{detail}</span>
+                </a>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 md:hidden">
+            <div className="mx-auto flex max-w-xs flex-col items-center rounded-md border-2 border-primary bg-background px-6 py-5 text-center shadow-lg">
+              <UserRound className="size-7 text-primary" strokeWidth={1.5} /><span className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-primary">Ihr Projekt</span><strong className="mt-1 text-lg font-medium">Sie im Mittelpunkt</strong><span className="mt-2 text-xs leading-5 text-muted-foreground">wirtschaftlich · regelkonform · langfristig</span><span className="mt-4 bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-primary-foreground">planem koordiniert</span>
+            </div>
+            <div className="relative mt-7 grid gap-3 sm:grid-cols-2">
+              {NODES.map(({ icon: Icon, label, detail, href }, index) => (
+                <a key={label} href={href} className="group flex min-h-20 items-center gap-4 border border-border bg-background p-4 shadow-sm transition duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" style={{ opacity: visible ? 1 : 0, transform: `translateY(${visible ? 0 : 8}px)`, transitionDelay: `${index * 0.05}s` }}>
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-md border border-primary/40 bg-secondary"><Icon className="size-5 text-primary" strokeWidth={1.5} /></span>
+                  <span className="min-w-0 text-left"><span className="flex items-center gap-1 text-sm font-semibold">{label}<ArrowUpRight className="size-3 shrink-0 text-primary" /></span><span className="mt-1 block text-xs leading-4 text-muted-foreground">{detail}</span></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
