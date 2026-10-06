@@ -9,6 +9,9 @@ export function CookieBanner() {
   useEffect(() => {
     if (getConsent() === null) setVisible(true);
     else captureAttribution();
+    const open = () => setVisible(true);
+    window.addEventListener("planem:cookie-settings", open);
+    return () => window.removeEventListener("planem:cookie-settings", open);
   }, []);
 
   if (!visible) return null;

@@ -83,6 +83,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div className="flex flex-col gap-2 text-sm text-ink-muted">
               <Link to="/impressum" className="hover:text-ink-foreground">Impressum</Link>
               <Link to="/datenschutz" className="hover:text-ink-foreground">Datenschutz</Link>
+              <button type="button" onClick={() => window.dispatchEvent(new Event("planem:cookie-settings"))} className="text-left hover:text-ink-foreground">Cookie-Einstellungen</button>
             </div>
           </div>
         </div>
