@@ -3,6 +3,8 @@ import { ArrowRight, BatteryCharging, Bike, Car, ClipboardCheck, Coins, FileChec
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
+import { SiteImage } from "@/components/SiteImage";
+import observationImage from "@/assets/mobility-real.jpg.asset.json";
 
 const TITLE = "Mobilitätskonzepte für Architekten | Stellplätze sparen";
 const DESC = "Mobilitätskonzepte senken Baukosten: bis zu 70% weniger Stellplätze, individuelle Nutzeranalyse & Fördermittel für E-Mobilität. Jetzt informieren.";
@@ -248,6 +250,7 @@ function MobilityConceptPage() {
           <Button asChild size="lg"><Link to="/kontakt">Termin vereinbaren <ArrowRight /></Link></Button>
         </div>
       </section>
+<section className="py-20 md:py-28"><div className="site-container"><div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center"><SiteImage imageKey="aktuelles.observation" fallback={observationImage.url} alt="Baustellensituation mit markierter Radverkehrsführung in Münster" loading="lazy" width={1400} height={1000} className="aspect-[7/4] w-full object-cover" /><figcaption className="text-lg font-light leading-8 text-muted-foreground">So sieht es leider oft aus: Baustellen, eingeschränkte Radführungen und unattraktive Infrastruktur prägen vielerorts den Alltag. Doch statt diese Zustände einfach hinzunehmen, setzen wir genau hier an: Gemeinsam mit unseren Kunden und Partnern zu analysieren, Lösungen zu entwickeln, damit Konzepte entstehen, die nicht nur besser und sicherer sind, sondern durch sorgfältige Planung schnell umgesetzt werden und langfristig Mehrwert schaffen.</figcaption></div></div></section>
       <SeoSection />
     </>
   );
