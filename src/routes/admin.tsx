@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { BarChart3, Film, Image as ImageIcon, Inbox, Info, LogOut, Save, Type } from "lucide-react";
+import { Newspaper, BarChart3, Film, Image as ImageIcon, Inbox, Info, LogOut, Save, Type } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { NewsMetaEditor } from "@/components/admin/NewsMetaEditor";
 import { ChartEditor, ImageEditor, MediaLibrary } from "@/components/admin/MediaAdmin";
 
 export const Route = createFileRoute("/admin")({
@@ -159,12 +160,14 @@ function Dashboard() {
           <Tabs defaultValue="texte" className="mt-10">
             <TabsList className="flex-wrap">
               <TabsTrigger value="texte"><Type className="mr-2 size-4" /> Texte</TabsTrigger>
+              <TabsTrigger value="aktuelles"><Newspaper className="mr-2 size-4" /> Aktuelles</TabsTrigger>
               <TabsTrigger value="bilder"><ImageIcon className="mr-2 size-4" /> Bilder</TabsTrigger>
               <TabsTrigger value="medien"><Film className="mr-2 size-4" /> Medien</TabsTrigger>
               <TabsTrigger value="diagramme"><BarChart3 className="mr-2 size-4" /> Diagramme</TabsTrigger>
               <TabsTrigger value="anfragen"><Inbox className="mr-2 size-4" /> Anfragen</TabsTrigger>
             </TabsList>
             <TabsContent value="texte" className="mt-8"><TextEditor /></TabsContent>
+            <TabsContent value="aktuelles" className="mt-8"><NewsMetaEditor /></TabsContent>
             <TabsContent value="bilder" className="mt-8"><ImageEditor /></TabsContent>
             <TabsContent value="medien" className="mt-8"><MediaLibrary /></TabsContent>
             <TabsContent value="diagramme" className="mt-8"><ChartEditor /></TabsContent>
