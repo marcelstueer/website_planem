@@ -29,7 +29,7 @@ import { getAttribution } from "@/lib/tracking";
 
 export const Route = createFileRoute("/kontakt")({
   validateSearch: (search: Record<string, unknown>): { anliegen?: string } =>
-    typeof search.anliegen === "string" ? { anliegen: search.anliegen.slice(0, 200) } : {},
+    typeof search["anliegen"] === "string" ? { anliegen: search["anliegen"].slice(0, 200) } : {},
   head: () => ({
     meta: [
       { title: "Kontakt & Förderfähigkeits-Check | planem Münster" },
