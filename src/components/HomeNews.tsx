@@ -17,7 +17,7 @@ const formatDate = (iso: string) => {
   return d && m ? `${d}.${m}.${y}` : iso;
 };
 
-function NewsCard({ entry, meta, large }: { entry: NewsEntry; meta?: NewsMeta; large?: boolean }) {
+function NewsCard({ entry, meta, large }: { entry: NewsEntry; meta?: NewsMeta | undefined; large?: boolean }) {
   const { label, icon: Icon } = SOURCES[entry.source];
   const short = meta?.short_text?.trim() || truncateWords(entry.text, SHORT_MAX);
   const help = meta?.help_text?.trim() ? truncateWords(meta.help_text, HELP_MAX) : "";
@@ -66,7 +66,7 @@ export function HomeNews() {
   if (!entries.length) return null;
   const metas = meta.data ?? {};
   const featuredId = Object.values(metas).find((m) => m.featured)?.id ?? DEFAULT_FEATURED_ID;
-  const featured = entries.find((e) => e.id === featuredId) ?? entries[0];
+  const featured = entries.find((e) => e.id === featuredId) ?? entries[0]!;
   const rest = entries.filter((e) => e.id !== featured.id).slice(0, 4);
 
   return shell(

@@ -14,7 +14,7 @@ function Count({ value, max }: { value: number; max: number }) {
   return <span className={value > max ? "text-destructive" : "text-muted-foreground"}>{value} / {max} Zeichen</span>;
 }
 
-function Row({ entry, meta, isFeatured }: { entry: NewsEntry; meta?: NewsMeta; isFeatured: boolean }) {
+function Row({ entry, meta, isFeatured }: { entry: NewsEntry; meta?: NewsMeta | undefined; isFeatured: boolean }) {
   const qc = useQueryClient();
   const [short, setShort] = useState(meta?.short_text ?? "");
   const [help, setHelp] = useState(meta?.help_text ?? "");
