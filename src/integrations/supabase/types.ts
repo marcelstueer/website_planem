@@ -155,6 +155,33 @@ export type Database = {
         }
         Relationships: []
       }
+      news_meta: {
+        Row: {
+          created_at: string
+          featured: boolean
+          help_text: string
+          id: string
+          short_text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          featured?: boolean
+          help_text?: string
+          id: string
+          short_text?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          featured?: boolean
+          help_text?: string
+          id?: string
+          short_text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           created_at: string
