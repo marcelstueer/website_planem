@@ -28,6 +28,8 @@ import { SeoSection } from "@/components/SeoSection";
 import { getAttribution } from "@/lib/tracking";
 
 export const Route = createFileRoute("/kontakt")({
+  validateSearch: (search: Record<string, unknown>): { anliegen?: string } =>
+    typeof search["anliegen"] === "string" ? { anliegen: search["anliegen"].slice(0, 200) } : {},
   head: () => ({
     meta: [
       { title: "Kontakt & Förderfähigkeits-Check | planem Münster" },
@@ -74,6 +76,7 @@ const labelOf = (options: Option[], value: string) => options.find((o) => o.valu
 const NONE = "nicht angegeben";
 
 function ContactPage() {
+  const { anliegen } = Route.useSearch();
   const [segment, setSegment] = useState("");
   const [goals, setGoals] = useState<string[]>([]);
   const [stage, setStage] = useState("");
@@ -209,6 +212,7 @@ function ContactPage() {
                       minLength={5}
                       maxLength={4500}
                       className="min-h-28"
+                      defaultValue={anliegen ? `${anliegen}: ` : undefined}
                       placeholder="Worum geht es? Gebäudetyp, Fläche, Fristen, vorliegende Unterlagen …"
                     />
                   </Field>
