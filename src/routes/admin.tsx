@@ -33,6 +33,9 @@ const TEXT_LABELS: Record<string, string> = {
   "home.hero.title.accent": "Startseite – Titel Zeile 2 (farbig)",
   "home.hero.text": "Startseite – Einleitungstext",
   "home.cta.title": "Startseite – Abschluss-Aufruf",
+  "bedarfsausweis.stand": "Bedarfsausweis – Stand (Datum)",
+  "aktuelles.highlight.title": "Aktuelles – hervorgehobener Eintrag: Titel",
+  "aktuelles.highlight.text": "Aktuelles – hervorgehobener Eintrag: Kurztext",
   "about.person.name": "Über planem – Name",
   "about.person.role": "Über planem – Rolle",
 };

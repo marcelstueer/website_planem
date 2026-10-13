@@ -26,7 +26,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <div key={item.to} className="group relative">
                 <Link to={item.to} className="nav-link" activeProps={{ className: "nav-link is-active" }}>{item.label}</Link>
                 <div className="invisible absolute left-0 top-full pt-4 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                  <Link to="/leistungen/energieberatung" className="block whitespace-nowrap border border-border bg-background px-4 py-3 text-sm hover:text-primary">Energieeffizienzberatung</Link><Link to="/leistungen/mobilitaetskonzepte" className="block whitespace-nowrap border border-border bg-background px-4 py-3 text-sm hover:text-primary">Mobilitätskonzepte</Link>
+                  <Link to="/leistungen/energieberatung" className="block whitespace-nowrap border border-border bg-background px-4 py-3 text-sm hover:text-primary">Energieeffizienzberatung</Link><Link to="/leistungen/bedarfsausweis" className="block whitespace-nowrap border border-border bg-background px-4 py-3 pl-8 text-sm hover:text-primary">↳ Bedarfsausweis Nichtwohngebäude</Link><Link to="/leistungen/mobilitaetskonzepte" className="block whitespace-nowrap border border-border bg-background px-4 py-3 text-sm hover:text-primary">Mobilitätskonzepte</Link>
                 </div>
               </div>
             ) : (
@@ -55,6 +55,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   {item.to === "/leistungen" && (
                     <>
                       <Link to="/leistungen/energieberatung" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted" activeProps={{ className: "text-primary font-semibold" }}>↳ Energieeffizienzberatung</Link>
+                      <Link to="/leistungen/bedarfsausweis" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-11 text-sm text-muted-foreground hover:bg-muted" activeProps={{ className: "text-primary font-semibold" }}>↳ Bedarfsausweis Nichtwohngebäude</Link>
                       <Link to="/leistungen/mobilitaetskonzepte" onClick={() => setOpen(false)} className="rounded-md px-3 py-2 pl-7 text-sm text-muted-foreground hover:bg-muted" activeProps={{ className: "text-primary font-semibold" }}>↳ Mobilitätskonzepte</Link>
                     </>
                   )}
