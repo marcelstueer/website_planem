@@ -13,6 +13,24 @@ export type BlueskyPost = {
 /** Stimmen aus der Fachcommunity (Bluesky). Zitate gekürzt, Quelle jeweils verlinkt. */
 export const blueskyPosts: BlueskyPost[] = [
   {
+    author: "VCÖ - Mobilität mit Zukunft",
+    handle: "@vcoe.bsky.social",
+    date: "2026-10-13",
+    topic: "Speicher",
+    text: "In Utrecht fungieren mehr als 300 Carsharing-Autos als Zwischenspeicher vor allem für Sonnenstrom, 2027 sollen es 1.000 sein. Im Schnitt speist ein Auto pro Tag 9 kWh Strom zurück ins Netz – mehr als der tägliche Strombedarf eines 1-Personen-Haushalts in Österreich.",
+    url: "https://bsky.app/profile/vcoe.bsky.social/post/3mxqd4h2zd22d",
+    imageUrl: "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:j5ok5wncczeluumctpen7k27/bafkreicrshruf2ib3otu2n4zwgxy7wcsirhxp4qwhcmrboj5hy6yn5a5ui",
+    imageAlt: "Textausschnitt aus dem VCÖ-Factsheet: Carsharing-Flotte als mobile Zwischenspeicher nutzen (Utrecht Energized)",
+  },
+  {
+    author: "Cleanthinking.de - Sauber in die Zukunft",
+    handle: "@cleanthinking.wsocial.eu",
+    date: "2026-10-12",
+    topic: "Wärmepumpe",
+    text: "Der Bund fördert Klimaanlagen – allerdings nur, wenn sie überwiegend heizen. Jede Split-Klimaanlage mit Heizfunktion ist eine Luft-Luft-Wärmepumpe. In Norwegen stecken in 60 Prozent der Gebäude Wärmepumpen; in Deutschland tauchen Luft-Luft-Geräte nicht einmal in der Branchenstatistik auf.",
+    url: "https://bsky.app/profile/cleanthinking.wsocial.eu/post/3mxnoq32xkp2v",
+  },
+  {
     author: "Stefan Krauter",
     handle: "@solarpapst.bsky.social",
     date: "2026-08-14",
