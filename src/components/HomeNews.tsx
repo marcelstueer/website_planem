@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, AtSign, FlaskConical, Mic, PenLine } from "lucide-react";
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 import { useSiteTexts } from "@/lib/site-data";
 import { DEFAULT_FEATURED_ID, HELP_MAX, SHORT_MAX, feedEntries, truncateWords, useNewsMeta, type NewsEntry, type NewsMeta, type NewsSource } from "@/lib/news-feed";
 import { cn } from "@/lib/utils";
@@ -34,7 +34,7 @@ function NewsCard({ entry, meta, large }: { entry: NewsEntry; meta?: NewsMeta; l
   </>;
   const cls = cn("group flex h-full flex-col bg-background p-6 transition-colors hover:bg-secondary/60", large && "border-l-4 border-primary md:p-10");
   return entry.internal
-    ? <Link to={entry.href} className={cls}>{body}</Link>
+    ? <Link to={entry.href as "/"} className={cls}>{body}</Link>
     : <a href={entry.href} target="_blank" rel="noopener" className={cls}>{body}</a>;
 }
 
@@ -43,7 +43,7 @@ export function HomeNews() {
   const meta = useNewsMeta();
   if (meta.isError) return null;
 
-  const shell = (content: React.ReactNode) => (
+  const shell = (content: ReactNode) => (
     <section className="border-y border-border bg-secondary py-16 md:py-20" aria-labelledby="home-news">
       <div className="site-container">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
