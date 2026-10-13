@@ -20,6 +20,7 @@ import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
+import { Route as LeistungenBedarfsausweisRouteImport } from './routes/leistungen.bedarfsausweis'
 import { Route as LeistungenEnergieberatungRouteImport } from './routes/leistungen.energieberatung'
 import { Route as LeistungenMobilitaetskonzepteRouteImport } from './routes/leistungen.mobilitaetskonzepte'
 import { Route as ApiPublicContactNotifyRouteImport } from './routes/api/public/contact-notify'
@@ -80,6 +81,12 @@ const LeistungenIndexRoute = LeistungenIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LeistungenRoute,
 } as any)
+const LeistungenBedarfsausweisRoute =
+  LeistungenBedarfsausweisRouteImport.update({
+    id: '/bedarfsausweis',
+    path: '/bedarfsausweis',
+    getParentRoute: () => LeistungenRoute,
+  } as any)
 const LeistungenEnergieberatungRoute =
   LeistungenEnergieberatungRouteImport.update({
     id: '/energieberatung',
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/leistungen': typeof LeistungenRouteWithChildren
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
@@ -129,6 +137,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles': typeof AktuellesIndexRoute
@@ -147,6 +156,7 @@ export interface FileRoutesById {
   '/leistungen': typeof LeistungenRouteWithChildren
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
   '/aktuelles/': typeof AktuellesIndexRoute
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/leistungen'
     | '/partner'
     | '/ueber-planem'
+    | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/partner'
     | '/ueber-planem'
+    | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
     | '/leistungen'
     | '/partner'
     | '/ueber-planem'
+    | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
     | '/aktuelles/'
@@ -299,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeistungenIndexRouteImport
       parentRoute: typeof LeistungenRoute
     }
+    '/leistungen/bedarfsausweis': {
+      id: '/leistungen/bedarfsausweis'
+      path: '/bedarfsausweis'
+      fullPath: '/leistungen/bedarfsausweis'
+      preLoaderRoute: typeof LeistungenBedarfsausweisRouteImport
+      parentRoute: typeof LeistungenRoute
+    }
     '/leistungen/energieberatung': {
       id: '/leistungen/energieberatung'
       path: '/energieberatung'
@@ -343,12 +363,14 @@ const AktuellesRouteWithChildren = AktuellesRoute._addFileChildren(
 )
 
 interface LeistungenRouteChildren {
+  LeistungenBedarfsausweisRoute: typeof LeistungenBedarfsausweisRoute
   LeistungenEnergieberatungRoute: typeof LeistungenEnergieberatungRoute
   LeistungenMobilitaetskonzepteRoute: typeof LeistungenMobilitaetskonzepteRoute
   LeistungenIndexRoute: typeof LeistungenIndexRoute
 }
 
 const LeistungenRouteChildren: LeistungenRouteChildren = {
+  LeistungenBedarfsausweisRoute: LeistungenBedarfsausweisRoute,
   LeistungenEnergieberatungRoute: LeistungenEnergieberatungRoute,
   LeistungenMobilitaetskonzepteRoute: LeistungenMobilitaetskonzepteRoute,
   LeistungenIndexRoute: LeistungenIndexRoute,
