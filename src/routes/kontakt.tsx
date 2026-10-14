@@ -28,7 +28,7 @@ import { SeoSection } from "@/components/SeoSection";
 import { getAttribution } from "@/lib/tracking";
 
 export const Route = createFileRoute("/kontakt")({
-  validateSearch: (search: Record<string, unknown>): { anliegen?: string; zielgruppe?: string; check?: string } => {
+  validateSearch: (search: Record<string, unknown>): { anliegen?: string | undefined; zielgruppe?: string | undefined; check?: string | undefined } => {
     const s = (k: string, max: number) => (typeof search[k] === "string" ? (search[k] as string).slice(0, max) : undefined);
     const z = s("zielgruppe", 20);
     return {

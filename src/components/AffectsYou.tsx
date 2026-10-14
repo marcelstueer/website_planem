@@ -6,7 +6,7 @@ export type Segment = "unternehmen" | "kommune" | "architektur" | "sonstige";
 export type Situation = { icon: LucideIcon; text: string };
 
 /** Primary contact action, identical label on every page. */
-export function ContactCta({ anliegen, zielgruppe, check, className }: { anliegen?: string; zielgruppe?: Segment; check?: string; className?: string }) {
+export function ContactCta({ anliegen, zielgruppe, check, className }: { anliegen?: string | undefined; zielgruppe?: Segment | undefined; check?: string | undefined; className?: string | undefined }) {
   return <Button asChild size="lg" className={className}>
     <Link to="/kontakt" search={{ anliegen, zielgruppe, check }}>Gespräch anfragen <ArrowRight /></Link>
   </Button>;
@@ -15,7 +15,7 @@ export function ContactCta({ anliegen, zielgruppe, check, className }: { anliege
 /** "Betrifft das Sie?" block: recognisable situations, low-threshold sentence, one main action. */
 export function AffectsYou({ eyebrow = "Betrifft das Sie?", title, intro, situations, reassurance, anliegen, zielgruppe, checkAnchor, note }: {
   eyebrow?: string; title: string; intro?: string; situations: Situation[]; reassurance: string;
-  anliegen?: string; zielgruppe?: Segment; checkAnchor?: string; note?: string;
+  anliegen?: string | undefined; zielgruppe?: Segment | undefined; checkAnchor?: string; note?: string;
 }) {
   return <section className="py-16 md:py-24">
     <div className="site-container grid gap-10 lg:grid-cols-[.85fr_1.15fr]">
@@ -43,7 +43,7 @@ export function AffectsYou({ eyebrow = "Betrifft das Sie?", title, intro, situat
 }
 
 /** Wide closing CTA band at the end of a page. */
-export function CtaBand({ title, text, anliegen, zielgruppe }: { title: string; text?: string; anliegen?: string; zielgruppe?: Segment }) {
+export function CtaBand({ title, text, anliegen, zielgruppe }: { title: string; text?: string; anliegen?: string | undefined; zielgruppe?: Segment | undefined }) {
   return <section className="bg-ink py-16 text-ink-foreground">
     <div className="site-container flex flex-col justify-between gap-7 md:flex-row md:items-center">
       <div className="max-w-2xl"><h2 className="text-3xl font-light md:text-5xl">{title}</h2>{text && <p className="mt-4 font-light leading-7 text-ink-muted">{text}</p>}</div>

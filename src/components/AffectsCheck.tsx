@@ -7,7 +7,7 @@ export type CheckQuestion = { q: string; /** answer that points to "affected" */
 
 /** Client-only yes/no check. Result is passed to the contact form via URL only when the user clicks the button. */
 export function AffectsCheck({ id = "check", title = "Betrifft mich das? – 60-Sekunden-Check", questions, anliegen, zielgruppe, threshold = 2 }: {
-  id?: string; title?: string; questions: CheckQuestion[]; anliegen?: string; zielgruppe?: Segment; threshold?: number;
+  id?: string; title?: string; questions: CheckQuestion[]; anliegen?: string | undefined; zielgruppe?: Segment | undefined; threshold?: number;
 }) {
   const [answers, setAnswers] = useState<boolean[]>([]);
   const step = answers.length;
