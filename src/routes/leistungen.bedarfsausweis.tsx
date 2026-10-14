@@ -1,9 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  ArrowRight, BadgeCheck, BarChart3, CalendarCheck, ClipboardList, Cpu, FileDigit, FileText, Gauge, Landmark,
+  BadgeCheck, BarChart3, CalendarCheck, ClipboardList, Cpu, FileDigit, FileText, Gauge, Landmark,
   MessageSquare, Calculator, Building2, Flame, Leaf, Lightbulb, Ruler, ShieldCheck,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
