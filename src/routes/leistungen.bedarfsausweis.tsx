@@ -75,7 +75,7 @@ function BedarfsausweisPage() {
         <div>
           <Link to="/leistungen/energieberatung" className="eyebrow !text-brand-light hover:underline">LEISTUNGEN / ENERGIEAUSWEISE</Link>
           <h1 className="mt-5 text-4xl font-extralight leading-[1.08] md:text-6xl">Bedarfsausweis für Nichtwohngebäude (GModG)</h1>
-          <p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted">Mit dem Gebäudemodernisierungsgesetz (GModG), im Juli 2026 beschlossen und am 28.07.2026 im Bundesgesetzblatt verkündet, ändert sich der Energieausweis für Nichtwohngebäude. Ab dem 1. Januar 2027 wird bei Verkauf, Vermietung, Verpachtung, Leasing und Verlängerung solcher Verträge nur noch der Bedarfsausweis ausgestellt. Der Verbrauchsausweis bleibt reinen Wohngebäuden vorbehalten.</p>
+          <p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted">Mit dem Gebäudemodernisierungsgesetz (GModG), im Juli 2026 beschlossen und am 28.07.2026 im Bundesgesetzblatt verkündet, ändert sich der Energieausweis für Nichtwohngebäude. Ab dem 1. Januar 2027 wird bei Verkauf, Vermietung, Verpachtung, Leasing und Verlängerung solcher Verträge nur noch der Bedarfsausweis ausgestellt. Der Verbrauchsausweis bleibt reinen Wohngebäuden vorbehalten. Doch was bedeutet das genau?</p>
           <div className="mt-9"><ContactButton dark /></div>
         </div>
         <div className="aspect-[4/3] w-full overflow-hidden">
