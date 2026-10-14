@@ -28,8 +28,15 @@ import { SeoSection } from "@/components/SeoSection";
 import { getAttribution } from "@/lib/tracking";
 
 export const Route = createFileRoute("/kontakt")({
-  validateSearch: (search: Record<string, unknown>): { anliegen?: string } =>
-    typeof search["anliegen"] === "string" ? { anliegen: search["anliegen"].slice(0, 200) } : {},
+  validateSearch: (search: Record<string, unknown>): { anliegen?: string | undefined; zielgruppe?: string | undefined; check?: string | undefined } => {
+    const s = (k: string, max: number) => (typeof search[k] === "string" ? (search[k] as string).slice(0, max) : undefined);
+    const z = s("zielgruppe", 20);
+    return {
+      anliegen: s("anliegen", 200),
+      zielgruppe: z && ["unternehmen", "kommune", "architektur", "sonstige"].includes(z) ? z : undefined,
+      check: s("check", 600),
+    };
+  },
   head: () => ({
     meta: [
       { title: "Kontakt & Förderfähigkeits-Check | planem Münster" },
@@ -76,8 +83,8 @@ const labelOf = (options: Option[], value: string) => options.find((o) => o.valu
 const NONE = "nicht angegeben";
 
 function ContactPage() {
-  const { anliegen } = Route.useSearch();
-  const [segment, setSegment] = useState("");
+  const { anliegen, zielgruppe, check } = Route.useSearch();
+  const [segment, setSegment] = useState(zielgruppe ?? "");
   const [goals, setGoals] = useState<string[]>([]);
   const [stage, setStage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -97,6 +104,7 @@ function ContactPage() {
       `Ziele: ${goals.length ? goals.map((g) => labelOf(GOALS, g)).join(", ") : NONE}`,
       `Projektstadium: ${stage ? labelOf(STAGES, stage) : NONE}`,
       `Anliegen: ${notes}`,
+      ...(check ? [`60-Sekunden-Check: ${check}`] : []),
     ].join("\n");
 
     const attribution = getAttribution();
