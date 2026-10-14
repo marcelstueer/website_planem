@@ -8,6 +8,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { SeoSection } from "@/components/SeoSection";
 import { SiteImage } from "@/components/SiteImage";
 import { useSiteTexts } from "@/lib/site-data";
+import { AffectsYou, ContactCta } from "@/components/AffectsYou";
+import { AffectsCheck } from "@/components/AffectsCheck";
+import { FileClock, FileQuestion, KeyRound, School, Wrench } from "lucide-react";
 
 const TITLE = "Bedarfsausweis Nichtwohngebäude (GModG) | planem";
 const DESC = "Ab 1.1.2027 gilt für Nichtwohngebäude nur noch der Bedarfsausweis. Was das GModG ändert, welche Fristen gelten und wie planem unterstützt.";
@@ -62,9 +65,23 @@ const sources = [
   { label: "Öko-Zentrum NRW: Update zum GModG", href: "https://oekozentrum.nrw/aktuelles/detail/news/update-zum-gmodg/" },
 ];
 
-function ContactButton({ dark }: { dark?: boolean }) {
-  return <Button asChild size="lg" variant={dark ? "default" : "default"}><Link to="/kontakt" search={{ anliegen: CONTACT_TOPIC }}>Unverbindlich anfragen <ArrowRight /></Link></Button>;
+function ContactButton(_: { dark?: boolean }) {
+  return <ContactCta anliegen={CONTACT_TOPIC} />;
 }
+
+const situations = [
+  { icon: KeyRound, text: "Sie vermieten, verpachten oder verkaufen Büro-, Gewerbe- oder Verwaltungsflächen." },
+  { icon: FileClock, text: "Ein Miet- oder Pachtvertrag läuft aus oder wird verlängert." },
+  { icon: School, text: "Ihre Kommune oder Ihr Betrieb unterhält eigene Liegenschaften wie Verwaltungsgebäude, Schulen, Bauhof, Hallen oder Werkstätten." },
+  { icon: FileQuestion, text: "Sie besitzen nur einen Verbrauchsausweis und wissen nicht, wann er abläuft." },
+  { icon: Wrench, text: "Sie planen eine Sanierung oder einen Heizungstausch." },
+];
+
+const checkQuestions = [
+  { q: "Unterhalten Sie Gebäude oder Gebäudeteile, die nicht zum Wohnen dienen?", affectedIf: true },
+  { q: "Planen Sie in den nächsten Jahren Verkauf, Vermietung, Verpachtung oder eine Vertragsverlängerung?", affectedIf: true },
+  { q: "Liegt Ihnen ein gültiger Energieausweis vor, und wissen Sie, welcher Art er ist und bis wann er gilt?", affectedIf: false },
+];
 
 function BedarfsausweisPage() {
   const { text } = useSiteTexts();
@@ -76,13 +93,24 @@ function BedarfsausweisPage() {
           <Link to="/leistungen/energieberatung" className="eyebrow !text-brand-light hover:underline">LEISTUNGEN / ENERGIEAUSWEISE</Link>
           <h1 className="mt-5 text-4xl font-extralight leading-[1.08] md:text-6xl">Bedarfsausweis für Nichtwohngebäude (GModG)</h1>
           <p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted">Mit dem Gebäudemodernisierungsgesetz (GModG), im Juli 2026 beschlossen und am 28.07.2026 im Bundesgesetzblatt verkündet, ändert sich der Energieausweis für Nichtwohngebäude. Ab dem 1. Januar 2027 wird bei Verkauf, Vermietung, Verpachtung, Leasing und Verlängerung solcher Verträge nur noch der Bedarfsausweis ausgestellt. Der Verbrauchsausweis bleibt reinen Wohngebäuden vorbehalten. Doch was bedeutet das genau?</p>
-          <div className="mt-9"><ContactButton dark /></div>
+          <div className="mt-9 flex flex-col items-start gap-3"><ContactButton dark /><a href="#check" className="text-sm font-medium text-brand-light hover:underline">Erst kurz prüfen: Betrifft mich das?</a></div>
         </div>
         <div className="aspect-[4/3] w-full overflow-hidden">
           <SiteImage imageKey="bedarfsausweis.hero" fallback="/library/bedarfsausweis-hero.webp" alt="Nichtwohngebäude mit Solardach als Beispiel für einen energetisch bewerteten Gewerbebau" width={1600} height={1200} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
         </div>
       </div>
     </section>
+
+    <AffectsYou
+      title="Unterhalten Sie Gebäude, die nicht zum Wohnen dienen?"
+      intro="Dann kann das neue Energieausweis-Recht ab 2027 auch Sie betreffen. Ab 1. Januar 2027 gelten die neuen Regeln – es geht nicht um Druck, sondern um Planungszeit."
+      situations={situations}
+      reassurance="Wer frühzeitig weiß, was für die eigenen Gebäude gilt, plant ruhiger. Im Erstgespräch klären wir, ob und wann bei Ihnen ein Bedarfsausweis fällig werden könnte."
+      anliegen={CONTACT_TOPIC}
+      checkAnchor="check"
+      note="Allgemeine Information, keine Rechtsberatung."
+    />
+    <AffectsCheck questions={checkQuestions} anliegen={CONTACT_TOPIC} />
 
     <section className="py-16 md:py-24">
       <div className="site-container">

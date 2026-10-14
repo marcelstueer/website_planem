@@ -12,6 +12,9 @@ import energyImage from "@/assets/energy-consulting.jpg";
 import { QualificationsCarousel } from "@/components/QualificationsCarousel";
 import { ServiceStar } from "@/components/ServiceStar";
 import { HomeNews } from "@/components/HomeNews";
+import { AudienceTiles } from "@/components/AudienceTiles";
+import { AffectsYou } from "@/components/AffectsYou";
+import { FileClock, FileQuestion, KeyRound, School } from "lucide-react";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
   { title: "planem | Mobilität & Energieeffizienz aus Münster" },
@@ -26,10 +29,26 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     <SiteImage imageKey="home.hero" fallback={heroImage} alt="Modernes Quartier mit Radweg und energieeffizienten Gebäuden" className="absolute inset-0 h-full w-full object-cover" width={1600} height={1008} fetchPriority="high" />
     <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/78 to-ink/10" />
     <div className="site-container relative flex min-h-[calc(100svh-5rem)] flex-col justify-between py-14 md:py-20">
-      <div className="reveal max-w-4xl"><p className="eyebrow !text-brand-light">{text("home.hero.eyebrow", "Ingenieurbüro aus Münster")}</p><h1 className="mt-5 text-5xl font-extralight leading-[1.03] md:text-7xl lg:text-8xl">{text("home.hero.title", "Gebäude und Mobilität.")}<br/><span className="text-brand-light">{text("home.hero.title.accent", "Zusammen gedacht.")}</span></h1><p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted md:text-xl">{text("home.hero.text", "Unabhängige Planung und Beratung für zukunftsfähige Gebäude, Betriebe und Quartiere.")}</p><div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/leistungen">Leistungen entdecken <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-ink-muted bg-transparent text-ink-foreground hover:bg-ink-foreground hover:text-ink"><Link to="/kontakt">Gespräch vereinbaren</Link></Button></div></div>
+      <div className="reveal max-w-4xl"><p className="eyebrow !text-brand-light">{text("home.hero.eyebrow", "Ingenieurbüro aus Münster")}</p><h1 className="mt-5 text-5xl font-extralight leading-[1.03] md:text-7xl lg:text-8xl">{text("home.hero.title", "Gebäude und Mobilität.")}<br/><span className="text-brand-light">{text("home.hero.title.accent", "Zusammen gedacht.")}</span></h1><p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted md:text-xl">{text("home.hero.text", "Unabhängige Planung und Beratung für zukunftsfähige Gebäude, Betriebe und Quartiere.")}</p><div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/leistungen">Leistungen entdecken <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-ink-muted bg-transparent text-ink-foreground hover:bg-ink-foreground hover:text-ink"><Link to="/kontakt">Gespräch anfragen</Link></Button></div></div>
       <div className="mt-16 grid gap-4 border-t border-ink-border pt-5 text-sm text-ink-muted sm:grid-cols-3"><span>Mobilitätskonzepte</span><span>Energieeffizienzberatung</span><span>Fördermittelbegleitung</span></div>
     </div>
   </section>
+  <AudienceTiles />
+  <AffectsYou
+    eyebrow="Aktuell: Energieausweis ab 2027"
+    title="Unterhalten Sie Gebäude, die nicht zum Wohnen dienen?"
+    intro="Ab 1. Januar 2027 gelten für Nichtwohngebäude neue Regeln beim Energieausweis. Je nach Nutzung und Anlass kann das auch Sie betreffen."
+    situations={[
+      { icon: KeyRound, text: "Sie vermieten, verpachten oder verkaufen Büro-, Gewerbe- oder Verwaltungsflächen." },
+      { icon: FileClock, text: "Ein Miet- oder Pachtvertrag läuft aus oder wird verlängert." },
+      { icon: School, text: "Ihr Betrieb oder Ihre Kommune unterhält eigene Liegenschaften wie Hallen, Schulen oder einen Bauhof." },
+      { icon: FileQuestion, text: "Sie haben nur einen Verbrauchsausweis und wissen nicht genau, wann er abläuft." },
+    ]}
+    reassurance="Wer frühzeitig weiß, was für die eigenen Gebäude gilt, plant ruhiger. Ein kurzes Gespräch reicht oft für eine erste Einordnung."
+    anliegen="Bedarfsausweis Nichtwohngebäude"
+    note="Allgemeine Information, keine Rechtsberatung."
+  />
+  <div className="site-container -mt-8 pb-12"><Link to="/leistungen/bedarfsausweis" hash="check" className="text-sm font-medium text-primary hover:underline">Erst kurz prüfen: Betrifft mich das? →</Link></div>
    <ServiceStar />
   <HomeNews />
    <section className="py-20 md:py-28"><div className="site-container"><SectionHeading eyebrow="Kompetenz im Verbund" title="Gemeinsam zum passenden Konzept. " text="Anforderungen werden zu Lösungen, die individuell fundiert, wirtschaftlich, nachhaltig und im Alltag sinnvoll sind." />
@@ -39,7 +58,7 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     </div>
   </div></section>
   <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-12 md:grid-cols-[1fr_1.25fr]"><div><p className="eyebrow">Warum planem</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-6xl">Regional verankert.<br/>International inspiriert.</h2></div><div className="space-y-7 text-lg font-light leading-8 text-muted-foreground"><p>Internationale Expertise aus den Niederlanden und Japan fließen in Lösungen ein, die auf den hiesigen Markt und seine Anforderungen zugeschnitten sind.</p><div className="grid gap-4 border-t border-border pt-7 sm:grid-cols-2">{["BAFA- und KfW-zertifiziert seit 2016","IHK-zertifizierter Mobilitätsmanager","Master of Engineering","Münster und die Region"].map((item)=><div key={item} className="flex gap-3 text-sm font-medium text-foreground"><CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary"/>{item}</div>)}</div><Button asChild variant="outline"><Link to="/ueber-planem">Mehr über planem <ArrowRight /></Link></Button></div></div></section>
-   <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Anfrage starten <ArrowRight /></Link></Button></div></section>
+   <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Gespräch anfragen <ArrowRight /></Link></Button></div></section>
    <section className="border-t border-border bg-secondary py-16"><div className="site-container"><QualificationsCarousel /></div></section>
    <SeoSection />
    {showPartners && <section className="border-t border-border py-12"><div className="site-container flex flex-col justify-between gap-6 md:flex-row md:items-center"><div><p className="eyebrow">Unsere Partner</p><p className="mt-3 text-2xl font-light">Gemeinsam mit starken Partnern aus Planung und Praxis.</p></div><Button asChild variant="outline"><Link to="/partner">Partner &amp; Referenzen <ArrowRight /></Link></Button></div></section>}
