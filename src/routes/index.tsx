@@ -33,6 +33,7 @@ function HomePage() { const { text } = useSiteTexts(); return <>
       <div className="mt-16 grid gap-4 border-t border-ink-border pt-5 text-sm text-ink-muted sm:grid-cols-3"><span>Mobilitätskonzepte</span><span>Energieeffizienzberatung</span><span>Fördermittelbegleitung</span></div>
     </div>
   </section>
+   <ServiceStar />
   <AudienceTiles />
   <AffectsYou
     eyebrow="Aktuell: Energieausweis ab 2027"
@@ -49,7 +50,6 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     note="Allgemeine Information, keine Rechtsberatung."
   />
   <div className="site-container -mt-8 pb-12"><Link to="/leistungen/bedarfsausweis" hash="check" className="text-sm font-medium text-primary hover:underline">Erst kurz prüfen: Betrifft mich das? →</Link></div>
-   <ServiceStar />
   <HomeNews />
    <section className="py-20 md:py-28"><div className="site-container"><SectionHeading eyebrow="Kompetenz im Verbund" title="Gemeinsam zum passenden Konzept. " text="Anforderungen werden zu Lösungen, die individuell fundiert, wirtschaftlich, nachhaltig und im Alltag sinnvoll sind." />
     <div className="grid gap-5 md:grid-cols-2">
