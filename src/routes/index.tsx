@@ -39,6 +39,22 @@ function HomePage() { const { text } = useSiteTexts(); return <>
        <article className="group overflow-hidden bg-card"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.energy" fallback={energyImage} alt="Gebäude mit dachintegrierter Photovoltaik" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" /></div><div className="border border-t-0 border-border p-7 md:p-9"><Building2 className="mb-7 size-7 text-brand-blue"/><h3 className="text-3xl font-light">Energieeffizienz = Kostenreduzierung</h3><p className="mt-4 leading-7 text-muted-foreground">Energie- und Fördermittelberatung für Nichtwohngebäude, Prozesse, Audits und Managementsysteme – mit passender Strategie ganz individuell auf Ihre Anforderungen zugeschnitten. Für geringere Kosten heute und langfristige Kosteneffizienz über den gesamten Lebenszyklus.</p><Link to="/leistungen" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">Mehr erfahren <ArrowRight className="size-4"/></Link></div></article>
     </div>
   </div></section>
+  <HomeNews />
+  <AffectsYou
+    eyebrow="Aktuell: Energieausweis ab 2027"
+    title="Unterhalten Sie Gebäude, die nicht zum Wohnen dienen?"
+    intro="Ab 1. Januar 2027 gelten für Nichtwohngebäude neue Regeln beim Energieausweis. Je nach Nutzung und Anlass kann das auch Sie betreffen."
+    situations={[
+      { icon: KeyRound, text: "Sie vermieten, verpachten oder verkaufen Büro-, Gewerbe- oder Verwaltungsflächen." },
+      { icon: FileClock, text: "Ein Miet- oder Pachtvertrag läuft aus oder wird verlängert." },
+      { icon: School, text: "Ihr Betrieb oder Ihre Kommune unterhält eigene Liegenschaften wie Hallen, Schulen oder einen Bauhof." },
+      { icon: FileQuestion, text: "Sie haben nur einen Verbrauchsausweis und wissen nicht genau, wann er abläuft." },
+    ]}
+    reassurance="Wer frühzeitig weiß, was für die eigenen Gebäude gilt, plant ruhiger. Ein kurzes Gespräch reicht oft für eine erste Einordnung."
+    anliegen="Bedarfsausweis Nichtwohngebäude"
+    note="Allgemeine Information, keine Rechtsberatung."
+  />
+  <div className="site-container -mt-8 pb-12"><Link to="/leistungen/bedarfsausweis" hash="check" className="text-sm font-medium text-primary hover:underline">Erst kurz prüfen: Betrifft mich das? →</Link></div>
   <section className="bg-secondary py-20 md:py-28"><div className="site-container grid gap-12 md:grid-cols-[1fr_1.25fr]"><div><p className="eyebrow">Warum planem</p><h2 className="mt-5 text-4xl font-light leading-tight md:text-6xl">Regional verankert.<br/>International inspiriert.</h2></div><div className="space-y-7 text-lg font-light leading-8 text-muted-foreground"><p>Internationale Expertise aus den Niederlanden und Japan fließen in Lösungen ein, die auf den hiesigen Markt und seine Anforderungen zugeschnitten sind.</p><div className="grid gap-4 border-t border-border pt-7 sm:grid-cols-2">{["BAFA- und KfW-zertifiziert seit 2016","IHK-zertifizierter Mobilitätsmanager","Master of Engineering","Münster und die Region"].map((item)=><div key={item} className="flex gap-3 text-sm font-medium text-foreground"><CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary"/>{item}</div>)}</div><Button asChild variant="outline"><Link to="/ueber-planem">Mehr über planem <ArrowRight /></Link></Button></div></div></section>
    <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Gespräch anfragen <ArrowRight /></Link></Button></div></section>
    <section className="border-t border-border bg-secondary py-16"><div className="site-container"><QualificationsCarousel /></div></section>
