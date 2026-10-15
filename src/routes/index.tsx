@@ -33,23 +33,6 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     </div>
   </section>
    <ServiceStar />
-  <AudienceTiles />
-  <AffectsYou
-    eyebrow="Aktuell: Energieausweis ab 2027"
-    title="Unterhalten Sie Gebäude, die nicht zum Wohnen dienen?"
-    intro="Ab 1. Januar 2027 gelten für Nichtwohngebäude neue Regeln beim Energieausweis. Je nach Nutzung und Anlass kann das auch Sie betreffen."
-    situations={[
-      { icon: KeyRound, text: "Sie vermieten, verpachten oder verkaufen Büro-, Gewerbe- oder Verwaltungsflächen." },
-      { icon: FileClock, text: "Ein Miet- oder Pachtvertrag läuft aus oder wird verlängert." },
-      { icon: School, text: "Ihr Betrieb oder Ihre Kommune unterhält eigene Liegenschaften wie Hallen, Schulen oder einen Bauhof." },
-      { icon: FileQuestion, text: "Sie haben nur einen Verbrauchsausweis und wissen nicht genau, wann er abläuft." },
-    ]}
-    reassurance="Wer frühzeitig weiß, was für die eigenen Gebäude gilt, plant ruhiger. Ein kurzes Gespräch reicht oft für eine erste Einordnung."
-    anliegen="Bedarfsausweis Nichtwohngebäude"
-    note="Allgemeine Information, keine Rechtsberatung."
-  />
-  <div className="site-container -mt-8 pb-12"><Link to="/leistungen/bedarfsausweis" hash="check" className="text-sm font-medium text-primary hover:underline">Erst kurz prüfen: Betrifft mich das? →</Link></div>
-  <HomeNews />
    <section className="py-20 md:py-28"><div className="site-container"><SectionHeading eyebrow="Kompetenz im Verbund" title="Gemeinsam zum passenden Konzept. " text="Anforderungen werden zu Lösungen, die individuell fundiert, wirtschaftlich, nachhaltig und im Alltag sinnvoll sind." />
     <div className="grid gap-5 md:grid-cols-2">
        <article className="group overflow-hidden bg-card"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.mobility" fallback={mobilityImage} alt="Geschützter Radweg mit Radzählsäule in Valencia" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" /></div><div className="border border-t-0 border-border p-7 md:p-9"><CarFront className="mb-7 size-7 text-primary"/><h3 className="text-3xl font-light">Mobilität: Zukunftsgerecht</h3><p className="mt-4 leading-7 text-muted-foreground">Effektive Konzepte für eine Verkehrswende von Betrieben, Liegenschaften und Quartieren. Durch Fördermittel, E-Mobilität oder Stellplatzreduzierung mehr Lebensqualität für die Menschen vor Ort und Wertsteigerung im Immobilienquartier.</p><Link to="/leistungen" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">Mehr erfahren <ArrowRight className="size-4"/></Link></div></article>
