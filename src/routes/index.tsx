@@ -12,7 +12,6 @@ import energyImage from "@/assets/energy-consulting.jpg";
 import { QualificationsCarousel } from "@/components/QualificationsCarousel";
 import { ServiceStar } from "@/components/ServiceStar";
 import { HomeNews } from "@/components/HomeNews";
-import { AudienceTiles } from "@/components/AudienceTiles";
 import { AffectsYou } from "@/components/AffectsYou";
 import { FileClock, FileQuestion, KeyRound, School } from "lucide-react";
 
