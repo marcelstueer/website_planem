@@ -33,7 +33,7 @@ export function ownPosts(text: (key: string, fallback?: string) => string): News
       source: "blog",
       date: "2026-10-13",
       title: text("aktuelles.highlight.title", "Nichtwohngebäude: Ab 2027 nur noch der Bedarfsausweis"),
-      text: text("aktuelles.highlight.text", "Für Nichtwohngebäude zählt ab 1.1.2027 nur noch der Bedarfsausweis, bei Verkauf, Vermietung und Vertragsverlängerung. Was das GModG ändert und wie planem hilft."),
+      text: text("aktuelles.highlight.text", "Für Nichtwohngebäude zählt ab 1.1.2027 nur noch der Bedarfsausweis als Energieausweis, bei Verkauf, Vermietung und Vertragsverlängerung. Was das GModG ändert und wie planem hilft."),
       href: "/leistungen/bedarfsausweis",
       internal: true,
     },
