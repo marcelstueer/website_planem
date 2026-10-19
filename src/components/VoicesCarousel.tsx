@@ -28,7 +28,7 @@ export function VoicesCarousel() {
         </div>
       </div>
       <CarouselContent className="mt-6">
-        {blueskyPosts.map((post) => (
+        {posts.map((post) => (
           <CarouselItem key={post.url} className="sm:basis-1/2 lg:basis-1/3">
             <article className="flex h-full flex-col border border-border bg-background">
               {post.imageUrl && (
@@ -64,7 +64,7 @@ export function VoicesCarousel() {
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
-                  Beitrag auf Bluesky lesen <ExternalLink className="size-4" />
+                  Beitrag auf {post.platform} lesen <ExternalLink className="size-4" />
                 </a>
               </div>
               </div>
