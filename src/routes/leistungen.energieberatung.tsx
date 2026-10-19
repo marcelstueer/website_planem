@@ -3,6 +3,7 @@ import { ArrowRight, Banknote, Building2, Calculator, ClipboardList, FileCheck2,
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
+import { SanierungspflichtChart } from "@/components/SanierungspflichtChart";
 
 const TITLE = "Energieeffizienzberatung & Fördermittel (KfW/BAFA) | planem Münster";
 const DESC = "Energieberatung für Nichtwohngebäude: Heizlastberechnung, hydraulischer Abgleich und Förderbegleitung BEG / BEG EM für Wärmepumpe und Effizienzgebäude.";
@@ -59,6 +60,14 @@ function EnergyPage() {
     <section id="foerderprogramme" className="scroll-mt-24 py-16 md:py-24"><div className="site-container">
       <p className="eyebrow">Förderprogramme</p><h2 className="mt-4 text-4xl font-light md:text-5xl">BEG, BEG EM und Effizienzgebäude.</h2>
       <div className="mt-10 grid border-y border-border md:grid-cols-3">{programs.map(({ icon: Icon, title, text }, i) => <article key={title} className={`py-8 md:px-8 ${i > 0 ? "border-t md:border-l md:border-t-0" : ""}`}><Icon className="size-6 text-primary" /><h3 className="mt-6 text-xl font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div>
+    </div></section>
+
+    <section id="sanierungspflicht" className="scroll-mt-24 py-16 md:py-24"><div className="site-container grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+      <div>
+        <p className="eyebrow">Neu ab 2030</p><h2 className="mt-4 text-3xl font-light md:text-5xl">Sanierungspflicht für Nichtwohngebäude (§ 40 GModG)</h2>
+        <p className="mt-6 leading-7 text-muted-foreground">Für die energetisch schlechtesten Nichtwohngebäude gilt künftig eine Sanierungspflicht: Ab 2030 darf der Primärenergiebedarf maximal das 3,5-fache des Referenzgebäudewerts betragen, ab 2033 das 2,95-fache. Rund 336.000 Gebäude bundesweit können betroffen sein – möglicherweise auch Ihres. Wir prüfen, ob Ihre Gebäude darunterfallen, und entwickeln einen wirtschaftlichen Sanierungsfahrplan mit passender Förderung.</p>
+      </div>
+      <SanierungspflichtChart />
     </div></section>
 
     <section id="vorgehen" className="scroll-mt-24 bg-secondary py-16 md:py-24"><div className="site-container">
