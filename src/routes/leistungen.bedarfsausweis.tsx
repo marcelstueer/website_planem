@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SeoSection } from "@/components/SeoSection";
+import { SanierungspflichtChart } from "@/components/SanierungspflichtChart";
 import { SiteImage } from "@/components/SiteImage";
 import { useSiteTexts } from "@/lib/site-data";
 import { AffectsYou, ContactCta } from "@/components/AffectsYou";
@@ -151,6 +152,18 @@ function BedarfsausweisPage() {
             <p className="mt-3 text-xs leading-5 text-muted-foreground">Details und Ausnahmen sind im Gesetzestext nachzulesen.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section className="py-16 md:py-24">
+      <div className="site-container grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+        <div>
+          <p className="eyebrow">Sanierungspflicht</p>
+          <h2 className="mt-4 text-3xl font-light md:text-5xl">§ 40: Pflicht für die schlechtesten Nichtwohngebäude</h2>
+          <p className="mt-6 leading-7 text-muted-foreground">Während die Debatte meist um die Heizungsregeln kreist, bringt § 40 GModG eine Sanierungspflicht für die energetisch schlechtesten Nichtwohngebäude. Rund 336.000 der 1,84 Mio. Nichtwohngebäude bundesweit können betroffen sein. Viele Bestandshalter wissen noch nicht, welche ihrer Gebäude darunterfallen – bisherige Verbrauchsausweise können für die Bewertung nicht genutzt werden.</p>
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">Ausgenommen sind unter anderem Gebäude ab Baujahr 1996, bereits sanierte Gebäude, überwiegend mit Wärmepumpe, Biomasse oder Fernwärme beheizte Gebäude, Baudenkmale und freistehende Gebäude unter 50 m². Die Zuordnung sollte im Einzelfall geprüft werden.</p>
+        </div>
+        <SanierungspflichtChart />
       </div>
     </section>
 

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, AtSign, FlaskConical, Mic, PenLine } from "lucide-react";
+import { ArrowRight, AtSign, FlaskConical, Linkedin, Mic, PenLine } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { useSiteTexts } from "@/lib/site-data";
 import { DEFAULT_FEATURED_ID, HELP_MAX, SHORT_MAX, feedEntries, truncateWords, useNewsMeta, type NewsEntry, type NewsMeta, type NewsSource } from "@/lib/news-feed";
@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const SOURCES: Record<NewsSource, { label: string; icon: ComponentType<{ className?: string }> }> = {
   wissenschaft: { label: "Wissenschaft", icon: FlaskConical },
   bluesky: { label: "Bluesky", icon: AtSign },
+  linkedin: { label: "LinkedIn", icon: Linkedin },
   podcast: { label: "Podcast", icon: Mic },
   blog: { label: "Blog", icon: PenLine },
 };
