@@ -8,13 +8,19 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { blueskyPosts } from "@/lib/bluesky-posts";
+import { linkedinPosts } from "@/lib/linkedin-posts";
+
+const posts = [
+  ...blueskyPosts.map((p) => ({ ...p, platform: "Bluesky" })),
+  ...linkedinPosts.map((p) => ({ ...p, platform: "LinkedIn", imageUrl: undefined, imageAlt: undefined })),
+].sort((a, b) => b.date.localeCompare(a.date));
 
 export function VoicesCarousel() {
   return (
     <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]} className="mt-10">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
-          Ausgewählte Beiträge aus der Fachcommunity auf Bluesky.
+          Ausgewählte Beiträge aus der Fachcommunity auf Bluesky und LinkedIn.
         </p>
         <div className="relative flex gap-2">
           <CarouselPrevious className="static translate-y-0" />

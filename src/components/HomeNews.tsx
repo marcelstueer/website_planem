@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 const SOURCES: Record<NewsSource, { label: string; icon: ComponentType<{ className?: string }> }> = {
   wissenschaft: { label: "Wissenschaft", icon: FlaskConical },
   bluesky: { label: "Bluesky", icon: AtSign },
+  linkedin: { label: "LinkedIn", icon: Linkedin },
   podcast: { label: "Podcast", icon: Mic },
   blog: { label: "Blog", icon: PenLine },
 };
