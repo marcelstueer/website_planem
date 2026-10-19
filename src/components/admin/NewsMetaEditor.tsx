@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSiteTexts } from "@/lib/site-data";
 import { DEFAULT_FEATURED_ID, HELP_MAX, SHORT_MAX, feedEntries, truncateWords, useNewsMeta, type NewsEntry, type NewsMeta } from "@/lib/news-feed";
 
-const LABEL = { wissenschaft: "Wissenschaft", bluesky: "Bluesky", podcast: "Podcast", blog: "Blog" } as const;
+const LABEL = { wissenschaft: "Wissenschaft", bluesky: "Bluesky", linkedin: "LinkedIn", podcast: "Podcast", blog: "Blog" } as const;
 
 function Count({ value, max }: { value: number; max: number }) {
   return <span className={value > max ? "text-destructive" : "text-muted-foreground"}>{value} / {max} Zeichen</span>;
