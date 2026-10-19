@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, AtSign, FlaskConical, Mic, PenLine } from "lucide-react";
+import { ArrowRight, AtSign, FlaskConical, Linkedin, Mic, PenLine } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { useSiteTexts } from "@/lib/site-data";
 import { DEFAULT_FEATURED_ID, HELP_MAX, SHORT_MAX, feedEntries, truncateWords, useNewsMeta, type NewsEntry, type NewsMeta, type NewsSource } from "@/lib/news-feed";

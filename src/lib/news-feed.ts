@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { studies } from "@/lib/studies";
 import { blueskyPosts } from "@/lib/bluesky-posts";
+import { linkedinPosts } from "@/lib/linkedin-posts";
 import { mediaItems } from "@/lib/media-items";
 
-export type NewsSource = "wissenschaft" | "bluesky" | "podcast" | "blog";
+export type NewsSource = "wissenschaft" | "bluesky" | "linkedin" | "podcast" | "blog";
 
 /** One entry of the "Aktuelles" feed. Built from the existing content files — no duplicated content. */
 export type NewsEntry = {
@@ -45,6 +46,7 @@ export function feedEntries(text: (key: string, fallback?: string) => string): N
     ...ownPosts(text),
     ...studies.map((s) => ({ id: `wissenschaft:${s.doi}`, source: "wissenschaft" as const, date: s.date, title: s.titleDe ?? s.title, text: s.essence || s.summary, href: s.url, internal: false })),
     ...blueskyPosts.map((p) => ({ id: `bluesky:${p.url}`, source: "bluesky" as const, date: p.date, title: `${p.author} · ${p.topic}`, text: p.text, href: p.url, internal: false })),
+    ...linkedinPosts.map((p) => ({ id: `linkedin:${p.url}`, source: "linkedin" as const, date: p.date, title: `${p.author} · ${p.topic}`, text: p.text, href: p.url, internal: false })),
     ...mediaItems.map((m) => ({ id: `podcast:${m.url}`, source: "podcast" as const, date: m.date, title: m.title, text: m.essence || m.summary, href: m.url, internal: false })),
   ].sort((a, b) => b.date.localeCompare(a.date));
 }
