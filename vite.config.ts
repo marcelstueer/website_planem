@@ -20,6 +20,7 @@ export default defineConfig({
       { path: "/leistungen/energieberatung" },
       { path: "/leistungen/bedarfsausweis" },
       { path: "/fuer-architekten" },
+      { path: "/nl" },
       { path: "/partner" },
       { path: "/ueber-planem" },
       { path: "/aktuelles" },

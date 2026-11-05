@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, useRouter, useRouterState, HeadContent, Scripts } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { SiteShell } from "@/components/SiteShell";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -21,5 +21,5 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [{ rel: "stylesheet", href: appCss }, { rel: "preconnect", href: "https://fonts.googleapis.com" }, { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" }, { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" }, { rel: "icon", href: "/favicon.png", type: "image/png" }],
   }), shellComponent: RootShell, component: RootComponent, notFoundComponent: NotFoundComponent, errorComponent: ErrorComponent,
 });
-function RootShell({ children }: { children: ReactNode }) { return <html lang="de"><head><HeadContent /></head><body>{children}<Scripts /></body></html>; }
+function RootShell({ children }: { children: ReactNode }) { const nl = useRouterState({ select: (st) => st.location.pathname === "/nl" || st.location.pathname.startsWith("/nl/") }); return <html lang={nl ? "nl" : "de"}><head><HeadContent /></head><body>{children}<Scripts /></body></html>; }
 function RootComponent() { const { queryClient } = Route.useRouteContext(); return <QueryClientProvider client={queryClient}><SiteShell><Outlet /></SiteShell><CookieBanner /></QueryClientProvider>; }

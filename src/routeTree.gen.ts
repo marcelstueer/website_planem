@@ -17,6 +17,7 @@ import { Route as FuerArchitektenRouteImport } from './routes/fuer-architekten'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LeistungenRouteImport } from './routes/leistungen'
+import { Route as NlRouteImport } from './routes/nl'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
@@ -65,6 +66,11 @@ const KontaktRoute = KontaktRouteImport.update({
 const LeistungenRoute = LeistungenRouteImport.update({
   id: '/leistungen',
   path: '/leistungen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NlRoute = NlRouteImport.update({
+  id: '/nl',
+  path: '/nl',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnerRoute = PartnerRouteImport.update({
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
+  '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/fuer-architekten': typeof FuerArchitektenRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
+  '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
+  '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
+    | '/nl'
     | '/partner'
     | '/ueber-planem'
     | '/leistungen/bedarfsausweis'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/fuer-architekten'
     | '/impressum'
     | '/kontakt'
+    | '/nl'
     | '/partner'
     | '/ueber-planem'
     | '/leistungen/bedarfsausweis'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
+    | '/nl'
     | '/partner'
     | '/ueber-planem'
     | '/leistungen/bedarfsausweis'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRouteWithChildren
+  NlRoute: typeof NlRoute
   PartnerRoute: typeof PartnerRoute
   UeberPlanemRoute: typeof UeberPlanemRoute
   ApiPublicContactNotifyRoute: typeof ApiPublicContactNotifyRoute
@@ -302,6 +315,13 @@ declare module '@tanstack/react-router' {
       path: '/leistungen'
       fullPath: '/leistungen'
       preLoaderRoute: typeof LeistungenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nl': {
+      id: '/nl'
+      path: '/nl'
+      fullPath: '/nl'
+      preLoaderRoute: typeof NlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partner': {
@@ -409,6 +429,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRouteWithChildren,
+  NlRoute: NlRoute,
   PartnerRoute: PartnerRoute,
   UeberPlanemRoute: UeberPlanemRoute,
   ApiPublicContactNotifyRoute: ApiPublicContactNotifyRoute,
