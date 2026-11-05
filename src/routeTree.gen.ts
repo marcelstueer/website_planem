@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AktuellesRouteImport } from './routes/aktuelles'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as FuerArchitektenRouteImport } from './routes/fuer-architekten'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as LeistungenRouteImport } from './routes/leistungen'
@@ -44,6 +45,11 @@ const AktuellesRoute = AktuellesRouteImport.update({
 const DatenschutzRoute = DatenschutzRouteImport.update({
   id: '/datenschutz',
   path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FuerArchitektenRoute = FuerArchitektenRouteImport.update({
+  id: '/fuer-architekten',
+  path: '/fuer-architekten',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpressumRoute = ImpressumRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/aktuelles': typeof AktuellesRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
+  '/fuer-architekten': typeof FuerArchitektenRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/datenschutz': typeof DatenschutzRoute
+  '/fuer-architekten': typeof FuerArchitektenRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/partner': typeof PartnerRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/aktuelles': typeof AktuellesRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
+  '/fuer-architekten': typeof FuerArchitektenRoute
   '/impressum': typeof ImpressumRoute
   '/kontakt': typeof KontaktRoute
   '/leistungen': typeof LeistungenRouteWithChildren
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/aktuelles'
     | '/datenschutz'
+    | '/fuer-architekten'
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/datenschutz'
+    | '/fuer-architekten'
     | '/impressum'
     | '/kontakt'
     | '/partner'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/aktuelles'
     | '/datenschutz'
+    | '/fuer-architekten'
     | '/impressum'
     | '/kontakt'
     | '/leistungen'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   AktuellesRoute: typeof AktuellesRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
+  FuerArchitektenRoute: typeof FuerArchitektenRoute
   ImpressumRoute: typeof ImpressumRoute
   KontaktRoute: typeof KontaktRoute
   LeistungenRoute: typeof LeistungenRouteWithChildren
@@ -261,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/datenschutz'
       fullPath: '/datenschutz'
       preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fuer-architekten': {
+      id: '/fuer-architekten'
+      path: '/fuer-architekten'
+      fullPath: '/fuer-architekten'
+      preLoaderRoute: typeof FuerArchitektenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impressum': {
@@ -385,6 +405,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   AktuellesRoute: AktuellesRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
+  FuerArchitektenRoute: FuerArchitektenRoute,
   ImpressumRoute: ImpressumRoute,
   KontaktRoute: KontaktRoute,
   LeistungenRoute: LeistungenRouteWithChildren,

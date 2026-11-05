@@ -35,6 +35,8 @@ const TEXT_LABELS: Record<string, string> = {
   "home.hero.text": "Startseite – Einleitungstext",
   "home.cta.title": "Startseite – Abschluss-Aufruf",
   "bedarfsausweis.stand": "Bedarfsausweis – Stand (Datum)",
+  "foerderung.stand": "Für Architekten – Förderhinweis: Stand (Datum)",
+  "seo.architekten": "SEO-Abschnitt – Für Architekten (leer = gemeinsamer Text)",
   "aktuelles.highlight.title": "Aktuelles – hervorgehobener Eintrag: Titel",
   "aktuelles.highlight.text": "Aktuelles – hervorgehobener Eintrag: Kurztext",
   "about.person.name": "Über planem – Name",

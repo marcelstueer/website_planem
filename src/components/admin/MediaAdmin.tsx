@@ -25,6 +25,7 @@ const IMAGE_SLOTS: { key: string; label: string; page: string }[] = [
   { key: "leistungen.mobility", label: "Bild Mobilität", page: "Leistungen" },
   { key: "leistungen.energy", label: "Bild Energie", page: "Leistungen" },
   { key: "bedarfsausweis.hero", label: "Titelbild", page: "Bedarfsausweis" },
+  { key: "architekten.hero", label: "Titelbild", page: "Für Architekten" },
   { key: "about.portrait", label: "Profilbild", page: "Über planem" },
   { key: "home.ecology", label: "Natur, Mensch und Mobilität", page: "Über planem" },
   { key: "aktuelles.observation", label: "Beobachtung", page: "Aktuelles" },
