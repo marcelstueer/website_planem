@@ -6,9 +6,9 @@ import { partners } from "@/lib/partners";
 export const Route = createFileRoute("/partner")({
   head: () => ({ meta: [
     { title: "Partner | planem" },
-    { name: "description", content: "Mit welchen Partnern planem an Mobilitätskonzepten und Energieeffizienz in Münster und der Region zusammenarbeitet." },
+    { name: "description", content: "Partner von planem für Energieausweise und Energieberatung bei Wohngebäuden. Bedarfsausweise für Nichtwohngebäude stellt planem selbst aus." },
     { property: "og:title", content: "Partner | planem" },
-    { property: "og:description", content: "Partner von planem in Münster und der Region." },
+    { property: "og:description", content: "Partner für Wohngebäude – Nichtwohngebäude betreut planem selbst." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -20,6 +20,7 @@ function PartnerPage() {
     <section className="py-20 md:py-28"><div className="site-container">
       <p className="eyebrow">Netzwerk</p>
       <h1 className="mt-5 text-5xl font-extralight leading-[1.05] md:text-7xl">Partner</h1>
+      <p className="mt-6 max-w-2xl text-lg font-light leading-8 text-muted-foreground">Bedarfsausweise und Energieberatung für Nichtwohngebäude übernehme ich selbst. Bei Wohngebäuden verweise ich Sie an meinen Partner.</p>
       <ul className="mt-14 divide-y divide-border border-y border-border">
         {partners.map((p) => (
           <li key={p.name} className="flex flex-col gap-6 py-10 md:flex-row md:items-start md:gap-10">

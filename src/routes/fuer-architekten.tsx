@@ -78,7 +78,7 @@ const checkQuestions = [
 function ArchitektenPage() {
   const { text } = useSiteTexts();
   const stand = text("foerderung.stand", "November 2026");
-  const partner = partners.find((p) => p.name === "Energie & Wert");
+  const partner = partners.find((p) => p.name === "Reinhardt Energieberatung");
   return <>
     <section className="bg-ink text-ink-foreground">
       <div className="site-container grid gap-10 py-16 md:py-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
@@ -125,13 +125,14 @@ function ArchitektenPage() {
 
     {partner && <section className="border-y border-border bg-secondary py-14">
       <div className="site-container grid gap-6 md:grid-cols-[1fr_2fr] md:items-center">
-        <p className="eyebrow">Im Verbund bei Bedarfsausweisen</p>
+        <p className="eyebrow">Partner für Wohngebäude</p>
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           {partner.logo ? <img src={partner.logo} alt={`Logo ${partner.name}`} className="h-16 w-32 object-contain" loading="lazy" /> : <div role="img" aria-label={`Logo ${partner.name} folgt`} className="h-16 w-32 shrink-0 bg-muted" />}
           <div>
             <p className="text-xl font-light">{partner.name}</p>
             {partner.person && <p className="mt-1 text-sm text-muted-foreground">{partner.person}</p>}
             <p className="mt-2 text-sm">{partner.beschreibung}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{VOICE.wohngebaeude}</p>
             <Link to="/partner" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">Zur Partnerseite <ArrowRight className="size-4" /></Link>
           </div>
         </div>

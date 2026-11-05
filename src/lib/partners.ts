@@ -5,10 +5,10 @@ export type Partner = { name: string; person?: string; logo?: string; beschreibu
 
 export const partners: Partner[] = [
   {
-    name: "Energie & Wert",
+    name: "Reinhardt Energieberatung",
     person: "Georg Reinhardt, Gebäudeenergieberater, Ingenieur für Erneuerbare Energien (M.Sc.)",
-    beschreibung: "Partner bei Bedarfsausweisen für Nichtwohngebäude.",
-    // TODO: Logo und Link nachtragen, sobald die umbenannte Website online ist.
+    beschreibung: "Ansprechpartner für Energieausweise und Energieberatung bei Wohngebäuden.",
+    // TODO: Logo und Link nachtragen (Logo kommt über die Medienbibliothek).
   },
 ];
 
