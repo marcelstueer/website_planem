@@ -21,6 +21,7 @@ import { Route as NlRouteImport } from './routes/nl'
 import { Route as PartnerRouteImport } from './routes/partner'
 import { Route as UeberPlanemRouteImport } from './routes/ueber-planem'
 import { Route as AktuellesIndexRouteImport } from './routes/aktuelles.index'
+import { Route as AktuellesVeranstaltungenRouteImport } from './routes/aktuelles.veranstaltungen'
 import { Route as LeistungenIndexRouteImport } from './routes/leistungen.index'
 import { Route as LeistungenBedarfsausweisRouteImport } from './routes/leistungen.bedarfsausweis'
 import { Route as LeistungenEnergieberatungRouteImport } from './routes/leistungen.energieberatung'
@@ -88,6 +89,12 @@ const AktuellesIndexRoute = AktuellesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AktuellesRoute,
 } as any)
+const AktuellesVeranstaltungenRoute =
+  AktuellesVeranstaltungenRouteImport.update({
+    id: '/veranstaltungen',
+    path: '/veranstaltungen',
+    getParentRoute: () => AktuellesRoute,
+  } as any)
 const LeistungenIndexRoute = LeistungenIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -135,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/aktuelles/veranstaltungen': typeof AktuellesVeranstaltungenRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -153,6 +161,7 @@ export interface FileRoutesByTo {
   '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/aktuelles/veranstaltungen': typeof AktuellesVeranstaltungenRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -174,6 +183,7 @@ export interface FileRoutesById {
   '/nl': typeof NlRoute
   '/partner': typeof PartnerRoute
   '/ueber-planem': typeof UeberPlanemRoute
+  '/aktuelles/veranstaltungen': typeof AktuellesVeranstaltungenRoute
   '/leistungen/bedarfsausweis': typeof LeistungenBedarfsausweisRoute
   '/leistungen/energieberatung': typeof LeistungenEnergieberatungRoute
   '/leistungen/mobilitaetskonzepte': typeof LeistungenMobilitaetskonzepteRoute
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/nl'
     | '/partner'
     | '/ueber-planem'
+    | '/aktuelles/veranstaltungen'
     | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/nl'
     | '/partner'
     | '/ueber-planem'
+    | '/aktuelles/veranstaltungen'
     | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -234,6 +246,7 @@ export interface FileRouteTypes {
     | '/nl'
     | '/partner'
     | '/ueber-planem'
+    | '/aktuelles/veranstaltungen'
     | '/leistungen/bedarfsausweis'
     | '/leistungen/energieberatung'
     | '/leistungen/mobilitaetskonzepte'
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AktuellesIndexRouteImport
       parentRoute: typeof AktuellesRoute
     }
+    '/aktuelles/veranstaltungen': {
+      id: '/aktuelles/veranstaltungen'
+      path: '/veranstaltungen'
+      fullPath: '/aktuelles/veranstaltungen'
+      preLoaderRoute: typeof AktuellesVeranstaltungenRouteImport
+      parentRoute: typeof AktuellesRoute
+    }
     '/leistungen/': {
       id: '/leistungen/'
       path: '/'
@@ -391,10 +411,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AktuellesRouteChildren {
+  AktuellesVeranstaltungenRoute: typeof AktuellesVeranstaltungenRoute
   AktuellesIndexRoute: typeof AktuellesIndexRoute
 }
 
 const AktuellesRouteChildren: AktuellesRouteChildren = {
+  AktuellesVeranstaltungenRoute: AktuellesVeranstaltungenRoute,
   AktuellesIndexRoute: AktuellesIndexRoute,
 }
 
