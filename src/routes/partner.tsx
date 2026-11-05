@@ -25,7 +25,7 @@ function PartnerPage() {
         {partners.map((p) => (
           <li key={p.name} className="flex flex-col gap-6 py-10 md:flex-row md:items-start md:gap-10">
             <div className="flex h-24 w-40 shrink-0 items-center justify-center">
-              {p.logo ? <img src={p.logo} alt={`Logo ${p.name}`} className="max-h-full w-40 object-contain grayscale" loading="lazy" />
+              {p.logo ? <img src={p.logo} alt={`Logo ${p.name}`} className="max-h-full w-40 object-contain" loading="lazy" />
                 : <div role="img" aria-label={`Logo ${p.name}`} className="h-full w-full bg-muted" />}
             </div>
             <div>
