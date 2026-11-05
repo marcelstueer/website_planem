@@ -11,6 +11,7 @@ export const imageLibrary: LibraryImage[] = [
   L("mobility-planning.jpg", "Mobilitätsplanung (KI-generiert)"),
   L("energy-real.jpg", "Energieberatung (KI-generiert)"),
   L("bedarfsausweis-hero.webp", "Bedarfsausweis: Gewerbebau mit Solardach"),
+  L("architekten-hero.webp", "Für Architekten: Rohbau / Tiefbaustelle"),
   L("marcel-stueer-profile.webp", "Porträt Marcel Stüer (aktuell)"),
   L("lib-PXL-20260922-102604218.jpg", "Ladeinfrastruktur an der Tankstelle"),
   L("lib-PXL-20260921-065759053.jpg", "Radweg entlang der Bahnstrecke"),

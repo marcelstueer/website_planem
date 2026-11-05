@@ -19,6 +19,8 @@ export default defineConfig({
       { path: "/leistungen/mobilitaetskonzepte" },
       { path: "/leistungen/energieberatung" },
       { path: "/leistungen/bedarfsausweis" },
+      { path: "/fuer-architekten" },
+      { path: "/partner" },
       { path: "/ueber-planem" },
       { path: "/aktuelles" },
       { path: "/kontakt" },

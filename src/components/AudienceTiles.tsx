@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Factory, Landmark, MoreHorizontal, Ruler } from "lucide-react";
 import type { Segment } from "@/components/AffectsYou";
+import { SHOW_ARCHITEKTEN_PAGE } from "@/lib/site-flags";
 
 const TILES: { seg: Segment; icon: typeof Factory; title: string; text: string }[] = [
   { seg: "unternehmen", icon: Factory, title: "Unternehmen / Gewerbebetrieb", text: "Steigende Energiekosten, ein Mietvertrag läuft aus oder die Halle soll saniert werden – und Sie wollen wissen, was sich rechnet." },
@@ -15,7 +16,7 @@ export function AudienceTiles() {
       <p className="eyebrow">Wer sind Sie?</p>
       <h2 className="mt-4 text-3xl font-light md:text-5xl">Finden Sie Ihre Situation wieder.</h2>
       <div className="mt-10 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {TILES.map(({ seg, icon: Icon, title, text }) => <Link key={seg} to="/kontakt" search={{ zielgruppe: seg }} className="group flex flex-col bg-background p-6 transition-colors hover:bg-secondary">
+        {TILES.map(({ seg, icon: Icon, title, text }) => <Link key={seg} {...(seg === "architektur" && SHOW_ARCHITEKTEN_PAGE ? { to: "/fuer-architekten" as const } : { to: "/kontakt" as const, search: { zielgruppe: seg } })} className="group flex flex-col bg-background p-6 transition-colors hover:bg-secondary">
           <Icon className="size-7 text-primary" />
           <h3 className="mt-5 text-lg font-medium">{title}</h3>
           <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{text}</p>

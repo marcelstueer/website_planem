@@ -15,7 +15,7 @@ export function SeoSection(props: { contentKey?: string }) {
 function SeoBlock({ contentKey = "seo.shared" }: { contentKey?: string }) {
   const { text } = useSiteTexts();
   const [open, setOpen] = useState(false);
-  const raw = text(contentKey);
+  const raw = text(contentKey) || text("seo.shared");
   if (!raw) return null;
 
   const blocks = raw.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean);
