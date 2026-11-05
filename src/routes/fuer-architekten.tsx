@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, BellRing, CalendarClock, ClipboardCheck, FileCheck, FileQuestion, HandCoins, Hammer,
-  Lightbulb, MapPin, MessagesSquare, PlugZap, Search, SquareParking, Ruler, Users,
+  Lightbulb, MapPin, MessagesSquare, Search, SquareParking, Ruler, Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SeoSection } from "@/components/SeoSection";
@@ -14,7 +14,7 @@ import { VOICE } from "@/lib/voice";
 import { SHOW_ARCHITEKTEN_PAGE } from "@/lib/site-flags";
 
 const TITLE = "Für Architekten & Planer in Münster | planem";
-const DESC = "Stellplatznachweis, Fördermittel, Bedarfsausweis: planem unterstützt Architekten und Planer in Münster, Münsterland und Ostwestfalen.";
+const DESC = "Weniger Stellplätze, geringere Baukosten, stärkerer Bauantrag: Mobilitätskonzepte für Architekten in Münster, Münsterland und Ostwestfalen.";
 const Z = "architektur" as const;
 
 export const Route = createFileRoute("/fuer-architekten")({
@@ -29,12 +29,13 @@ export const Route = createFileRoute("/fuer-architekten")({
 
 const areas = [
   {
-    icon: SquareParking, title: "Mobilitätskonzepte zur Stellplatzreduzierung", anliegen: "Mobilitätskonzept / Stellplatznachweis",
-    text: "Ich erarbeite Mobilitätskonzepte, die als Grundlage für eine Reduzierung der notwendigen Stellplätze im Genehmigungsverfahren dienen können – je nach kommunaler Stellplatzsatzung.",
+    icon: SquareParking, title: "Mobilitätskonzepte: weniger Stellplätze, geringere Baukosten", anliegen: "Mobilitätskonzept / Stellplatzreduzierung",
+    text: "Ein Mobilitätskonzept kann die Zahl der notwendigen Kfz-Stellplätze verringern – und damit Fläche und Baukosten sparen. Zugleich kann es Ihren Bauantrag im Genehmigungsverfahren stützen. Ladeinfrastruktur und Fahrradabstellplätze plane ich dabei mit. Was möglich ist, hängt von der kommunalen Stellplatzsatzung und der Genehmigungsbehörde ab.",
+    extra: "Je früher ich im Projekt dabei bin, desto mehr lässt sich bei Fläche, Kosten und Genehmigung bewegen.",
     triggers: [
       { icon: Ruler, text: "Die Stellplatzsatzung verlangt mehr Plätze, als das Grundstück hergibt." },
       { icon: FileQuestion, text: "Die Bauaufsicht fragt nach einem Mobilitätskonzept oder einem Nachweis." },
-      { icon: PlugZap, text: "Ladeinfrastruktur und Fahrradabstellplätze müssen mitgeplant werden." },
+      { icon: HandCoins, text: "Eine Tiefgarage oder Stellplatzanlage treibt die Baukosten in die Höhe." },
     ],
     link: { to: "/leistungen/mobilitaetskonzepte" as const, label: "Mehr zu Mobilitätskonzepten" },
   },
@@ -69,6 +70,7 @@ const steps = [
 
 const checkQuestions = [
   { q: "Fordert die Stellplatzsatzung für Ihr Projekt mehr Stellplätze, als Sie unterbringen können oder möchten?", affectedIf: true },
+  { q: "Möchte Ihr Bauherr Kosten für Stellplätze oder eine Tiefgarage senken?", affectedIf: true },
   { q: "Fragt Ihr Bauherr nach Förderung für Energie- oder Mobilitätsmaßnahmen?", affectedIf: true },
   { q: "Ist für ein Nichtwohngebäude in Ihrem Projekt ein Energieausweis bereits geklärt?", affectedIf: false },
 ];
@@ -83,7 +85,7 @@ function ArchitektenPage() {
         <div>
           <p className="eyebrow !text-brand-light">Für Architekten &amp; Planer</p>
           <h1 className="mt-5 text-4xl font-extralight leading-[1.08] md:text-6xl">Ihr Bauantrag stockt am Stellplatznachweis?</h1>
-          <p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted">Oft sind es nicht die Entwürfe, die ein Projekt bremsen, sondern die Nachweise drumherum: ein Stellplatzschlüssel, der nicht aufgeht, Energieanforderungen für ein Nichtwohngebäude oder Förderfragen, die der Bauherr klären möchte. Ich unterstütze Sie mit Konzepten und Nachweisen, damit Ihre Planung weiterkommt.</p>
+          <p className="mt-7 max-w-2xl text-lg font-light leading-8 text-ink-muted">Ein Mobilitätskonzept kann mehr als den Nachweis liefern: Es kann die Zahl der Kfz-Stellplätze verringern, damit Baukosten senken und zugleich Ihren Bauantrag stützen – je nach kommunaler Stellplatzsatzung und Genehmigungsbehörde. Je früher Sie mich einbinden, desto mehr lässt sich bei Fläche, Kosten und Genehmigung bewegen.</p>
           <div className="mt-9 flex flex-col items-start gap-3">
             <ContactCta zielgruppe={Z} />
             <a href="#check" className="text-sm font-medium text-brand-light hover:underline">Erst kurz prüfen: Betrifft mich das?</a>
@@ -99,11 +101,12 @@ function ArchitektenPage() {
       <div className="site-container">
         <p className="eyebrow">Betrifft das Sie?</p>
         <h2 className="mt-4 max-w-3xl text-3xl font-light leading-tight md:text-5xl">Drei Themen, bei denen ich Planer unterstütze.</h2>
-        <div className="mt-12 grid gap-px bg-border lg:grid-cols-3">
-          {areas.map(({ icon: Icon, title, text: body, triggers, link, anliegen }) => <article key={title} className="flex flex-col bg-background p-6 md:p-8">
+        <div className="mt-12 grid gap-px bg-border lg:grid-cols-2">
+          {areas.map(({ icon: Icon, title, text: body, triggers, link, anliegen, extra }, idx) => <article key={title} className={`flex flex-col bg-background p-6 md:p-8 ${idx === 0 ? "lg:col-span-2 lg:p-10" : ""}`}>
             <span className="flex size-12 items-center justify-center rounded-full bg-primary/10"><Icon className="size-6 text-primary" /></span>
             <h3 className="mt-5 text-xl font-medium">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
+            {extra && <p className="mt-4 border-l-2 border-primary pl-4 text-base font-light leading-7">{extra}</p>}
             <ul className="mt-6 space-y-3 border-t border-border pt-6">
               {triggers.map(({ icon: T, text: t }) => <li key={t} className="flex gap-3 text-sm leading-6"><T className="mt-0.5 size-5 shrink-0 text-primary" />{t}</li>)}
             </ul>
@@ -167,7 +170,7 @@ function ArchitektenPage() {
       </div>
     </section>
 
-    <CtaBand title="Lassen Sie uns über Ihr Projekt sprechen." text={VOICE.erstgespraech} zielgruppe={Z} />
+    <CtaBand title="Lassen Sie uns über Ihr Projekt sprechen." text={`Holen Sie mich am besten schon in der Entwurfsphase dazu – dann lässt sich am meisten bewegen. ${VOICE.erstgespraech}`} zielgruppe={Z} />
     <SeoSection contentKey="seo.architekten" />
   </>;
 }

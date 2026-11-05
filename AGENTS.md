@@ -11,3 +11,4 @@
 
 - Keep the homepage service network as a technical nine-node web with planem in the anthracite center, branching routes, moving data points, and linked outer service nodes; this preserves its established visual identity.
 - Keep the About page customer star directly after the profile section, with the customer at its center, planem as coordinator, linked contact/service nodes, and no moving points on its lines; this distinguishes personal guidance from the homepage network.
+- Router uses trailingSlash: "preserve"; the prerenderer requests paths with a trailing slash, and the default redirect caused a loop that skipped all subpages from static output.
