@@ -9,7 +9,7 @@ export const partners: Partner[] = [
     person: "Georg Reinhardt, Gebäudeenergieberater, Ingenieur für Erneuerbare Energien (M.Sc.)",
     logo: "/library/reinhardt-energieberatung-logo.png",
     beschreibung: "Ansprechpartner für Energieausweise und Energieberatung bei Wohngebäuden.",
-    // TODO: Link nachtragen, sobald die Website-Adresse des Partners freigegeben ist.
+    url: "https://reinhardt-energieberatung.de/",
   },
 ];
 
