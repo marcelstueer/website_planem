@@ -15,6 +15,13 @@
       "when": 1791881713446,
       "tag": "0001_news_meta",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793864545208,
+      "tag": "0002_architekten_content",
+      "breakpoints": true
     }
   ]
 }
