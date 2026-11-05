@@ -13,6 +13,7 @@ import { QualificationsCarousel } from "@/components/QualificationsCarousel";
 import { ServiceStar } from "@/components/ServiceStar";
 import { HomeNews } from "@/components/HomeNews";
 import { AffectsYou } from "@/components/AffectsYou";
+import { AudienceTiles } from "@/components/AudienceTiles";
 import { FileClock, FileQuestion, KeyRound, School } from "lucide-react";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
@@ -33,6 +34,7 @@ function HomePage() { const { text } = useSiteTexts(); return <>
     </div>
   </section>
    <ServiceStar />
+   <AudienceTiles />
    <section className="py-20 md:py-28"><div className="site-container"><SectionHeading eyebrow="Kompetenz im Verbund" title="Gemeinsam zum passenden Konzept. " text="Anforderungen werden zu Lösungen, die individuell fundiert, wirtschaftlich, nachhaltig und im Alltag sinnvoll sind." />
     <div className="grid gap-5 md:grid-cols-2">
        <article className="group overflow-hidden bg-card"><div className="aspect-[7/5] overflow-hidden"><SiteImage imageKey="home.mobility" fallback={mobilityImage} alt="Geschützter Radweg mit Radzählsäule in Valencia" loading="lazy" width={1400} height={1000} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" /></div><div className="border border-t-0 border-border p-7 md:p-9"><CarFront className="mb-7 size-7 text-primary"/><h3 className="text-3xl font-light">Mobilität: Zukunftsgerecht</h3><p className="mt-4 leading-7 text-muted-foreground">Effektive Konzepte für eine Verkehrswende von Betrieben, Liegenschaften und Quartieren. Durch Fördermittel, E-Mobilität oder Stellplatzreduzierung mehr Lebensqualität für die Menschen vor Ort und Wertsteigerung im Immobilienquartier.</p><Link to="/leistungen" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">Mehr erfahren <ArrowRight className="size-4"/></Link></div></article>
@@ -59,6 +61,6 @@ function HomePage() { const { text } = useSiteTexts(); return <>
    <section className="py-20 md:py-24"><div className="site-container flex flex-col justify-between gap-8 border-y border-border py-12 md:flex-row md:items-center"><div><p className="eyebrow">Ihr Vorhaben</p><h2 className="mt-3 text-3xl font-light md:text-5xl">{text("home.cta.title", "Lassen Sie uns rechtzeitig sprechen, um Ihr Vorhaben optimal voranzubringen.")}</h2></div><Button asChild size="lg"><Link to="/kontakt">Gespräch anfragen <ArrowRight /></Link></Button></div></section>
    <section className="border-t border-border bg-secondary py-16"><div className="site-container"><QualificationsCarousel /></div></section>
    <SeoSection />
-   {showPartners && <section className="border-t border-border py-12"><div className="site-container flex flex-col justify-between gap-6 md:flex-row md:items-center"><div><p className="eyebrow">Unsere Partner</p><p className="mt-3 text-2xl font-light">Gemeinsam mit starken Partnern aus Planung und Praxis.</p></div><Button asChild variant="outline"><Link to="/partner">Partner &amp; Referenzen <ArrowRight /></Link></Button></div></section>}
+   {showPartners && <section className="border-t border-border py-12"><div className="site-container flex flex-col justify-between gap-6 md:flex-row md:items-center"><div><p className="eyebrow">Unsere Partner</p><p className="mt-3 text-2xl font-light">Gemeinsam mit starken Partnern aus Planung und Praxis.</p></div><Button asChild variant="outline"><Link to="/partner">Partner <ArrowRight /></Link></Button></div></section>}
 
 </>; }
