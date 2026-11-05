@@ -24,6 +24,7 @@ export default defineConfig({
       { path: "/partner" },
       { path: "/ueber-planem" },
       { path: "/aktuelles" },
+      { path: "/aktuelles/veranstaltungen" },
       { path: "/kontakt" },
       { path: "/impressum" },
       { path: "/datenschutz" },
